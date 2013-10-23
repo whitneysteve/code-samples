@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="./css/bootstrap.min.css" rel="stylesheet"/>
+        <script type="text/javascript" src="./js/jquery.js"></script>
+        <script type="text/javascript" src="./js/bootstrap.js"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="brand" href="#">Bank</a>
+                <ul class="nav">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="createAccount.html">Create Account</a>
+                    </li>
+                    <li>
+                        <a href="accountQuery.html">Account Query</a>
+                    </li>
+                    <li>
+                        <a href="makeLodgement.html">Make Lodgement</a>
+                    </li>
+                    <li>
+                        <a href="makeWithdrawl.html">Make Withdrawl</a>
+                    </li>
+                    <li>
+                        <a href="transfer.html">Make Transfer</a>
+                    </li>
+                    <li class="active">
+                        <a href="viewTransactions.html">View Transactions</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="accountNumber">Account Number</label>
+
+                        <div class="controls">
+                            <input type="text" id="accountNumber" placeholder="Account Number" data-provide="typeahead">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <a href="#" class="btn">Query</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <h1>Transactions:</h1>
+
+            <div class="row">
+                <table>
+                    <tbody id="transactionTable"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript">
+
+        $( document ).ready( function() {
+
+            $( '#accountNumber' ).typeahead( { source: function( query, process ) {
+
+                $.ajax( {
+                    type: "GET",
+                    url: "/api/account/query",
+                    data: { query: query },
+                    success: function( xhr, status ) {
+
+                        var response = JSON.parse( xhr );
+
+                        if( response.message ) {
+
+                            // Nothing
+
+                        } else {
+
+                            process( response )
+
+                        }
+
+                    }
+                } );
+
+            } } );
+
+            $( ".btn" ).click( function() {
+
+                $.ajax( {
+                    type: "GET",
+                    url: "/api/transaction/list",
+                    data: { account: $( "#accountNumber" ).val() },
+                    success: function( xhr, status ) {
+
+                        var response = JSON.parse( xhr );
+
+                        if( response.message ) {
+
+                            // TODO proper alert dialog
+                            alert( response.message );
+
+                        } else {
+
+                            $( "#transactionTable" ).empty();
+
+                            for( var index in response ) {
+
+                                var transaction = response[ index ];
+
+                                $( "#transactionTable" ).append( "<tr><td>Transaction:</td><td>" + transaction.amountMinorUnits + "</td></tr>" );
+
+                            }
+
+                        }
+
+                    }
+                } );
+
+            } );
+
+        } );
+
+    </script>
+
+</html>
