@@ -1,26 +1,26 @@
 # Samples
 
-A collection of code samples for various reasons. These are usually written in a very short space of time for a specific purpose.
+A collection of code samples written for various reasons. These are usually written in a very short space of time (from 5 minutes to 1 or 2 hours) for a specific purpose.
 
 ## Bank
 
-A simple Java banking web application used by a teller, using an in-memory data access layer. 
-
-Featuring: Java, Spring MVC, Twitter Bootstrap, jQuery.
-
-Built and run using a Maven archetype. 
+A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap, jQuery, built and run using a Maven archetype. 
 
 ### Instructions
 
 Run using ‘mvm jetty:run’ and hit http://localhost:8080/
 
+## Paint Shop
+
+A script to determine the colours and type of paint to prepare based on some pre-specified rules. Written in Scala.
+
+### Instructions
+
+Execute program using ‘scala paintshop [path to input file]’
+
 ## Socket Proxy
 
-A socket proxy that forwards requests to a destination and sends the response back to the client. 
-
-Featuring: Java.
-
-Built using a Maven archetype.
+A socket proxy that forwards requests to a destination and sends the response back to the client. Written in Java, built using a Maven archetype.
 
 ### Instructions
 
