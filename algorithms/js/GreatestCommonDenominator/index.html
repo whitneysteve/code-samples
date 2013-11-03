@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script type="text/javascript">
+
+            ( function() {
+
+                /**
+                 * Math Util helper object.
+                 * @constructor
+                 */
+                function MathUtil() {
+
+                    /**
+                     * Find the GCD of two numbers.
+                     *
+                     * @param {number} num1 the first number.
+                     * @param {number} num2 the second number.
+                     * @return the GCD of the two specified numbers.
+                     */
+                    this.gcd = function( num1, num2 ) {
+
+                        var remainder = num1 % num2;
+
+                        if ( remainder == 0 ) {
+
+                            return num2;
+
+                        } else {
+
+                            return this.gcd( num2, remainder );
+
+                        }
+
+                    }
+
+                }
+
+                var m = new MathUtil();
+
+                console.log( m.gcd( 10, 15 ) );
+                console.log( m.gcd( 40, 60 ) );
+                console.log( m.gcd( 13, 45 ) );
+
+            })();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

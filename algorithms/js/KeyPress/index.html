@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <script type="text/javascript">
+
+            (function() {
+
+                /**
+                 * A key press listener for an old mobile phone keypad to construct a String typed using the numbers.
+                 * @constructor
+                 */
+                function KeyPressListener() {
+
+                    this.keypresses = [];
+                    this.key2Char = [];
+                    this.charIndex = -1;
+                    this.cursor = -1;
+                    this.timeout;
+
+                    this.keypressed = function ( e ) {
+
+                        clearTimeout( this.timeout );
+
+                        if ( this.charIndex == - 1 ) {
+
+                            this.key2Char = this.getCharArrayForKey( e );
+                            this.cursor ++;
+
+                        }
+
+                        this.charIndex ++;
+
+                        if ( this.charIndex >= this.key2Char.length ) {
+
+                            this.charIndex = 0;
+
+                        }
+
+                        this.keypresses[ this.cursor ] = this.key2Char[ this.charIndex ];
+
+                        var kp = this;
+                        this.timeout = setTimeout( function() {
+
+                            kp.charIndex = -1;
+
+                        }, 500 );
+
+                        console.log( this.keypresses )
+
+                    };
+
+                    this.getCharArrayForKey = function( key ) {
+
+                        // TODO implement per key 2 through 0.
+                        return [ 'a','b','c' ];
+
+                    }
+
+                }
+
+                // Simulate pressing the 2 key - abc
+                var kp = new KeyPressListener();
+
+                kp.keypressed();
+
+                setTimeout( function() {
+
+                    kp.keypressed();
+                    kp.keypressed();
+
+                    setTimeout( function() {
+
+                        kp.keypressed();
+                        kp.keypressed();
+                        kp.keypressed();
+
+                    }, 1000 );
+
+                }, 1000 );
+
+            })();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

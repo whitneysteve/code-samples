@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <script type="text/javascript">
+
+            ( function() {
+
+                /**
+                 * Math Util helper object.
+                 * @constructor
+                 */
+                function MathUtil() {
+
+                    /**
+                     * Calculate the number at a given index if the fibonacci sequence.
+                     *
+                     * @param {number} index to calculate for.
+                     * @returns {number} the number at the given index in the fibonacci sequence.
+                     */
+                    this.fib = function( index ) {
+
+                        if( index < 0 ) {
+
+                            return 0;
+
+                        }
+
+                        if( index < 1 ) {
+
+                            return 1;
+
+                        } else {
+
+                            return this.fib( index - 1 ) + this.fib( index - 2 );
+
+                        }
+
+                    };
+
+                }
+
+                var m = new MathUtil();
+
+                console.log( m.fib( 0 ) );
+                console.log( m.fib( 1 ) );
+                console.log( m.fib( 2 ) );
+                console.log( m.fib( 3 ) );
+                console.log( m.fib( 4 ) );
+                console.log( m.fib( 5 ) );
+                console.log( m.fib( 6 ) );
+
+            })();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

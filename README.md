@@ -2,6 +2,17 @@
 
 A collection of code samples written for various reasons. These are usually written in a very short space of time (from 5 minutes to 1 or 2 hours) for a specific purpose.
 
+## Algorithms
+
+Various algorithms written in Scala, Javascript and Ruby.
+
+### Instructions
+
+Javascript algorithms have an associated index.html file that can be opened in a browser and output results to a console. Mostly developed using Firefox & Firebug.
+
+Scala programs can be executed by running ‘scala [name of ]’
+
+
 ## Bank
 
 A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap, jQuery, built and run using a Maven archetype. 

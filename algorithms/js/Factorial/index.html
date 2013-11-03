@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script type="text/javascript">
+
+            ( function() {
+
+                /**
+                 * Math Util helper object.
+                 * @constructor
+                 */
+                function MathUtil() {
+
+                    /**
+                     * Calculate the factorial of a number.
+                     *
+                     * @param num the number to calculate the factorial of.
+                     * @returns {number} the factorial of specified number.
+                     */
+                    this.factorial = function( num ) {
+
+                        if( num == 1 ) {
+
+                            return 1
+
+                        } else {
+
+                            return num * this.factorial( num - 1 )
+
+                        }
+
+                    };
+
+                }
+
+                var m = new MathUtil();
+
+                console.log( m.factorial( 5 ) );
+
+            })();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
