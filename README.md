@@ -10,7 +10,7 @@ Various algorithms written in Scala, Javascript and Ruby.
 
 Javascript algorithms have an associated index.html file that can be opened in a browser and output results to a console. Mostly developed using Firefox & Firebug.
 
-Scala programs can be executed by running ‘scala [name of ]’
+Scala programs can be executed by running ‘scala [name of script]’
 
 
 ## Bank
