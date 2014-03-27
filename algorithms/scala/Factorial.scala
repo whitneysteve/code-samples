@@ -1,10 +1,11 @@
+import scala.annotation.tailrec
 
 /**
  * Find the factorial (n!) of a number (n), in this case 5.
  */
-object Factorial extends Application {
+object Factorial {
 
-  println( factorial( 5 ) )
+  def main(args: Array[String]) = println(factorial(5))
 
   /**
    * Recursively compute the factorial of a number.
@@ -12,15 +13,11 @@ object Factorial extends Application {
    * @param number the number to compute for.
    * @return the computed factorial of specified number.
    */
-  def factorial( number: Long ): Long = {
+  def factorial(number: Long) = {
+    @tailrec
+    def factorialRecursion(number: Long, accumulator: Long = 1): Long =
+      if(number > 1) factorialRecursion(number - 1, number * accumulator) else accumulator
 
-    number match {
-
-      case 1 => 1
-      case _ => number * factorial( number - 1 )
-
-    }
-
+    factorialRecursion(number)
   }
-
 }

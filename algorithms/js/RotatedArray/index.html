@@ -1,68 +1,50 @@
 <html>
-    <head>
-        <script type="text/javascript">
+  <head>
+    <script type="text/javascript">
+      // Find the rotation point in some rotated arrays.
+      (function() {
 
-            // Find the rotation point in some rotated arrays.
-            ( function() {
+        /**
+         * Find the rotation point of a rotated array.
+         *
+         * @param {Array} arr the rotated array.
+         * @return {number} the rotation point in the array.
+         */
+        function findRotationPoint(arr) {
+          var lastIndex = arr.length - 1;
+          var lo = 0;
+          var hi = lastIndex;
 
-                /**
-                 * Find the rotation point of a rotated array.
-                 *
-                 * @param {Array} arr the rotated array.
-                 * @return {number} the rotation point in the array.
-                */
-                function findRotationPoint( arr ) {
+          while(lo <= hi) {
+            var mid = Math.floor(( lo + hi ) / 2);
+            var term = arr[ mid ];
 
-                    var lastIndex = arr.length - 1;
-                    var lo = 0;
-                    var hi = lastIndex;
+            if(mid == lastIndex)
+              return term;
 
-                    while( lo <= hi ) {
+            var nextTerm = arr[ mid + 1 ];
 
-                        var mid = Math.floor( ( lo + hi ) / 2 );
-                        var term = arr[ mid ];
+            if(term > nextTerm)
+              return nextTerm;
 
-                        if ( mid == lastIndex ) {
+            if(term > arr[ lastIndex ])
+              lo = mid + 1;
+            else
+              hi = mid - 1;
+          }
 
-                            return term;
+          return arr[ 0 ];
+        }
 
-                        }
+        console.log(findRotationPoint([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]));
+        console.log(findRotationPoint([ 2, 3, 4, 5, 6, 7, 8, 9, 1 ]));
+        console.log(findRotationPoint([ 5, 6, 7, 8, 9, 1, 2, 3, 4 ]));
+        console.log(findRotationPoint([ 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 1, 1, 2, 2, 3, 3, 4, 4 ]));
+        console.log(findRotationPoint([ 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 2, 2, 3, 3, 4, 4 ]));
+      })();
+    </script>
+  </head>
+  <body>
 
-                        var nextTerm = arr[ mid + 1 ];
-
-                        if ( term > nextTerm ) {
-
-                            return nextTerm;
-
-                        }
-
-                        if ( term > arr[ lastIndex ] ) {
-
-                            lo = mid + 1;
-
-                        } else {
-
-                            hi = mid - 1;
-
-                        }
-
-                    }
-
-                    return arr[ 0 ];
-
-                }
-
-                console.log( findRotationPoint( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ) );
-                console.log( findRotationPoint( [ 2, 3, 4, 5, 6, 7, 8, 9, 1 ] ) );
-                console.log( findRotationPoint( [ 5, 6, 7, 8, 9, 1, 2, 3, 4 ] ) );
-                console.log( findRotationPoint( [ 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 1, 1, 2, 2, 3, 3, 4, 4 ] ) );
-                console.log( findRotationPoint( [ 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 2, 2, 3, 3, 4, 4 ] ) );
-
-            } )();
-
-        </script>
-    </head>
-    <body>
-
-    </body>
+  </body>
 </html>

@@ -1,68 +1,62 @@
-import collection.mutable
+import scala.annotation.tailrec
 
 /**
  * Create a linked list and perform some operations on it.
  */
-object LinkedListSample extends Application {
+object LinkedListSample {
 
-  val list: LinkedList[String] = new LinkedList[String]()
+  def main(args: Array[String]) {
+    val list = new LinkedList[String]()
 
-  list.traverse( ( data: String ) => println( data ) )
+    list traverse { println }
 
-  list.add( "One" )
-  list.add( "Two" )
-  list.add( "Three" )
-  list.addFirst( "Zero" )
-  list.addFirst( "Zero" )
-  list.add( 3, "Two Point 5" )
-  list.add( "Four Point 5" )
-  list.delete( 2 )
-  list.delete( 4 )
-  list.add( "Five" )
+    list add "One"
+    list add "Two"
+    list add "Three"
+    list addFirst "Zero"
+    list addFirst "Zero"
+    list add(3, "Two Point 5")
+    list add "Four Point 5"
+    list delete 2
+    list add "Five"
 
-  list.sort()
+    list sort()
 
-  list.traverse( ( data: String ) => println( data ) )
+    list traverse { println }
 
-  list.reverse()
+    list reverse()
 
-  list.traverse( ( data: String ) => println( data ) )
+    list traverse { println }
 
-  println( list.find( "One" ) )
-  println( list.findAll( "Zero" ) )
-
+    println(list find "One")
+    println(list findAll "Zero")
+  }
 }
 
 /**
  * Linked list implementation.
  */
 class LinkedList[T >: Null <: Comparable[T]] {
-
-  var head: LinkedListNode[T] = null
-  var tail: LinkedListNode[T] = null
+  var head: Option[LinkedListNode[T]] = None
+  var tail: Option[LinkedListNode[T]] = None
 
   /**
    * Reverse the linked list.
    */
-  def reverse() {
+  def reverse() = {
+    var currentNode: Option[LinkedListNode[T]] = head
+    var prevNode: Option[LinkedListNode[T]] = None
+    var nextNode: Option[LinkedListNode[T]] = None
 
-    var currentNode: LinkedListNode[T] = head
-    var prevNode: LinkedListNode[T] = null
-    var nextNode: LinkedListNode[T] = null
-
-    while( currentNode != null ) {
-
-      nextNode = currentNode.next
-      currentNode.next = prevNode
+    while(currentNode.isDefined) {
+      nextNode = currentNode.get.next
+      currentNode.get.next = prevNode
       prevNode = currentNode
       currentNode = nextNode
-
     }
 
     tail = head
     head = prevNode
-
-
   }
 
   /**
@@ -71,23 +65,16 @@ class LinkedList[T >: Null <: Comparable[T]] {
    * @param term the term to find.
    * @return the term if found, null if not.
    */
-  def find( term: T ): T = {
+  def find(term: T): Option[T] = {
+    var cursor = findCursor(0)
 
-    var node = findCursor( 0 )
+    while(cursor.isDefined && cursor.get.data != term)
+      cursor = cursor.get.next
 
-    while( node != null && node.data != term ) {
-
-      node = node.next
-
+    cursor match {
+      case None => None
+      case Some(node) => Some(node data)
     }
-
-    node match {
-
-      case null => null
-      case _ => node.data
-
-    }
-
   }
 
   /**
@@ -95,70 +82,51 @@ class LinkedList[T >: Null <: Comparable[T]] {
    * @param term the term to find.
    * @return list containing all occurrences of the term found, or an empty list if not found.
    */
-  def findAll( term: T ): mutable.MutableList[T] = {
+  def findAll(term: T): Seq[T] = {
+    var list = Seq.empty[T]
+    var cursor = findCursor(0)
 
-    val list: mutable.MutableList[T] = mutable.MutableList()
-
-    var node = findCursor( 0 )
-
-    while( node != null ) {
-
-      if ( node.data.compareTo( term ) == 0 ) {
-
-        list += node.data
-
-      }
-
-      node = node.next
-
+    while(cursor.isDefined) {
+      if(cursor.get.data.compareTo(term) == 0)
+        list = list :+ cursor.get.data
+      cursor = cursor.get.next
     }
 
     list
-
   }
 
   /**
    * Sort the linked list.
    */
-  def sort() {
+  def sort() = {
+    var list: Option[LinkedListNode[T]] = head
 
-    var list: LinkedListNode[T] = head
+    while(list.isDefined) {
+      var pass: Option[LinkedListNode[T]] = list.get.next
 
-    while( list != null ) {
-
-      var pass: LinkedListNode[T] = list.next
-
-      while( pass != null ) {
-
-        if ( list.data.compareTo( pass.data ) > 0 ) {
-
-          val tmp: T = list.data
-          list.data = pass.data
-          pass.data = tmp
-
+      while(pass.isDefined) {
+        if(list.get.data.compareTo(pass.get.data) > 0) {
+          val tmp: T = list.get.data
+          list.get.data = pass.get.data
+          pass.get.data = tmp
         }
 
-        pass = pass.next
-
+        pass = pass.get.next
       }
 
-      list = list.next
-
+      list = list.get.next
     }
-
   }
 
   /**
-   * Add tot he fron tof the list.
+   * Add to the front of the list.
    *
-   * @param obj the object to add to the list.
+   * @param data the object to add to the list.
    */
-  def addFirst( obj: T ) {
-
-    val newNode: LinkedListNode[T] = new LinkedListNode[T]( obj )
+  def addFirst(data: T) = {
+    val newNode: LinkedListNode[T] = new LinkedListNode[T](data)
     newNode.next = head
-    head = newNode
-
+    head = Some(newNode)
   }
 
   /**
@@ -166,82 +134,58 @@ class LinkedList[T >: Null <: Comparable[T]] {
    *
    * @param index the index in the list to delete.
    */
-  def delete( index: Int ) {
+  def delete(index: Int) = findCursor(index - 1) map { cursor =>
+    if(cursor.next == tail) {
+      cursor.next = None
+      tail = Some(cursor)
+    } else {
+      val elementToRemove = cursor.next
 
-    val cursor: LinkedListNode[T] = findCursor( index )
-
-    if ( cursor.next != null ) {
-
-      if ( cursor.next == tail ) {
-
-        cursor.next = null
-        tail = cursor
-
-      } else {
-
-        val elementToRemove: LinkedListNode[T] = cursor.next
-        cursor.next = elementToRemove.next
-
-        if ( tail == elementToRemove ) {
-
-          tail = cursor.next
-
-        }
-
+      elementToRemove match {
+        case None =>
+          cursor.next = None
+        case Some(node) =>
+          cursor.next = node.next
       }
 
-    } else {
-
-      throw new IndexOutOfBoundsException( "" + index )
-
+      if(tail == elementToRemove)
+        tail = cursor.next
     }
-
   }
 
   /**
    * Add an object to the tail of the list.
    *
-   * @param obj the object to add.
+   * @param data the object to add.
    */
-  def add( obj: T ) {
+  def add(data: T) = {
+    val newNode = Some(new LinkedListNode[T](data))
 
-    val newNode: LinkedListNode[T] = new LinkedListNode[T]( obj )
-
-    if ( tail == null ) {
-
-      head = newNode
-      tail = newNode
-
-    } else {
-
-      tail.next = newNode
-      tail = newNode
-
+    tail match {
+      case None =>
+        head = newNode
+      case Some(tailNode) =>
+        tailNode.next = newNode
     }
 
+    tail = newNode
   }
 
   /**
    * Add an object to the list at a particular index.
    *
    * @param index the index at which to add the object.
-   * @param obj the object to add.
+   * @param data the object to add.
    */
-  def add( index: Int, obj: T ) {
+  def add(index: Int, data: T) = findCursor(index - 1) map { cursor =>
+    val newNode = new LinkedListNode[T](data)
 
-    val cursor: LinkedListNode[T] = findCursor( index )
+    if(cursor.next == tail)
+      tail = Some(newNode)
 
-    val nextElement:LinkedListNode[T] = cursor.next
-    val newNode: LinkedListNode[T] = new LinkedListNode[T]( obj )
-    cursor.next = newNode
+    val nextElement = cursor.next
+    cursor.next = Some(newNode)
     newNode.next = nextElement
-
-    if ( cursor == tail ) {
-
-      tail = newNode
-
-    }
-
   }
 
   /**
@@ -249,52 +193,38 @@ class LinkedList[T >: Null <: Comparable[T]] {
    *
    * @param traversalFunction function to execute on each element of the list.
    */
-  def traverse( traversalFunction: T => Unit ) {
-
-    var cursor: LinkedListNode[T] = head
-
-    while( cursor != null ) {
-
-      traversalFunction( cursor.data )
-      cursor = cursor.next
-
+  def traverse(traversalFunction: T => Unit) = {
+    @tailrec
+    def traverse(current: Option[LinkedListNode[T]])(traversalFunction: T => Unit): Unit = current match {
+      case None => //nothing
+      case Some(node) =>
+        traversalFunction(node data)
+        traverse(node next)(traversalFunction)
     }
 
+    traverse(head)(traversalFunction)
   }
 
   /**
-   * Position the cursor pointing to a desired index.
+   * Position a cursor pointing to a desired index.
    *
    * @param index the index to find.
    * @return the cursor, if found.
    */
-  def findCursor( index: Int ): LinkedListNode[T] = {
-
-    var cursor: LinkedListNode[T] = head
-    var i: Int = 0
-
-    while ( cursor != null && i < ( index - 1 ) ) {
-
-      cursor = cursor.next
-      i += 1
-
+  private[this] def findCursor(index: Int) = {
+    @tailrec
+    def next(current: Option[LinkedListNode[T]], currentIndex: Int): Option[LinkedListNode[T]] = {
+      if(!current.isDefined || currentIndex == index) current else next(current.get.next, currentIndex + 1)
     }
 
-    if ( cursor == null ) {
-
-      throw new IndexOutOfBoundsException( "" + i )
-
-    }
-
-    cursor
-
+    if(index < 1)
+      head
+    else
+      next(head, 0)
   }
-
 }
 
-class LinkedListNode[T <: Comparable[T]]( nodeData: T ) {
-
+class LinkedListNode[T <: Comparable[T]](nodeData: T) {
   var data: T = nodeData
-  var next: LinkedListNode[T] = null
-
+  var next: Option[LinkedListNode[T]] = None
 }

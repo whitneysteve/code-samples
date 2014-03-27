@@ -10,9 +10,6 @@ Various algorithms written in Scala, Javascript and Ruby.
 
 Javascript algorithms have an associated index.html file that can be opened in a browser and output results to a console. Mostly developed using Firefox & Firebug.
 
-Scala programs can be executed by running ‘scala [name of script]’
-
-
 ## Bank
 
 A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap, jQuery, built and run using a Maven archetype. 
@@ -28,6 +25,14 @@ A script to determine the colours and type of paint to prepare based on some pre
 ### Instructions
 
 Execute program using ‘scala paintshop [path to input file]’
+
+## Postfix Calculator
+
+A script to perform postfix calculations (addition, subtraction, division and multiplication) on the command line arguments. Written in Scala.
+
+### Instructions
+
+Execute program using ‘scala PostFixCalculator [expression]’. For example: ’1 7 3 - 2 * + 3’
 
 ## Socket Proxy
 

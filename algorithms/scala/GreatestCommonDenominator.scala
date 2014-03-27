@@ -1,10 +1,13 @@
+import scala.annotation.tailrec
 
 /**
  * Find the greatest common denominator of two numbers, in this case, 13 and 45.
  */
-object GreatestCommonDenominator extends Application {
+object GreatestCommonDenominator {
 
-  println( gcd( 13, 45 ) )
+  def main(args: Array[String]) {
+    println(gcd(13, 45))
+  }
 
   /**
    * Find the GCD of two numbers.
@@ -13,20 +16,13 @@ object GreatestCommonDenominator extends Application {
    * @param number2 the second number.
    * @return the GCD of the two specified numbers.
    */
-  def gcd( number1: Long, number2: Long ): Long = {
-
-    val remainder: Long = number1 % number2
-
-    if ( remainder == 0 ) {
-
-      number2
-
-    } else {
-
-      gcd( number2, remainder )
-
+  def gcd(number1: Long, number2: Long) = {
+    @tailrec
+    def gcdRecursion(number1: Long, number2: Long): Long = {
+      val remainder = number1 % number2
+      if( remainder > 0 ) gcdRecursion(number2, remainder) else number2
     }
 
+    gcdRecursion(number1, number2)
   }
-
 }

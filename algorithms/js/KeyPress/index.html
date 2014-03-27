@@ -1,87 +1,65 @@
 <html>
-    <head>
-        <script type="text/javascript">
+  <head>
+    <script type="text/javascript">
+      (function() {
+        /**
+         * A key press listener for an old mobile phone keypad to construct a String typed using the numbers.
+         * @constructor
+         */
+        function KeyPressListener() {
+          this.keypresses = [];
+          this.key2Char = [];
+          this.charIndex = -1;
+          this.cursor = -1;
 
-            (function() {
+          this.keypressed = function(e) {
+            clearTimeout(this.timeout);
 
-                /**
-                 * A key press listener for an old mobile phone keypad to construct a String typed using the numbers.
-                 * @constructor
-                 */
-                function KeyPressListener() {
+            if(this.charIndex == -1) {
+              this.key2Char = this.getCharArrayForKey(e);
+              this.cursor++;
+            }
 
-                    this.keypresses = [];
-                    this.key2Char = [];
-                    this.charIndex = -1;
-                    this.cursor = -1;
-                    this.timeout;
+            this.charIndex++;
 
-                    this.keypressed = function ( e ) {
+            if(this.charIndex >= this.key2Char.length) {
+              this.charIndex = 0;
+            }
 
-                        clearTimeout( this.timeout );
+            this.keypresses[ this.cursor ] = this.key2Char[ this.charIndex ];
 
-                        if ( this.charIndex == - 1 ) {
+            var kp = this;
+            this.timeout = setTimeout(function() {
+              kp.charIndex = -1;
+            }, 500);
 
-                            this.key2Char = this.getCharArrayForKey( e );
-                            this.cursor ++;
+            console.log(this.keypresses)
+          };
 
-                        }
+          this.getCharArrayForKey = function(key) {
+            // TODO implement per key 2 through 0.
+            return [ 'a', 'b', 'c' ];
+          }
+        }
 
-                        this.charIndex ++;
+        // Simulate pressing the 2 key - abc
+        var kp = new KeyPressListener();
 
-                        if ( this.charIndex >= this.key2Char.length ) {
+        kp.keypressed();
 
-                            this.charIndex = 0;
+        setTimeout(function() {
+          kp.keypressed();
+          kp.keypressed();
+          setTimeout(function() {
+            kp.keypressed();
+            kp.keypressed();
+            kp.keypressed();
+          }, 1000);
+        }, 1000);
+      })();
+    </script>
+  </head>
+  <body>
 
-                        }
-
-                        this.keypresses[ this.cursor ] = this.key2Char[ this.charIndex ];
-
-                        var kp = this;
-                        this.timeout = setTimeout( function() {
-
-                            kp.charIndex = -1;
-
-                        }, 500 );
-
-                        console.log( this.keypresses )
-
-                    };
-
-                    this.getCharArrayForKey = function( key ) {
-
-                        // TODO implement per key 2 through 0.
-                        return [ 'a','b','c' ];
-
-                    }
-
-                }
-
-                // Simulate pressing the 2 key - abc
-                var kp = new KeyPressListener();
-
-                kp.keypressed();
-
-                setTimeout( function() {
-
-                    kp.keypressed();
-                    kp.keypressed();
-
-                    setTimeout( function() {
-
-                        kp.keypressed();
-                        kp.keypressed();
-                        kp.keypressed();
-
-                    }, 1000 );
-
-                }, 1000 );
-
-            })();
-
-        </script>
-    </head>
-    <body>
-
-    </body>
+  </body>
 </html>
