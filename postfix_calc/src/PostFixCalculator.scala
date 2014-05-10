@@ -25,7 +25,7 @@ object PostFixCalculator {
     case invalidCharacter: String => throw new IllegalArgumentException(invalidCharacter + " is not valid syntax")
   }
 
-  def evaluate(operator: String, rhs: Int, lhs: Int): Int = operator match {
+  def evaluate(operator: String, rhs: Int, lhs: Int) = operator match {
     case "+" => lhs + rhs
     case "-" => lhs - rhs
     case "*" => lhs * rhs
