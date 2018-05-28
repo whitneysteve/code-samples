@@ -14,6 +14,22 @@ module Sort
     }
   end
 
+  # Perform an insertion sort on an array. Sort is performed in place and
+  # assumes conflict ordering is not important.
+  def insertion_sort(arr)
+    arr.each_with_index { |_,i|
+      j = 0
+
+      while j < i do
+        if arr[j] > arr[i]
+          reposition(arr, i, j)
+          break
+        end
+        j += 1;
+      end
+    }
+  end
+
   # Perform a selection sort on an array. Sort is performed in place and
   # assumes conflict ordering is not important.
   def selection_sort(arr)
@@ -34,22 +50,6 @@ module Sort
         swap(arr, i, least_index)
       end
 
-    }
-  end
-
-  # Perform an insertion sort on an array. Sort is performed in place and
-  # assumes conflict ordering is not important.
-  def insertion_sort(arr)
-    arr.each_with_index { |_,i|
-      j = 0
-
-      while j < i do
-        if arr[j] > arr[i]
-          reposition(arr, i, j)
-          break
-        end
-        j += 1;
-      end
     }
   end
 
