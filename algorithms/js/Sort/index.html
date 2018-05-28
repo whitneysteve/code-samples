@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      (function() {
+        /**
+         * Sort helper object.
+         * @constructor
+         */
+        function Sort() {
+          /**
+           * Perform a Bubble Sort on an array. Sort is performed in place.
+           *
+           * @param {Array} array the array to sort.
+           */
+          this.bubbleSort = function(array) {
+            const self = this;
+            array.forEach((_, i) => {
+              array.forEach((_, j) => {
+                if (array[i] < array[j]) {
+                  self.swap(array, i, j);
+                }
+              });
+            });
+          };
+
+          /**
+           * Perform an Insertion Sort on an array. Sort is performed in place.
+           *
+           * @param {Array} array the array to sort.
+           */
+          this.insertionSort = function(array) {
+            const self = this;
+            array.forEach((_, i) => {
+              var j = 0;
+
+              while(j < i) {
+                if (array[j] > array[i]) {
+                  self.reposition(array, i, j);
+                  break;
+                }
+                j++;
+              }
+            });
+          };
+
+          /**
+           * Perform a Selection Sort on an array. Sort is performed in place.
+           *
+           * This method could use Math.min.apply and .slice to determine the
+           * least value in an array but doesn't to display use of tracking multiple
+           * positions.
+           *
+           * @param {Array} array the array to sort.
+           */
+          this.selectionSort = function(array) {
+            const self = this;
+
+            array.forEach((_, i) => {
+              var least = Number.MAX_SAFE_INTEGER;
+              var leastIndex = i;
+              for (var j = i; j < array.length; j++) {
+                const next = array[j];
+                if (next < least) {
+                  least = next;
+                  leastIndex = j;
+                }
+              }
+              if (leastIndex !== i) {
+                self.swap(array, i, leastIndex);
+              }
+            });
+          };
+
+          /**
+           * Reposition an element in array.
+           *
+           * @param {Array} array the array in which to move elements.
+           * @param {Number} from the index of the element to move.
+           * @param {Number} to the index to move the element to.
+           */
+          this.reposition = function(array, from, to) {
+            array.splice(to, 0, array.splice(from, 1)[0]);
+          };
+
+          /**
+           * Swap two elements in place, in an array.
+           *
+           * @param {Array} array they array in which to swap elements.
+           * @param {Number} i the index of the first element to swap.
+           * @param {Number} j the index of the second element to swap.
+           */
+          this.swap = function(array, i ,j) {
+            const tmp = array[i];
+            array[i] = array[j];
+            array[j] = tmp;
+          };
+        }
+
+        var s = new Sort();
+
+        const values = [84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72, 100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66, 61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25, 33, 54, 63, 76, 7, 38, 18, 68, 29, 66, 35, 83, 82, 98, 61, 93, 33, 84, 91, 36, 33, 40, 95, 17, 16, 81, 36, 100, 92, 94, 85, 55, 18, 75, 17, 96, 77, 65, 57, 21, 54, 27, 77, 55, 48, 91, 100, 84, 58, 99, 51, 19, 67, 34];
+        const test = [4, 9, 3, 2, 5];
+
+        const bubbleSort = values.slice(0);
+        s.bubbleSort(bubbleSort)
+        console.log(bubbleSort);
+
+        const selectionSort = values.slice(0);
+        s.selectionSort(selectionSort)
+        console.log(selectionSort);
+
+        const insertionSort = values.slice(0);
+        s.insertionSort(insertionSort)
+        console.log(insertionSort);
+      })();
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
