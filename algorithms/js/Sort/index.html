@@ -50,6 +50,26 @@
           };
 
           /**
+           * Perform a Merge Sort on an array.
+           *
+           * Sort is creates a new array in the return val.
+           *
+           * @param {Array} array the array to sort.
+           * @return the sorted array.
+           */
+          this.mergeSort = function(array) {
+            if (array.length <= 2) {
+              this.bubbleSort(array);
+              return array;
+            } else {
+              const mid = Math.floor(array.length / 2);
+              const firstHalf = this.mergeSort(array.slice(0, mid));
+              const secondHalf = this.mergeSort(array.slice(mid));
+              return this.merge(firstHalf, secondHalf);
+            }
+          };
+
+          /**
            * Perform a Selection Sort on an array.
            *
            * Sort is performed in place and assumes conflict ordering is
@@ -78,6 +98,29 @@
                 self.swap(array, i, leastIndex);
               }
             });
+          };
+
+          /**
+           * Merge two arrays in inscreaing order.
+           *
+           * @param {Array} first the first array to merge.
+           * @param {Array} second the second array to merge.
+           */
+          this.merge = function(first, second) {
+            const result = [];
+            var i = 0, j = 0;
+
+            while(i < first.length && j < second.length) {
+              if (first[i] > second[j]) {
+                result.push(second[j]);
+                j++;
+              } else {
+                result.push(first[i]);
+                i++;
+              }
+            }
+
+            return result.concat(first.slice(i), second.slice(j));
           };
 
           /**
@@ -120,6 +163,8 @@
         const insertionSort = values.slice(0);
         s.insertionSort(insertionSort)
         console.log(insertionSort);
+
+        console.log(s.mergeSort(values));
       })();
     </script>
   </head>
