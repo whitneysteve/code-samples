@@ -14,6 +14,21 @@ module Sort
     }
   end
 
+  # Perform a merge sort on an array. Sort is performed on a new array
+  # and leaves the passed array unmodified.
+  def merge_sort(arr)
+    if arr.size < 2
+      arr
+    elsif arr.size == 2
+      bubble_sort(arr)
+    else
+      mid = (arr.size / 2.0).floor
+      first = merge_sort(arr.slice(0, mid))
+      second = merge_sort(arr.slice(mid, arr.size))
+      merge(first, second)
+    end
+  end
+
   # Perform an insertion sort on an array. Sort is performed in place and
   # assumes conflict ordering is not important.
   def insertion_sort(arr)
@@ -54,6 +69,27 @@ module Sort
   end
 
   private
+  # Merge two arrays in ascending order.
+  def merge(first, second)
+    result = []
+    i = 0
+    j = 0
+
+    while (i < first.size && j < second.size) do
+      if first[i] > second[j]
+        result.push(second[j])
+        j += 1
+      else
+        result.push(first[i])
+        i += 1
+      end
+    end
+
+    result.concat(first.slice(i, first.size))
+    result.concat(second.slice(j, second.size))
+    result
+  end
+
   # Reposition an element from index `from` to index `to`.
   def reposition(arr, from, to)
     arr.insert(to, arr.delete_at(from))
@@ -84,5 +120,7 @@ if __FILE__ == $0
   insertion_sort_vals = Marshal.load(Marshal.dump(values))
   insertion_sort insertion_sort_vals
   puts insertion_sort_vals.join(",")
+
+  puts(merge_sort(values).join(","))
 
 end
