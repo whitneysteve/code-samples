@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      (function() {
+        String.prototype.hashCode = function() {
+          var hash = 0, i, chr;
+          if (this.length > 0 ) {
+            for(i = 0; i < this.length; i ++) {
+              chr = this.charCodeAt(i);
+              hash = ((hash << 5) - hash) + chr;
+              hash |= 0;
+            }
+          }
+          return hash;
+        };
+
+        /**
+         * Hashtable object.
+         * @constructor
+         */
+        function Hashtable(buckets) {
+          this.buckets = new Array(buckets);
+
+          this.get = function(key) {
+            const bucket = this._targetBucket(key);
+            return bucket.get(key);
+          };
+
+          this.keys = function() {
+            return this.buckets.map(bucket => bucket.keys()).reduce((acc, keys) => acc.concat(keys));
+          };
+
+          this.put = function(key, value) {
+            const bucket = this._targetBucket(key);
+            bucket.put(key, value);
+          };
+
+          this.remove = function(key) {
+            const bucket = this._targetBucket(key);
+            bucket.remove(key);
+          };
+
+          this.size = function() {
+            return this.buckets.map(bucket => bucket.size()).reduce((acc, size) => acc + size);
+          };
+
+          this.values = function() {
+            return this.buckets.map(bucket => bucket.values()).reduce((acc, values) => acc.concat(values));
+          };
+
+          // Private
+          // The topic of visibility in JavaScript is probably out of scope for this exercise.
+          this._targetBucket = function(key) {
+            const bucketIndex = key.hashCode() % this.buckets.length;
+            var bucket = this.buckets[bucketIndex];
+            if (!bucket) {
+              bucket = new Bucket();
+              this.buckets[bucketIndex] = bucket;
+              return bucket;
+            } else {
+              return bucket;
+            }
+          };
+        }
+
+        function Bucket() {
+          this.items = [];
+
+          this.put = function(key, value) {
+            const existing = this._get(key);
+            if (existing) {
+              existing.value = value;
+            } else {
+              const item = new Item(key, value);
+              this.items.push(item);
+            }
+          };
+
+          this.get = function(key, value) {
+            var found = this._get(key);
+            if (found) {
+              return found.value;
+            }
+          };
+
+          this.keys = function() {
+            return this.items.map(item => item.key);
+          };
+
+          this.remove = function(key) {
+            for(var i = 0; i < this.items.length; i ++) {
+              if (this.items[i].key === key) {
+                this.items.splice(i, 1);
+                break;
+              }
+            }
+          }
+
+          this.size = function() {
+            return this.items.length;
+          };
+
+          this.values = function() {
+            return this.items.map(item => item.value);
+          };
+
+          // Private
+          // The topic of visibility in JavaScript is probably out of scope for this exercise.
+          this._get = function(key) {
+            return this.items.find(item => {
+              return item.key === key;
+            });
+          };
+        }
+
+        function Item(providedKey, providedValue) {
+          this.key = providedKey;
+          this.value = providedValue;
+        }
+
+        const t = new Hashtable(10);
+        const key1 = "key1";
+        const key2 = "key2";
+
+        t.put(key1, "value1");
+        t.put(key2, "value2");
+        t.put("key3", "value3");
+
+        console.log("Size: %s", t.size());
+        console.log("Value 1: %s", t.get(key1));
+        console.log("Value 2: %s", t.get(key2));
+        console.log("Keys: %s", t.keys().join(","));
+        console.log("Values: %s", t.values().join(","));
+
+        t.remove(key1);
+        console.log("Value 1: %s", t.get(key1));
+
+        t.put(key2, "new value");
+        console.log("Value 2: %s", t.get(key2));
+      })();
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
