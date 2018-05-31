@@ -49,6 +49,84 @@ object Sort {
   }
 
   /**
+    * Perform a merge sort on a [[List]].
+    *
+    * @param list the [[List]] to sort.
+    * @return the sorted array.
+    */
+  def mergeSort(list: List[Int]): List[Int] = {
+    def merge(first: List[Int], second: List[Int]): List[Int] = {
+      val buffer = ListBuffer[Int]()
+      var firstIndex, secondIndex = 0
+
+      while(firstIndex < first.length && secondIndex < second.length) {
+        val firstVal = first(firstIndex)
+        val secondVal = second(secondIndex)
+        if (secondVal < firstVal) {
+          buffer.append(secondVal)
+          secondIndex += 1
+        } else {
+          buffer.append(firstVal)
+          firstIndex += 1
+        }
+      }
+
+      buffer.append(first.slice(firstIndex, first.length):_*)
+      buffer.append(second.slice(secondIndex, second.length):_*)
+
+      buffer.toList
+    }
+
+    if (list.length < 2 || (list.length == 2 && list.head <= list(1))) {
+      list
+    } else if (list.length == 2) {
+      List(list(1), list.head)
+    } else {
+      val mid = Math.floor(list.length / 2).toInt
+      merge(mergeSort(list.slice(0, mid)), mergeSort(list.slice(mid, list.length)))
+    }
+  }
+
+  /**
+    * Perform a quick sort on a [[List]].
+    *
+    * @return the sorted [[List]].
+    */
+  def quickSort(list: List[Int], lowOpt: Option[Int] = None, highOpt: Option[Int] = None): List[Int] = {
+    def partition(buffer: ListBuffer[Int], low: Int, high: Int): Int = {
+      val pivot = buffer(high)
+      var pivotIndex = low
+
+      val range = pivotIndex until high
+      for (j <- range) {
+        if (buffer(j) < pivot) {
+          swap(buffer, j, pivotIndex)
+          pivotIndex += 1
+        }
+      }
+
+      swap(buffer, pivotIndex, high)
+
+      pivotIndex
+    }
+
+    def quickSortBuffer(
+      buffer: ListBuffer[Int],
+      low: Int,
+      high: Int): ListBuffer[Int] = {
+      if (low < high) {
+        val partitionIndex = partition(buffer, low, high)
+        quickSortBuffer(buffer, low, partitionIndex - 1)
+        quickSortBuffer(buffer, partitionIndex + 1, high)
+      }
+
+      buffer
+    }
+
+    quickSortBuffer(list.to[ListBuffer], lowOpt.getOrElse(0), highOpt.getOrElse(list.length - 1)).toList
+  }
+
+  /**
     * Perform a select sort on a [[List]].
     *
     * @param list the [[List]] to sort.
@@ -105,10 +183,12 @@ object Sort {
    * The main entry point to the program.
    */
   def main(args: Array[String]): Unit = {
-    val values: List[Int] = List(84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72, 100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66, 61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25, 33, 54, 63, 76, 7, 38, 18, 68, 29, 66, 35, 83, 82, 98, 61, 93, 33, 84, 91, 36, 33, 40, 95, 17, 16, 81, 36, 100, 92, 94, 85, 55, 18, 75, 17, 96, 77, 65, 57, 21, 54, 27, 77, 55, 48, 91, 100, 84, 58, 99, 51, 19, 67, 34)
+    val values = List(84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72, 100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66, 61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25, 33, 54, 63, 76, 7, 38, 18, 68, 29, 66, 35, 83, 82, 98, 61, 93, 33, 84, 91, 36, 33, 40, 95, 17, 16, 81, 36, 100, 92, 94, 85, 55, 18, 75, 17, 96, 77, 65, 57, 21, 54, 27, 77, 55, 48, 91, 100, 84, 58, 99, 51, 19, 67, 34)
 
     println(bubbleSort(values))
     println(selectionSort(values))
     println(insertionSort(values))
+    println(mergeSort(values))
+    println(quickSort(values))
   }
 }
