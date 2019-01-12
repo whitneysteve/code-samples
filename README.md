@@ -10,15 +10,15 @@ Various algorithms written in Scala, Javascript and Ruby.
 
 Javascript algorithms have an associated index.html file that can be opened in a browser and output results to a console. Mostly developed using Firefox & Firebug.
 
-## Bank
+## Bank (Java)
 
-A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap, jQuery, built and run using a Maven archetype. 
+A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap, jQuery, built and run using a Maven archetype.
 
 ### Instructions
 
 Run using ‘mvm jetty:run’ and hit http://localhost:8080/
 
-### Key Press
+### Key Press (Javascript)
 
 A telephone keypad simulator that allows typing through the use of repetitive presses of the digits associated with several letters.
 
@@ -26,7 +26,7 @@ A telephone keypad simulator that allows typing through the use of repetitive pr
 
 There is a UI element to this sample. Open `index.html` in a browser.
 
-## Paint Shop
+## Paint Shop (Scala)
 
 A script to determine the colours and type of paint to prepare based on some pre-specified rules. Written in Scala.
 
@@ -34,7 +34,7 @@ A script to determine the colours and type of paint to prepare based on some pre
 
 Execute program using ‘scala paintshop [path to input file]’
 
-## Postfix Calculator
+## Postfix Calculator (Scala)
 
 A script to perform postfix calculations (addition, subtraction, division and multiplication) on the command line arguments. Written in Scala.
 
@@ -42,7 +42,7 @@ A script to perform postfix calculations (addition, subtraction, division and mu
 
 Execute program using ‘scala PostFixCalculator [expression]’. For example: ’1 7 3 - 2 * + 3’
 
-## Socket Proxy
+## Socket Proxy (Java)
 
 A socket proxy that forwards requests to a destination and sends the response back to the client. Written in Java, built using a Maven archetype.
 
@@ -55,4 +55,3 @@ Compile each project by cd’ing into the directory and running ‘mvm clean com
 Start the proxy by executing ‘java -jar destination-1.0-SNAPSHOT.jsr’ and the destination by executing ‘java -jar proxy-1.0-SNAPSHOT.jar’.
 
 Unit test cases exist for both projects and independent integration tests (AppTest) execute against a running proxy and destination. In order to execute the integration test for the proxy project a destination server must be running.
-

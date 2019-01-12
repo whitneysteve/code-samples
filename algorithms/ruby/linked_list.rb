@@ -1,11 +1,8 @@
 # Linked list implementation.
-#
 class LinkedList
-
   public
 
   # Add an object to the tail of the list.
-  #
   def add(data)
     node = LinkedListNode.new(data)
 
@@ -16,7 +13,6 @@ class LinkedList
   end
 
   # Add to the front of the list.
-  #
   def add_first(data)
     node = LinkedListNode.new (data)
 
@@ -25,7 +21,6 @@ class LinkedList
   end
 
   # Delete from the list.
-  #
   def delete(index)
     cursor = find_cursor(index)
 
@@ -42,7 +37,6 @@ class LinkedList
   end
 
   # Find the first occurrence of a term within the linked list.
-  #
   def find(term)
     node = @head
 
@@ -55,7 +49,6 @@ class LinkedList
   end
 
   # Find all occurrences of a term in the linked list.
-  #
   def collect
     arr = []
     node = @head
@@ -69,7 +62,6 @@ class LinkedList
   end
 
   # Sort the linked list.
-  #
   def sort
     list = @head
 
@@ -91,7 +83,6 @@ class LinkedList
   end
 
   # Reverse the linked list.
-  #
   def reverse
     current_node = @head
     prev_node = nil
@@ -108,7 +99,6 @@ class LinkedList
   end
 
   # Traverse the linked list.
-  #
   def traverse
     cursor = @head
 
@@ -116,13 +106,11 @@ class LinkedList
       yield cursor.data
       cursor = cursor.nextNode
     end
-
   end
 
   private
 
   # Position the cursor pointing to a desired index.
-  #
   def find_cursor(index)
     cursor = @head
     index - 1.times { cursor = cursor.nil? ? nil : cursor.nextNode }
@@ -131,7 +119,6 @@ class LinkedList
 end
 
 # Linked list node implementation.
-#
 class LinkedListNode
   attr_accessor :data
   attr_accessor :nextNode
@@ -139,16 +126,15 @@ class LinkedListNode
   def initialize(data)
     @data = data
   end
-
 end
 
 if __FILE__ == $0
 
-  #Create a linked list and perform some operations on it.
+  # Create a linked list and perform some operations on it.
 
   list = LinkedList.new
 
-  list.traverse { |data| puts data }
+  list.traverse {|data| puts data}
 
   list.add 1
   list.add 2
@@ -164,13 +150,13 @@ if __FILE__ == $0
 
   puts '----------------'
 
-  list.traverse { |data| puts data }
+  list.traverse {|data| puts data}
 
   puts '----------------'
 
   list.reverse
 
-  list.traverse { |data| puts data }
+  list.traverse {|data| puts data}
 
   puts '----------------'
 
@@ -178,6 +164,5 @@ if __FILE__ == $0
   puts list.find 89
 
   puts '----------------'
-  puts list.collect { |data| data == 0 }
-
+  puts list.collect {|data| data == 0}
 end

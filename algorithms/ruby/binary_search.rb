@@ -1,9 +1,7 @@
 module BinarySearch
-
   public
 
   # Perform a binary search for an Int.
-  #
   def b_contains?(arr, term)
     return false if arr == nil || arr.length < 1
 
@@ -25,18 +23,12 @@ module BinarySearch
 
     false
   end
-
-  private
-
 end
 
 if __FILE__ == $0
-
   include BinarySearch
 
   # Perform a binary search
-
   puts b_contains? [5, 10, 15, 20, 25, 30, 35], 10
   puts b_contains? [5, 10, 15, 20, 25, 30, 35], 11
-
 end

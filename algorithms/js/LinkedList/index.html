@@ -51,8 +51,9 @@
           cursor.next = newNode;
           newNode.next = displacedElement;
 
-          if(cursor == this.tail)
+          if(cursor == this.tail) {
             this.tail = newNode;
+          }
         };
 
         /**
@@ -65,8 +66,9 @@
           newNode.next = this.head;
           this.head = newNode;
 
-          if(!this.tail)
+          if(!this.tail) {
             this.tail = newNode;
+          }
         };
 
         /**
@@ -75,15 +77,16 @@
          * @param index the index to remove.
          */
         LinkedList.prototype.remove = function(index) {
-          var cursor = this.findCursor(index - 1);
-          if(!cursor.next)
+          var cursor = this.findCursor(index);
+          if(!cursor.next) {
             throw "IndexOutOfBounds: " + index
-          else {
+          } else {
             var removedElement = cursor.next;
             cursor.next = cursor.next.next;
 
-            if(removedElement === this.tail)
+            if(removedElement === this.tail) {
               this.tail = cursor;
+            }
           }
         };
 
@@ -116,8 +119,9 @@
             i++;
           }
 
-          if(!cursor)
+          if(!cursor) {
             throw "IndexOutOfBounds: " + index;
+          }
 
           return cursor;
         };
@@ -154,8 +158,9 @@
         LinkedList.prototype.find = function(term) {
           var cursor = this.findCursor(0);
 
-          while(cursor && cursor.data != term)
+          while(cursor && cursor.data != term) {
             cursor = cursor.next;
+          }
 
           return cursor ? cursor.data : null;
         };
@@ -171,8 +176,9 @@
           var cursor = this.findCursor(0);
 
           while(cursor) {
-            if(cursor.data == term)
+            if(cursor.data == term) {
               list.push(cursor.data);
+            }
 
             cursor = cursor.next;
           }
@@ -206,7 +212,7 @@
         list.addFirst(0); //0
         list.addAtIndex(2, 2.5); //2
         list.add(4); //5
-//        list.remove( 1 );
+        list.remove(0);
 
         list.sort();
 

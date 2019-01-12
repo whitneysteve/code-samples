@@ -1,8 +1,7 @@
 module Arrays
   public
 
-  #Find the rotation value of a rotated array.
-  #
+  # Find the rotation value of a rotated array.
   def find_rotation_value(arr)
     len = arr.length
     last_index = len - 1
@@ -28,13 +27,9 @@ module Arrays
 
     arr[0]
   end
-
-  private
-
 end
 
 if __FILE__ == $0
-
   include Arrays
 
   # Find the rotation point in some rotated arrays.
@@ -43,5 +38,4 @@ if __FILE__ == $0
   puts find_rotation_value [5, 6, 7, 8, 9, 1, 2, 3, 4]
   puts find_rotation_value [5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 1, 1, 2, 2, 3, 3, 4, 4]
   puts find_rotation_value [5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 2, 2, 3, 3, 4, 4]
-
 end

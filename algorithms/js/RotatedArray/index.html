@@ -19,18 +19,21 @@
             var mid = Math.floor(( lo + hi ) / 2);
             var term = arr[ mid ];
 
-            if(mid == lastIndex)
+            if(mid == lastIndex) {
               return term;
+            }
 
             var nextTerm = arr[ mid + 1 ];
 
-            if(term > nextTerm)
+            if(term > nextTerm) {
               return nextTerm;
+            }
 
-            if(term > arr[ lastIndex ])
+            if(term > arr[ lastIndex ]) {
               lo = mid + 1;
-            else
+            } else {
               hi = mid - 1;
+            }
           }
 
           return arr[ 0 ];

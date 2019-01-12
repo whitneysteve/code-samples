@@ -1,7 +1,5 @@
 # Hash table implementation.
-#
 class Hashtable
-
   public
 
   def initialize(num_buckets)
@@ -21,7 +19,7 @@ class Hashtable
 
   # Get all the keys in the hash table, in no particular order.
   def keys
-    @buckets.flat_map { |bucket| bucket.keys if bucket }.compact
+    @buckets.flat_map {|bucket| bucket.keys if bucket}.compact
   end
 
   # Remove an item from the hash table by key, if it exists.
@@ -31,12 +29,12 @@ class Hashtable
 
   # Get the nymber of items stored in the hash table.
   def size
-    @buckets.flat_map { |bucket| bucket.keys.size if bucket }.compact.sum
+    @buckets.flat_map {|bucket| bucket.keys.size if bucket}.compact.sum
   end
 
   # Get all the values in the hash table, in no particular order.
   def values
-    @buckets.flat_map { |bucket| bucket.values if bucket }.compact
+    @buckets.flat_map {|bucket| bucket.values if bucket}.compact
   end
 
   private
@@ -53,11 +51,9 @@ class Hashtable
       bucket
     end
   end
-
 end
 
 class Bucket
-
   public
 
   def initialize()
@@ -77,7 +73,7 @@ class Bucket
   # Get the keys stored in the bucket. This iterates over the item array and
   # we avoid creating a running index of keys to optimise CRUD operations.
   def keys
-    @items.map { |item| item.key }
+    @items.map {|item| item.key}
   end
 
   # Store or overwrite a value for a given key in the bucket.
@@ -96,24 +92,20 @@ class Bucket
     @items.delete(existing) unless existing.nil?
   end
 
-  # Get the
+  # Get the values for all items in the bucket.
   def values
-    @items.map { |item| item.value }
+    @items.map {|item| item.value}
   end
 
   private
   # Search for an item in the bucket by key. Item contains key and value, as opposed
   # to just value.
   def get_item(key)
-    @items.find { |item|
-      item.key == key
-    }
+    @items.find {|item| item.key == key}
   end
-
 end
 
 class BucketItem
-
   public
 
   attr_accessor :key

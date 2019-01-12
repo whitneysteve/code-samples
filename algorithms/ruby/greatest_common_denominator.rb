@@ -1,5 +1,4 @@
 module ExtraMath
-
   public
 
   # Find the GCD of two numbers.
@@ -19,9 +18,6 @@ module ExtraMath
     return num2 if remainder == 0
     greatest_common_denominator num2, remainder
   end
-
-  private
-
 end
 
 if __FILE__ == $0

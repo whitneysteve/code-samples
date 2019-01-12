@@ -17,10 +17,11 @@
           this.gcd = function(num1, num2) {
             var remainder = num1 % num2;
 
-            if(remainder == 0)
+            if(remainder == 0) {
               return num2;
-            else
+            } else {
               return this.gcd(num2, remainder);
+            }
           }
         }
 

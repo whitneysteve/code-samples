@@ -14,24 +14,22 @@
            * @returns {number} the number at the given index in the fibonacci sequence.
            */
           this.fib = function(index) {
-            if(index < 0)
+            if(index < 0) {
               return 0;
+            }
 
-            if(index < 1)
+            if(index < 1) {
               return 1;
-            else
+            } else {
               return this.fib(index - 1) + this.fib(index - 2);
+            }
           };
         }
 
         var m = new MathUtil();
-        console.log(m.fib(0));
-        console.log(m.fib(1));
-        console.log(m.fib(2));
-        console.log(m.fib(3));
-        console.log(m.fib(4));
-        console.log(m.fib(5));
-        console.log(m.fib(6));
+        [...Array(6).keys()].forEach((number) => {
+          console.log(m.fib(number));
+        });
       })();
     </script>
   </head>

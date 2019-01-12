@@ -1,7 +1,5 @@
 # Binary search tree implementation.
-#
 class BinarySearchTree
-
   public
 
   # Create a new, empty tree.
@@ -43,9 +41,9 @@ class BinarySearchTree
   # Traverse the tre in a depth first manner.
   def depth_first_traversal(node=@root, &block)
     unless node.nil?
-      depth_first_traversal(node.left) { |value| block.call(value) }
+      depth_first_traversal(node.left) {|value| block.call(value)}
       block.call(node.value)
-      depth_first_traversal(node.right) { |value| block.call(value) }
+      depth_first_traversal(node.right) {|value| block.call(value)}
     end
   end
 
@@ -99,12 +97,10 @@ class BinarySearchTree
       find_smallest(node.right)
     end
   end
-
 end
 
 # Represents a node in a binary tree.
 class TreeNode
-
   attr_accessor :value
   attr_accessor :left
   attr_accessor :right
@@ -123,16 +119,14 @@ class TreeNode
   def leaf?
     @left.nil? && right.nil?
   end
-
 end
 
 if __FILE__ == $0
-
   tree = BinarySearchTree.new();
 
   values = [84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72, 100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66, 61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25, 33, 54, 63, 76, 7, 38, 18, 68, 29, 66, 35, 83, 82, 98, 61, 93, 33, 84, 91, 36, 33, 40, 95, 17, 16, 81, 36, 100, 92, 94, 85, 55, 18, 75, 17, 96, 77, 65, 57, 21, 54, 27, 77, 55, 48, 91, 100, 84, 58, 99, 51, 19, 67, 34]
 
-  values.each { |value| tree.add(value) }
+  values.each {|value| tree.add(value)}
 
   puts tree.contains?(100)
   puts !tree.contains?(-55)

@@ -1,9 +1,7 @@
 module Palindrome
-
   public
 
-  #Find the longest palindrome in a String.
-  #
+  # Find the longest palindrome in a String.
   def find_longest_palindrome(chars)
     return chars if is_palindrome? chars
 
@@ -26,17 +24,16 @@ module Palindrome
     chars[0]
   end
 
-  #Check if a palindrome.
-  #
+  # Check if a palindrome.
   def is_palindrome?(chars)
     if chars.is_a? Integer
       chars == reverse(chars)
     else
       len = chars.length
 
-      ((len / 2) + 1).times { |i|
+      ((len / 2) + 1).times do |i|
         return false unless chars[i] == chars[len - i - 1]
-      }
+      end
 
       true
     end
@@ -44,8 +41,7 @@ module Palindrome
 
   private
 
-  #Reverse a number.
-  #
+  # Reverse a number.
   def reverse(num)
     reverse = 0
 
@@ -57,15 +53,13 @@ module Palindrome
 
     reverse
   end
-
 end
 
 if __FILE__ == $0
-
   include Palindrome
 
-  #Check if some numbers are palindromic, check if some Strings are palindromic, then find the longest palindrome
-  #in some Strings.
+  # Check if some numbers are palindromic, check if some Strings are palindromic, then find the longest palindrome
+  # in some Strings.
 
   puts is_palindrome? 12321
   puts is_palindrome? 12343
@@ -75,5 +69,4 @@ if __FILE__ == $0
   puts find_longest_palindrome('123454321')
   puts find_longest_palindrome('999123454321999')
   puts find_longest_palindrome('999123454321888')
-
 end

@@ -22,12 +22,13 @@
               var mid = ( low + hi ) / 2;
               var midTerm = array[ mid ];
 
-              if(midTerm > term)
+              if(midTerm > term) {
                 hi = mid - 1;
-              else if(midTerm < term)
+              } else if(midTerm < term) {
                 low = mid + 1;
-              else
+              } else {
                 return true;
+              }
             }
 
             return false;
