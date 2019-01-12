@@ -1,6 +1,6 @@
 # Key Press
 
-A telephone keypad simulator that allows typing through the use of repetitive presses of the digits associated with several letters.
+A telephone keypad simulator that allows typing through the use of repetitive presses of the digits associated with several letters. Aka txting.
 
 ## Instructions
 
