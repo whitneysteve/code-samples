@@ -25,8 +25,9 @@ object Palindrome {
    * @return the longest palindrome in the String.
    */
   def longestPalindrome(str: String): String = {
-    if(isPalindromicStr(str))
+    if(isPalindromicStr(str)) {
       return str
+    }
 
     val len = str.length
     var substrLen = len
@@ -38,11 +39,11 @@ object Palindrome {
       while(substrIndex <= maxSubstrIndex) {
         val substr: String = str.substring(substrIndex, substrLen + substrIndex - 1)
 
-        if(isPalindromicStr(substr))
+        if(isPalindromicStr(substr)) {
           return substr
+        }
 
         substrIndex += 1
-
       }
 
       substrLen -= 1
@@ -63,8 +64,9 @@ object Palindrome {
     var i: Int = 0
 
     while(i < mid) {
-      if(str.charAt(i) != str.charAt(len - (1 + i)))
+      if(str.charAt(i) != str.charAt(len - (1 + i))) {
         return false
+      }
 
       i += 1
     }
@@ -78,7 +80,9 @@ object Palindrome {
    * @param num the number to check.
    * @return true if the number is a palindrome, false if not.
    */
-  def isPalindromic(num: Long): Boolean = reverse(num) == num
+  def isPalindromic(num: Long): Boolean = {
+    reverse(num) == num
+  }
 
   /**
    * Reverse a number.

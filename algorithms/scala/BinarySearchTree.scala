@@ -56,25 +56,25 @@ class BinarySearchTree {
     * @param value the value to remove from the tree.
     * @param nodeOpt the root of the branch to search within for the value. Defaults to the root of the tree.
     */
-//  def remove(value: Int, nodeOpt: Option[TreeNode] = root): Option[TreeNode] = {
-//    val removed: Option[TreeNode] = nodeOpt match {
-//      case None => None
-//      case Some(node) if value == node.value =>
-//        node match {
-//          case (_, None, None) => None
-//          case (_, None, Some(right: TreeNode)) => Some(right)
-//          case (_, Some(left: TreeNode), None) => Some(left)
-//          case (_, Some(left: TreeNode), Some(right: TreeNode)) =>
-//            val smallest = findSmallest(right)
-//            node.value = smallest
-//            Some(node)
-//        }
-//      case Some(node) if value > node.value => remove(value, node.right)
-//      case Some(node) => remove(value, node.left)
-//    }
-//    internalSize = internalSize - removed.size
-//    removed
-//  }
+  def remove(value: Int, nodeOpt: Option[TreeNode] = root): Option[TreeNode] = {
+    val removed: Option[TreeNode] = nodeOpt match {
+      case None => None
+      case Some(node) if value == node.value =>
+        node match {
+          case (_, None, None) => None
+          case (_, None, Some(right: TreeNode)) => Some(right)
+          case (_, Some(left: TreeNode), None) => Some(left)
+          case (_, Some(left: TreeNode), Some(right: TreeNode)) =>
+            val smallest = findSmallest(right)
+            node.value = smallest
+            Some(node)
+        }
+      case Some(node) if value > node.value => remove(value, node.right)
+      case Some(node) => remove(value, node.left)
+    }
+    internalSize = internalSize - removed.size
+    removed
+  }
 
   /**
     * Get the number of elements in the tree.
@@ -115,12 +115,12 @@ class BinarySearchTree {
     * @param node the root of the tree branch to search.
     * @return the smallest value found in the branch.
     */
-//  private def findSmallest(node: TreeNode): Int = {
-//    node match {
-//      case (value, None, _) => value
-//      case (_, Some(left: TreeNode), _) => findSmallest(left)
-//    }
-//  }
+  private def findSmallest(node: TreeNode): Int = {
+    node match {
+      case (value, None, _) => value
+      case (_, Some(left: TreeNode), _) => findSmallest(left)
+    }
+  }
 }
 
 case class TreeNode(var value: Int, var left: Option[TreeNode] = None, var right: Option[TreeNode] = None)
@@ -138,8 +138,8 @@ object BinarySearchTreeMain {
     assert(!tree.contains(-77))
     assert(tree.size == values.distinct.size)
 
-//    tree.remove(100)
-//    tree.remove(94)
+    tree.remove(100)
+    tree.remove(94)
 
     assert(!tree.contains(100))
     assert(!tree.contains(94))
@@ -156,6 +156,5 @@ object BinarySearchTreeMain {
 
     println(breadthFirstPath)
     println(depthFirstPath)
-
   }
 }

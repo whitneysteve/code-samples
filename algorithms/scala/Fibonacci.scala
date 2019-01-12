@@ -6,13 +6,7 @@ import scala.annotation.tailrec
 object Fibonacci {
 
   def main(args: Array[String]) = {
-    println(fib(0))
-    println(fib(1))
-    println(fib(2))
-    println(fib(3))
-    println(fib(4))
-    println(fib(5))
-    println(fib(6))
+    0 to 6 foreach fib
   }
 
   /**

@@ -68,8 +68,9 @@ class LinkedList[T >: Null <: Comparable[T]] {
   def find(term: T): Option[T] = {
     var cursor = findCursor(0)
 
-    while(cursor.isDefined && cursor.get.data != term)
+    while(cursor.isDefined && cursor.get.data != term) {
       cursor = cursor.get.next
+    }
 
     cursor match {
       case None => None
@@ -87,8 +88,9 @@ class LinkedList[T >: Null <: Comparable[T]] {
     var cursor = findCursor(0)
 
     while(cursor.isDefined) {
-      if(cursor.get.data.compareTo(term) == 0)
+      if(cursor.get.data.compareTo(term) == 0) {
         list = list :+ cursor.get.data
+      }
       cursor = cursor.get.next
     }
 
@@ -148,8 +150,9 @@ class LinkedList[T >: Null <: Comparable[T]] {
           cursor.next = node.next
       }
 
-      if(tail == elementToRemove)
+      if(tail == elementToRemove) {
         tail = cursor.next
+      }
     }
   }
 
@@ -180,8 +183,9 @@ class LinkedList[T >: Null <: Comparable[T]] {
   def add(index: Int, data: T) = findCursor(index - 1) map { cursor =>
     val newNode = new LinkedListNode[T](data)
 
-    if(cursor.next == tail)
+    if(cursor.next == tail) {
       tail = Some(newNode)
+    }
 
     val nextElement = cursor.next
     cursor.next = Some(newNode)
@@ -214,13 +218,18 @@ class LinkedList[T >: Null <: Comparable[T]] {
   private[this] def findCursor(index: Int) = {
     @tailrec
     def next(current: Option[LinkedListNode[T]], currentIndex: Int): Option[LinkedListNode[T]] = {
-      if(!current.isDefined || currentIndex == index) current else next(current.get.next, currentIndex + 1)
+      if(!current.isDefined || currentIndex == index) {
+        current
+      } else {
+        next(current.get.next, currentIndex + 1)
+      }
     }
 
-    if(index < 1)
+    if(index < 1) {
       head
-    else
+    } else {
       next(head, 0)
+    }
   }
 }
 

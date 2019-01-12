@@ -26,19 +26,22 @@ object RotatedArray {
     while(lo <= hi) {
       val mid: Int = (lo + hi) / 2
 
-      if(mid == lastIndex)
+      if(mid == lastIndex) {
         return arr(mid)
+      }
 
       val term = arr(mid)
       val nextTerm = arr(mid + 1)
 
-      if(term > nextTerm)
+      if(term > nextTerm) {
         return nextTerm
+      }
 
-      if(term > arr(lastIndex))
+      if(term > arr(lastIndex)) {
         lo = mid + 1
-      else
+      } else {
         hi = mid - 1
+      }
     }
 
     arr(0)
