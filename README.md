@@ -18,6 +18,14 @@ A simple Java banking web application used by a teller, using an in-memory data 
 
 Run using ‘mvm jetty:run’ and hit http://localhost:8080/
 
+### Key Press
+
+A telephone keypad simulator that allows typing through the use of repetitive presses of the digits associated with several letters.
+
+### Instructions
+
+There is a UI element to this sample. Open `index.html` in a browser.
+
 ## Paint Shop
 
 A script to determine the colours and type of paint to prepare based on some pre-specified rules. Written in Scala.
