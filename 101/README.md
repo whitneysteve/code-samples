@@ -1,6 +1,6 @@
 # Coding 101
 
-Various computer science-y algorithms algorithms written in Scala, Javascript and Ruby.
+Various computer science-y algorithms and data structures written in Scala, Javascript and Ruby.
 
 ## Instructions
 

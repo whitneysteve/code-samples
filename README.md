@@ -4,11 +4,11 @@ A collection of code samples written for various reasons. These are usually writ
 
 ## 101
 
-Various computer science-y algorithms algorithms written in Scala, Javascript and Ruby.
+Various computer science-y algorithms and data structures written in Scala, Javascript and Ruby.
 
-## Bank (JAva)
+## Bank (Java)
 
-A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap, jQuery, built and run using a Maven archetype.
+A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap and jQuery. Built and run using a Maven archetype.
 
 ## Key Press (Javascript)
 
