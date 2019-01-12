@@ -2,9 +2,9 @@
 
 A collection of code samples written for various reasons. These are usually written in a very short space of time (from 5 minutes to 1 or 2 hours) for a specific purpose.
 
-## Algorithms
+## 101
 
-Various algorithms written in Scala, Javascript and Ruby.
+Various computer science-y algorithms algorithms written in Scala, Javascript and Ruby.
 
 ### Instructions
 
