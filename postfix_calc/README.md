@@ -4,4 +4,4 @@ A script to perform postfix calculations (addition, subtraction, division and mu
 
 ## Instructions
 
-Execute program using ‘scala PostFixCalculator [expression]’. For example: ’1 7 3 - 2 * + 3’
+Execute program using `scala PostFixCalculator [expression]`. For example: `1 7 3 - 2 * + 3`.
