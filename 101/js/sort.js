@@ -177,4 +177,4 @@ function Sort() {
   };
 }
 
-module.exports = Sort
+module.exports = Sort;
