@@ -1,6 +1,6 @@
-# Paint Shop (Scala)
+# Paint Shop
 
-A script to determine the colours and type of paint to prepare based on some pre-specified rules. Written in Scala.
+A script to determine the colours and type of paint to prepare based on some pre-specified rules.
 
 ## Instructions
 

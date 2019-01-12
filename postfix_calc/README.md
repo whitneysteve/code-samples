@@ -1,6 +1,6 @@
-# Postfix Calculator (Scala)
+# Postfix Calculator
 
-A script to perform postfix calculations (addition, subtraction, division and multiplication) on the command line arguments. Written in Scala.
+A script to perform postfix calculations (addition, subtraction, division and multiplication) on the command line arguments.
 
 ## Instructions
 

@@ -1,8 +1,10 @@
-# Socket Proxy (Java)
+# Socket Proxy 
 
 A socket proxy that forwards requests to a destination and sends the response back to the client. Written in Java, built using a Maven archetype.
 
 ## Instructions
+
+You will need maven installed to run the project. See [ https://maven.apache.org/install.html | the Apache install instructions ] to accomplish that).
 
 There are 2 Maven projects - the destination socket server that performs a simple operation and a proxy server that proxies the destination.
 
