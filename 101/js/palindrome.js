@@ -9,7 +9,7 @@ function PalindromeUtil() {
    * @param {number} num the number to check.
    * @returns {boolean} true if the number is a palindrome, false if not.
    */
-  this.isPalindrome = function(num) {
+  this.isPalindrome = (num) => {
     var reverse = this.reverse(num);
     return reverse == num;
   };
@@ -20,7 +20,7 @@ function PalindromeUtil() {
    * @param {number} num the number to reverse.
    * @returns {number} the reversed number.
    */
-  this.reverse = function(num) {
+  this.reverse = (num) => {
     var reverse = 0;
     var op = num;
 
@@ -38,13 +38,14 @@ function PalindromeUtil() {
    * @param {string} str the string to check.
    * @returns {boolean} true if the string is a palindrome, false if not.
    */
-  this.isPalindromeStr = function(str) {
+  this.isPalindromeStr = (str) => {
     var mid = Math.floor(str.length / 2);
     var i = 0;
 
     while(i < mid) {
-      if(str[ i ] != str[ str.length - i - 1 ])
+      if(str[ i ] != str[ str.length - i - 1 ]) {
         return false;
+      }
 
       i++;
     }
@@ -58,7 +59,7 @@ function PalindromeUtil() {
    * @param {string} str the string to check.
    * @returns {string } the logest palindrome in the string.
    */
-  this.longestPalindrome = function(str) {
+  this.longestPalindrome = (str) => {
     var len = str.length;
     var substrLen = len;
 
