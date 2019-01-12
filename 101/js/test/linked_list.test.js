@@ -59,25 +59,3 @@ describe('LinkedList', () => {
     return array;
   }
 });
-
-var list = new LinkedList();
-        list.add(1); //1
-        list.add(2); //3
-        list.add(3); //4
-        list.addFirst(0); //0
-        list.addFirst(0); //0
-        list.addAtIndex(2, 2.5); //2
-        list.add(4); //5
-        list.remove(0);
-
-        list.sort();
-
-        list.traverse(function(value) {
-          console.log(value);
-        });
-
-        list.reverse();
-
-        list.traverse(function(value) {
-          console.log(value);
-        });
