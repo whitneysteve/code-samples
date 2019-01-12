@@ -11,7 +11,7 @@ function Sort() {
    *
    * @param {Array} array the array to sort.
    */
-  this.bubbleSort = function(array) {
+  this.bubbleSort = (array) => {
     const self = this;
     array.forEach((_, i) => {
       array.forEach((_, j) => {
@@ -30,7 +30,7 @@ function Sort() {
    *
    * @param {Array} array the array to sort.
    */
-  this.insertionSort = function(array) {
+  this.insertionSort = (array) => {
     const self = this;
     array.forEach((_, i) => {
       var j = 0;
@@ -54,7 +54,7 @@ function Sort() {
    * @param {Array} array the array to sort.
    * @return the sorted array.
    */
-  this.mergeSort = function(array) {
+  this.mergeSort = (array) => {
     if (array.length < 2 || (array.length === 2 && array[1] >= array[0])) {
       return array;
     } else if (array.length === 2 && array[0] > array[1]) {
@@ -88,7 +88,7 @@ function Sort() {
    * Perform a Quick Sort on an array. Sort is performed in place and assumes
    * conflict order is not important.
    */
-  this.quickSort = function(array, low, high) {
+  this.quickSort = (array, low, high) => {
     const self = this;
 
     if (!low) {
@@ -133,7 +133,7 @@ function Sort() {
    *
    * @param {Array} array the array to sort.
    */
-  this.selectionSort = function(array) {
+  this.selectionSort = (array) => {
     const self = this;
 
     array.forEach((_, i) => {
@@ -159,7 +159,7 @@ function Sort() {
    * @param {Number} from the index of the element to move.
    * @param {Number} to the index to move the element to.
    */
-  this.reposition = function(array, from, to) {
+  this.reposition = (array, from, to) => {
     array.splice(to, 0, array.splice(from, 1)[0]);
   };
 
@@ -170,7 +170,7 @@ function Sort() {
    * @param {Number} i the index of the first element to swap.
    * @param {Number} j the index of the second element to swap.
    */
-  this.swap = function(array, i ,j) {
+  this.swap = (array, i ,j) => {
     const tmp = array[i];
     array[i] = array[j];
     array[j] = tmp;

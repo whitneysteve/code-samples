@@ -15,7 +15,7 @@ function SortedBinaryTree() {
     this.left = providedLeft;
     this.right = providedRight;
 
-    this.isLeaf = function() {
+    this.isLeaf = () => {
       return !this.left && !this.right;
     }
   }
@@ -27,7 +27,7 @@ function SortedBinaryTree() {
    *
    * @param {Number} value value to add to the binary tree.
    */
-  this.add = function(value) {
+  this.add = (value) => {
     this.root = this._add(this.root, value);
   };
 
@@ -36,7 +36,7 @@ function SortedBinaryTree() {
    *
    * @param {Function} callback method to call with each value as it is traversed.
    */
-  this.breadthFirstTraverse = function(callback) {
+  this.breadthFirstTraverse = (callback) => {
     this._bfTraverse(this.root, callback);
   };
 
@@ -45,7 +45,7 @@ function SortedBinaryTree() {
    * not much reason for any other type of search.
    *
    */
-  this.contains = function(value) {
+  this.contains = (value) => {
     return this._dfs(this.root, value);
   };
 
@@ -54,7 +54,7 @@ function SortedBinaryTree() {
    *
    * @param {Function} callback method to call with each value as it is traversed.
    */
-  this.depthFirstTraverse = function(callback) {
+  this.depthFirstTraverse = (callback) => {
     this._dfTraverse(this.root, callback);
   };
 
@@ -63,7 +63,7 @@ function SortedBinaryTree() {
    *
    * @param {Number} value the value to remove from the tree.
    */
-  this.remove = function(value) {
+  this.remove = (value) => {
     return this._delete(this.root, value);
   };
 
@@ -73,7 +73,7 @@ function SortedBinaryTree() {
    * @param {Node} node the current node in the traversal.
    * @param {Number} value value to add to the binary tree.
    */
-  this._add = function(node, value) {
+  this._add = (node, value) => {
     if (!node) {
       return new Node(value);
     }
@@ -94,7 +94,7 @@ function SortedBinaryTree() {
    * @param {Function} callback the function to call with each value as
    *                            we traverse the node.
    */
-  this._bfTraverse = function(node, callback) {
+  this._bfTraverse = (node, callback) => {
     if (node) {
       const queue = [];
       queue.push(node);
@@ -119,7 +119,7 @@ function SortedBinaryTree() {
    * @param {Node} node the node to start the search from.
    * @param {Number} value the value to remove.
    */
-  this._delete = function(node, value) {
+  this._delete = (node, value) => {
     if (!node) {
       return undefined;
     }
@@ -161,7 +161,7 @@ function SortedBinaryTree() {
    * @param {Node} node the node to search.
    * @param {Number} value the value to search for.
    */
-  this._dfs = function(node, value) {
+  this._dfs = (node, value) => {
     if (!node) {
       return false;
     }
@@ -184,7 +184,7 @@ function SortedBinaryTree() {
    * @param {Function} callback the function to call with each value as
    *                            we traverse the node.
    */
-  this._dfTraverse = function(node, callback) {
+  this._dfTraverse = (node, callback) => {
     if (node) {
       this._dfTraverse(node.left, callback);
       callback(node.value);
