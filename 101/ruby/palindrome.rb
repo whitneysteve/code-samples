@@ -1,18 +1,19 @@
-module Palindrome
-  public
+# frozen_string_literal: true
 
+# Module for detecting palindromes.
+module Palindrome
   # Find the longest palindrome in a String.
-  def find_longest_palindrome(chars)
+  def find_longest_palindrome(chars) # rubocop:disable Metrics/MethodLength
     return chars if palindrome? chars
 
     len = chars.length
     substring_len = len - 1
 
-    while substring_len > 0 do
+    while substring_len.positive?
       substring_idx = 0
 
       while substring_idx < len - substring_idx
-        substring = chars[substring_idx ... substring_idx + substring_len]
+        substring = chars[substring_idx...substring_idx + substring_len]
         return substring if palindrome? substring
 
         substring_idx += 1
@@ -48,7 +49,7 @@ module Palindrome
     until num <= 0
       rem = num % 10
       reverse = (reverse * 10) + rem
-      num = num / 10
+      num /= 10
     end
 
     reverse

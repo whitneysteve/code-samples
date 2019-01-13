@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 # Binary search tree implementation.
 class BinarySearchTree
-  public
-
   # Create a new, empty tree.
-  def initialize()
+  def initialize
     @root = nil
   end
 
@@ -13,23 +13,23 @@ class BinarySearchTree
   end
 
   # Traverse the tree in a breadth first manner.
-  def breadth_first_traversal(node=@root, &block)
+  def breadth_first_traversal(node = @root)
     queue = []
     queue.push(node)
 
-    while !queue.empty? do
+    until queue.empty?
       current = queue.shift
-      block.call(current.value)
+      yield(current.value)
       queue.push(current.left) unless current.left.nil?
       queue.push(current.right) unless current.right.nil?
     end
   end
 
   # Check if the tree contains a specified value.
-  def contains?(value, node=@root)
+  def contains?(value, node = @root)
     return false if node.nil?
 
-    if (node.value == value)
+    if node.value == value
       true
     elsif value > node.value
       contains?(value, node.right)
@@ -39,23 +39,27 @@ class BinarySearchTree
   end
 
   # Traverse the tre in a depth first manner.
-  def depth_first_traversal(node=@root, &block)
-    unless node.nil?
-      depth_first_traversal(node.left) {|value| block.call(value)}
-      block.call(node.value)
-      depth_first_traversal(node.right) {|value| block.call(value)}
-    end
+  def depth_first_traversal(node = @root)
+    return if node.nil?
+
+    depth_first_traversal(node.left) { |value| yield(value) }
+    yield(node.value)
+    depth_first_traversal(node.right) { |value| yield(value) }
   end
 
   # Remove a value from the tree, if it exists.
-  def remove(value, node=@root)
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
+  def remove(value, node = @root)
     return node if node.nil?
 
-    if (node.value == value)
+    if node.value == value
       if node.leaf?
-         nil
+        nil
       elsif node.left.nil?
-         node.right
+        node.right
       elsif node.right.nil?
         node.left
       else
@@ -64,16 +68,19 @@ class BinarySearchTree
         node.right = remove(smallest, node.right)
         node
       end
+    elsif value > node.value
+      node.right = remove(value, node.right)
     else
-      if value > node.value
-        node.right = remove(value, node.right)
-      else
-        node.left = remove(value, node.left)
-      end
+      node.left = remove(value, node.left)
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
 
   private
+
   # Add a value to a specified node. Recurses the tree to find the correct
   # position in the tree.
   def add_to_node(node, value)
@@ -105,11 +112,9 @@ class TreeNode
   attr_accessor :left
   attr_accessor :right
 
-  public
-
   # Create a new tree node with a value and, optionally, left and right
   # child nodes.
-  def initialize(value, left=nil, right=nil)
+  def initialize(value, left = nil, right = nil)
     @value = value
     @left = left
     @right = right

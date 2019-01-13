@@ -1,7 +1,8 @@
-module Sort
-  MAX_FIXNUM = (2**(0.size * 8 -2) -1)
+# frozen_string_literal: true
 
-  public
+# Multiple sorting algorithms implementations.
+module Sort
+  MAX_FIXNUM = (2**(0.size * 8 - 2) - 1)
 
   # Perform a bubble sort on an array. Sort is performed in place and
   # assumes conflict ordering is not important.
@@ -18,7 +19,7 @@ module Sort
   def insertion_sort(arr)
     arr.each_with_index do |_, i|
       j = 0
-      while j < i do
+      while j < i
         if arr[i] < arr[j]
           reposition(arr, i, j)
           break
@@ -31,7 +32,7 @@ module Sort
   # Perform a merge sort on an array. Sort is performed in another array
   # and returned. In and order conflict where items are equal the original
   # ordering remains.
-  def merge_sort(arr)
+  def merge_sort(arr) # rubocop:disable Metrics/AbcSize
     if arr.size < 2 || (arr.size == 2 && arr[0] < arr[1])
       arr
     elsif arr.size == 2
@@ -46,40 +47,41 @@ module Sort
 
   # Perform a quick sort on an array. Sort is performed in place and
   # assumes conflict ordering is not important.
-  def quick_sort(arr, low=0, high=arr.size - 1)
-    if low < high
-      partition_index = partition(arr, low, high)
-      quick_sort(arr, low, partition_index - 1)
-      quick_sort(arr, partition_index + 1, high)
-    end
+  def quick_sort(arr, low = 0, high = arr.size - 1)
+    return unless low < high
+
+    partition_index = partition(arr, low, high)
+    quick_sort(arr, low, partition_index - 1)
+    quick_sort(arr, partition_index + 1, high)
   end
 
   # Perform a selection sort on an array. Sort is performed in place and
   # assumes conflict ordering is not important.
-  def selection_sort(arr)
+  def selection_sort(arr) # rubocop:disable Metrics/MethodLength
     arr.each_with_index do |_, i|
       least = MAX_FIXNUM
       least_index = i
-      for j in i .. (arr.length - 1) do
+      (i..(arr.length - 1)).each do |j|
         next_val = arr[j]
         if next_val < least
           least = next_val
           least_index = j
         end
       end
-      if least_index != i
-        swap(arr, i, least_index)
-      end
+      swap(arr, i, least_index) if least_index != i
     end
   end
 
   private
+
   # Merge two arrays in ascending order.
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def merge(first, second)
     i = 0
     j = 0
     result = []
-    while (i < first.size && j < second.size) do
+    while i < first.size && j < second.size
       first_val = first[i]
       second_val = second[j]
       if first_val < second_val
@@ -96,13 +98,15 @@ module Sort
 
     result
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   # Partition a sub array or arr, denoted by the bounding indexes low and high.
   def partition(arr, low, high)
     pivot = arr[high]
     pivot_index = low
 
-    for j in pivot_index .. (high) do
+    (pivot_index..high).each do |j|
       if arr[j] < pivot
         swap(arr, j, pivot_index)
         pivot_index += 1
@@ -120,9 +124,9 @@ module Sort
   end
 
   # Swap two elements in an array.
-  def swap(arr, i, j)
-    tmp = arr[i]
-    arr[i] = arr[j]
-    arr[j] = tmp
+  def swap(arr, idx1, idx2)
+    tmp = arr[idx1]
+    arr[idx1] = arr[idx2]
+    arr[idx2] = tmp
   end
 end

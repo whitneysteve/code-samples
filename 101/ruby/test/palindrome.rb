@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # magic_ball.rb
 require_relative '../palindrome.rb'
 require 'minitest/autorun'
@@ -6,8 +8,8 @@ class PalindromeTest < Minitest::Test
   include Palindrome
 
   def test_should_detect_numeric_palindrome
-    assert palindrome?(12321)
-    assert !palindrome?(12345)
+    assert palindrome?(12_321)
+    assert !palindrome?(12_345)
   end
 
   def test_should_detect_string_palindrome

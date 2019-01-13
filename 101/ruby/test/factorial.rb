@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # magic_ball.rb
 require_relative '../factorial.rb'
 require 'minitest/autorun'

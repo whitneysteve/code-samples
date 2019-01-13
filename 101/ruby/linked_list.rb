@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 # Linked list implementation.
 class LinkedList
-  public
-
   # Add an object to the tail of the list.
   def add(data)
     node = LinkedListNode.new(data)
@@ -14,7 +14,7 @@ class LinkedList
 
   # Add to the front of the list.
   def add_first(data)
-    node = LinkedListNode.new (data)
+    node = LinkedListNode.new data
 
     node.nextNode = @head
     @head = node
@@ -23,16 +23,15 @@ class LinkedList
   # Delete from the list.
   def delete(index)
     cursor = find_cursor(index)
+    return if cursor.nil? || cursor.nextNode.nil?
 
-    unless cursor.nil? || cursor.nextNode.nil?
-      if cursor.nextNode == @tail
-        cursor.nextNode = nil
-        @tail = cursor
-      else
-        node_to_remove = cursor.nextNode
-        cursor.nextNode = node_to_remove.nextNode
-        @tail = cursor if cursor.nextNode.nil?
-      end
+    if cursor.nextNode == @tail
+      cursor.nextNode = nil
+      @tail = cursor
+    else
+      node_to_remove = cursor.nextNode
+      cursor.nextNode = node_to_remove.nextNode
+      @tail = cursor if cursor.nextNode.nil?
     end
   end
 
@@ -42,6 +41,7 @@ class LinkedList
 
     until node.nil?
       return true if node.data == term
+
       node = node.nextNode
     end
 
@@ -62,13 +62,13 @@ class LinkedList
   end
 
   # Sort the linked list.
-  def sort
+  def sort # rubocop:disable Metrics/MethodLength
     list = @head
 
-    until list.nil? do
+    until list.nil?
       pass = list.nextNode
 
-      until pass.nil? do
+      until pass.nil?
         if list.data <=> pass.data
           tmp = list.data
           list.data = pass.data
@@ -102,7 +102,7 @@ class LinkedList
   def traverse
     cursor = @head
 
-    while cursor do
+    while cursor
       yield cursor.data
       cursor = cursor.nextNode
     end

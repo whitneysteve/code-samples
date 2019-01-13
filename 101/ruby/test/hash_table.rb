@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 # magic_ball.rb
 require_relative '../hash_table.rb'
 require 'minitest/autorun'
 
 class HashTableTest < Minitest::Test
-  KEY1 = 'KEY1';
-  KEY2 = 'KEY2';
-  VALUE1 = 'VALUE1';
-  VALUE2 = 'VALUE2';
+  KEY1 = 'KEY1'
+  KEY2 = 'KEY2'
+  VALUE1 = 'VALUE1'
+  VALUE2 = 'VALUE2'
 
   def test_it_should_add_elements
     hash = HashTable.new(10)

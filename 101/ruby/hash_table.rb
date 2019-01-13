@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 # Hash table implementation.
 class HashTable
-  public
-
   def initialize(num_buckets)
     @buckets = []
     @num_buckets = num_buckets
@@ -19,7 +19,7 @@ class HashTable
 
   # Get all the keys in the hash table, in no particular order.
   def keys
-    @buckets.flat_map {|bucket| bucket.keys if bucket}.compact
+    @buckets.flat_map { |bucket| bucket&.keys }.compact
   end
 
   # Remove an item from the hash table by key, if it exists.
@@ -29,12 +29,12 @@ class HashTable
 
   # Get the nymber of items stored in the hash table.
   def size
-    @buckets.flat_map {|bucket| bucket.keys.size if bucket}.compact.sum
+    @buckets.flat_map { |bucket| bucket&.keys&.size }.compact.sum
   end
 
   # Get all the values in the hash table, in no particular order.
   def values
-    @buckets.flat_map {|bucket| bucket.values if bucket}.compact
+    @buckets.flat_map { |bucket| bucket&.values }.compact
   end
 
   private
@@ -44,19 +44,16 @@ class HashTable
     bucket_index = key.hash % @num_buckets
     bucket = @buckets[bucket_index]
     if bucket.nil?
-      bucket = Bucket.new()
+      bucket = Bucket.new
       @buckets[bucket_index] = bucket
-      bucket
-    else
-      bucket
     end
+    bucket
   end
 end
 
+# A bucket of items within a hash table.
 class Bucket
-  public
-
-  def initialize()
+  def initialize
     @items = []
   end
 
@@ -73,7 +70,7 @@ class Bucket
   # Get the keys stored in the bucket. This iterates over the item array and
   # we avoid creating a running index of keys to optimise CRUD operations.
   def keys
-    @items.map {|item| item.key}
+    @items.map(&:key)
   end
 
   # Store or overwrite a value for a given key in the bucket.
@@ -94,20 +91,20 @@ class Bucket
 
   # Get the values for all items in the bucket.
   def values
-    @items.map {|item| item.value}
+    @items.map(&:value)
   end
 
   private
-  # Search for an item in the bucket by key. Item contains key and value, as opposed
-  # to just value.
+
+  # Search for an item in the bucket by key. Item contains key and value, as
+  # opposed to just value.
   def get_item(key)
-    @items.find {|item| item.key == key}
+    @items.find { |item| item.key == key }
   end
 end
 
+# Item within a bucket of items within a hash table.
 class BucketItem
-  public
-
   attr_accessor :key
   attr_accessor :value
 

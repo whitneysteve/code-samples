@@ -16,4 +16,6 @@ Execute the following command to run all tests:
 ruby -Ilib -e 'ARGV.each { |f| require f }' ./test/*.rb
 ```
 
-## Running Samples
+## Running Linter
+
+Execute `rubocop -a` to lint all ruby files.

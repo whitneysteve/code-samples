@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # magic_ball.rb
 require_relative '../linked_list.rb'
 require 'minitest/autorun'
 
 class LinkedListTest < Minitest::Test
   def test_it_should_add_elements
-    list = LinkedList.new()
+    list = LinkedList.new
     list.add(1)
     list.add(2)
     list.add(3)
@@ -12,7 +14,7 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_should_add_elements_in_first_position
-    list = LinkedList.new()
+    list = LinkedList.new
     list.add(3)
     list.add_first(2)
     list.add_first(1)
@@ -20,7 +22,7 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_should_remove_elements
-    list = LinkedList.new()
+    list = LinkedList.new
     list.add(1)
     list.add(2)
     list.add(3)
@@ -29,7 +31,7 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_should_sort_elements
-    list = LinkedList.new()
+    list = LinkedList.new
     list.add(1)
     list.add(2)
     list.add(3)
@@ -38,7 +40,7 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_should_reverse_elements
-    list = LinkedList.new()
+    list = LinkedList.new
     list.add(3)
     list.add(2)
     list.add(1)
@@ -50,7 +52,7 @@ class LinkedListTest < Minitest::Test
 
   def to_array(list)
     array = []
-    list.traverse {|data| array << data}
+    list.traverse { |data| array << data }
     array
   end
 end
