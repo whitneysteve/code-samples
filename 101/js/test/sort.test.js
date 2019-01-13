@@ -8,29 +8,29 @@ describe('Sort', () => {
 
   const sort = new Sort();
 
-  it('sorts with bubble sort', () => {
+  it('should sort with bubble sort', () => {
     const bubbleSort = values.slice(0);
     sort.bubbleSort(bubbleSort);
     expect(bubbleSort).to.be.deep.equal(sorted);
   });
 
-  it('sorts with selection sort', () => {
+  it('should sort with selection sort', () => {
     const selectionSort = values.slice(0);
     sort.selectionSort(selectionSort);
     expect(selectionSort).to.be.deep.equal(sorted);
   });
 
-  it('sorts with insertion sort', () => {
+  it('should sort with insertion sort', () => {
     const insertionSort = values.slice(0);
     sort.insertionSort(insertionSort);
     expect(insertionSort).to.be.deep.equal(sorted);
   });
 
-  it('sorts with merge sort', () => {
+  it('should sort with merge sort', () => {
     expect(sort.mergeSort(values)).to.be.deep.equal(sorted);
   });
 
-  it('sorts with quick sort', () => {
+  it('should sort with quick sort', () => {
     const quickSort = values.slice(0);
     sort.quickSort(quickSort);
     expect(quickSort).to.be.deep.equal(sorted);
