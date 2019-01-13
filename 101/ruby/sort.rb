@@ -126,27 +126,3 @@ module Sort
     arr[j] = tmp
   end
 end
-
-if __FILE__ == $0
-  include Sort
-
-  values = [84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72, 100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66, 61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25, 33, 54, 63, 76, 7, 38, 18, 68, 29, 66, 35, 83, 82, 98, 61, 93, 33, 84, 91, 36, 33, 40, 95, 17, 16, 81, 36, 100, 92, 94, 85, 55, 18, 75, 17, 96, 77, 65, 57, 21, 54, 27, 77, 55, 48, 91, 100, 84, 58, 99, 51, 19, 67, 34];
-
-  bubble_sort_vals = Marshal.load(Marshal.dump(values))
-  bubble_sort bubble_sort_vals
-  puts bubble_sort_vals.join(",")
-
-  selection_sort_vals = Marshal.load(Marshal.dump(values))
-  selection_sort selection_sort_vals
-  puts selection_sort_vals.join(",")
-
-  insertion_sort_vals = Marshal.load(Marshal.dump(values))
-  insertion_sort insertion_sort_vals
-  puts insertion_sort_vals.join(",")
-
-  puts merge_sort(values).join(",")
-
-  quick_sort_vals = Marshal.load(Marshal.dump(values))
-  quick_sort quick_sort_vals
-  puts quick_sort_vals.join(",")
-end

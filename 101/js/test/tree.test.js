@@ -18,8 +18,8 @@ describe('SortedBinaryTree', () => {
 
   it('should traverse the tree', () => {
     const tree = buildTree();
-    var dfsElements = [];
-    var bfsElements = [];
+    const dfsElements = [];
+    const bfsElements = [];
 
     tree.depthFirstTraverse(value => dfsElements.push(value));
     tree.breadthFirstTraverse(value => bfsElements.push(value));
