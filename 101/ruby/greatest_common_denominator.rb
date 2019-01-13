@@ -1,4 +1,4 @@
-module ExtraMath
+module GreatestCommonDenominator
   public
 
   # Find the GCD of two numbers.
@@ -18,17 +18,4 @@ module ExtraMath
     return num2 if remainder == 0
     greatest_common_denominator num2, remainder
   end
-end
-
-if __FILE__ == $0
-
-  include ExtraMath
-
-  # Find the greatest common denominator of a few sets of numbers.
-  puts greatest_common_denominator(5, 10)
-  puts greatest_common_denominator(5, 20)
-  puts greatest_common_denominator(15, 120)
-  puts greatest_common_denominator(14, 21)
-  puts greatest_common_denominator(45, 13)
-
 end
