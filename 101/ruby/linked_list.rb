@@ -113,7 +113,7 @@ class LinkedList
   # Position the cursor pointing to a desired index.
   def find_cursor(index)
     cursor = @head
-    index - 1.times { cursor = cursor.nil? ? nil : cursor.nextNode }
+    (index - 1).times { cursor = cursor.nil? ? nil : cursor.nextNode }
     cursor
   end
 end
@@ -126,43 +126,4 @@ class LinkedListNode
   def initialize(data)
     @data = data
   end
-end
-
-if __FILE__ == $0
-
-  # Create a linked list and perform some operations on it.
-
-  list = LinkedList.new
-
-  list.traverse {|data| puts data}
-
-  list.add 1
-  list.add 2
-  list.add 3
-  list.add_first 0
-  list.add_first 0
-  list.add 4
-  list.delete 2
-  list.delete 4
-  list.add 5
-
-  list.sort
-
-  puts '----------------'
-
-  list.traverse {|data| puts data}
-
-  puts '----------------'
-
-  list.reverse
-
-  list.traverse {|data| puts data}
-
-  puts '----------------'
-
-  puts list.find 3
-  puts list.find 89
-
-  puts '----------------'
-  puts list.collect {|data| data == 0}
 end
