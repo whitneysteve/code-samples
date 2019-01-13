@@ -24,11 +24,3 @@ module BinarySearch
     false
   end
 end
-
-if __FILE__ == $0
-  include BinarySearch
-
-  # Perform a binary search
-  puts b_contains? [5, 10, 15, 20, 25, 30, 35], 10
-  puts b_contains? [5, 10, 15, 20, 25, 30, 35], 11
-end
