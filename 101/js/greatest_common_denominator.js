@@ -5,7 +5,7 @@
  * @param {number} num2 the second number.
  * @return the GCD of the two specified numbers.
  */
-const greatestCommonDenominator = function(num1, num2) {
+const greatestCommonDenominator = (num1, num2) => {
   var remainder = num1 % num2;
 
   if(remainder == 0) {

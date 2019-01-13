@@ -81,7 +81,7 @@ function PalindromeUtil() {
     }
 
     return str[ 0 ];
-  }
+  };
 }
 
 module.exports = PalindromeUtil;

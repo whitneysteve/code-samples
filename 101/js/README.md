@@ -16,3 +16,7 @@ Run `npm install` to download and install the test framework used (mocha).
 ## Running Tests
 
 Run `npm test` to run all tests.
+
+## Running Linter
+
+Run `npm run lint` to run ESLint. The `--fix` parameter is automatically passed.

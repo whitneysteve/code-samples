@@ -1,4 +1,4 @@
-String.prototype.hashCode = function() {
+String.prototype.hashCode = () => {
   var hash = 0, i, chr;
   if (this.length > 0 ) {
     for(i = 0; i < this.length; i ++) {
@@ -25,7 +25,7 @@ function HashTable(buckets) {
    * @param {Object} key the key for the item in the HashTable.
    * @return the item for the key, if found.
    */
-  this.get = function(key) {
+  this.get = (key) => {
     const bucket = this._targetBucket(key);
     return bucket.get(key);
   };
@@ -39,7 +39,7 @@ function HashTable(buckets) {
    * @return array of the keys, in no particular order, for the items stored in the
    *         HashTable.
    */
-  this.keys = function() {
+  this.keys = () => {
     return this.buckets.map(bucket => bucket.keys())
       .reduce((acc, keys) => acc.concat(keys));
   };
@@ -51,7 +51,7 @@ function HashTable(buckets) {
    *                     to determine what bucket we store the item in.
    * @param {Object} value the value to store.
    */
-  this.put = function(key, value) {
+  this.put = (key, value) => {
     this._targetBucket(key).put(key, value);
   };
 
@@ -60,7 +60,7 @@ function HashTable(buckets) {
    *
    * @param {Object} key the key for the item to remove in the HashTable.
    */
-  this.remove = function(key) {
+  this.remove = (key) => {
     this._targetBucket(key).remove(key);
   };
 
@@ -72,7 +72,7 @@ function HashTable(buckets) {
    *
    * @return the number of items stored in the HashTable.
    */
-  this.size = function() {
+  this.size = () => {
     return this.buckets.map(bucket => bucket.size())
       .reduce((acc, size) => acc + size);
   };
@@ -85,7 +85,7 @@ function HashTable(buckets) {
    *
    * @return array of the values, in no particular order, stored in the HashTable.
    */
-  this.values = function() {
+  this.values = () => {
     return this.buckets.map(bucket => bucket.values())
       .reduce((acc, values) => acc.concat(values));
   };
@@ -96,7 +96,7 @@ function HashTable(buckets) {
    * @param {Object} key the key of for which to find the bucket.
    * @return the bucket the key would be stored under, will always return a bucket.
    */
-  this._targetBucket = function(key) {
+  this._targetBucket = (key) => {
     const bucketIndex = key.hashCode() % this.buckets.length;
     var bucket = this.buckets[bucketIndex];
     if (!bucket) {
@@ -125,7 +125,7 @@ function Bucket() {
    * @param {Object} key the key to retrieve the stored value.
    * @param {Object} value the value to store.
    */
-  this.put = function(key, value) {
+  this.put = (key, value) => {
     const existing = this._get(key);
     if (existing) {
       existing.value = value;
@@ -141,7 +141,7 @@ function Bucket() {
    * @param {Object} key the key for the item in the bucket.
    * @return the item for the key, if found.
    */
-  this.get = function(key, value) {
+  this.get = (key) => {
     var found = this._get(key);
     if (found) {
       return found.value;
@@ -154,7 +154,7 @@ function Bucket() {
    * @return array of the keys, in no particular order, for the items stored in the
    *         bucket.
    */
-  this.keys = function() {
+  this.keys = () => {
     return this.items.map(item => item.key);
   };
 
@@ -163,21 +163,21 @@ function Bucket() {
    *
    * @param {Object} key the key for the item to remove in the bucket.
    */
-  this.remove = function(key) {
+  this.remove = (key) => {
     for(var i = 0; i < this.items.length; i ++) {
       if (this.items[i].key === key) {
         this.items.splice(i, 1);
         break;
       }
     }
-  }
+  };
 
   /**
    * Get the number of items in the bucket.
    *
    * @return the number of items in the bucket
    */
-  this.size = function() {
+  this.size = () => {
     return this.items.length;
   };
 
@@ -190,7 +190,7 @@ function Bucket() {
    *
    * @return the values in the bucket.
    */
-  this.values = function() {
+  this.values = () => {
     return this.items.map(item => item.value);
   };
 
@@ -199,7 +199,7 @@ function Bucket() {
    *
    * @param {Object} the key that the item is stored under.
    */
-  this._get = function(key) {
+  this._get = (key) => {
     return this.items.find(item => {
       return item.key === key;
     });

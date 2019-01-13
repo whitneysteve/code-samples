@@ -17,7 +17,7 @@ function SortedBinaryTree() {
 
     this.isLeaf = () => {
       return !this.left && !this.right;
-    }
+    };
   }
 
   this.root = undefined;

@@ -74,7 +74,7 @@ LinkedList.prototype.addFirst = function(obj) {
 LinkedList.prototype.remove = function(index) {
   var cursor = this.findCursor(index - 1);
   if(!cursor.next) {
-    throw "IndexOutOfBounds: " + index
+    throw 'IndexOutOfBounds: ' + index;
   } else {
     var removedElement = cursor.next;
     cursor.next = cursor.next.next;
@@ -115,7 +115,7 @@ LinkedList.prototype.findCursor = function(index) {
   }
 
   if(!cursor) {
-    throw "IndexOutOfBounds: " + index;
+    throw 'IndexOutOfBounds: ' + index;
   }
 
   return cursor;

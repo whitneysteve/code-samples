@@ -4,7 +4,7 @@
  * @param num the number to calculate the factorial of.
  * @returns {number} the factorial of specified number.
  */
-const factorial = (num)  =>{
+const factorial = (num) => {
   if(num == 1) {
     return 1;
   } else {

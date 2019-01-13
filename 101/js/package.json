@@ -5,6 +5,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "eslint": "^5.12.0",
     "mocha": "^5.2.0"
   },
   "description": "Various computer science-y algorithms and data structures written in Javascript.",
@@ -20,6 +21,7 @@
     "url": "git+https://github.com/whitneysteve/code-samples.git"
   },
   "scripts": {
+    "lint": "./node_modules/.bin/eslint *.js **/*.js --fix",
     "test": "mocha"
   },
   "version": "1.0.0"

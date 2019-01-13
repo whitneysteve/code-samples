@@ -31,6 +31,6 @@ const findRotationPoint = (arr) => {
   }
 
   return arr[ 0 ];
-}
+};
 
 module.exports = findRotationPoint;
