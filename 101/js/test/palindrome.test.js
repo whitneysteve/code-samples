@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const PalindromeUtil = require('../palindrome');
 
-describe('PalindromeUtil', () => {
+describe('Palindrome', () => {
   const util = new PalindromeUtil();
 
   it('should detect numeric palindrome', () => {

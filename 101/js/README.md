@@ -11,6 +11,8 @@ npm -v # this project was last tested on 6.1.0
 node -v # this project was last tested on v8.11.1.
 ```
 
+Run `npm install` to download and install the test framework used (mocha).
+
 ## Running Tests
 
 Run `npm test` to run all tests.

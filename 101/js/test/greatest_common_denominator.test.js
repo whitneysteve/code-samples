@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const greatestCommonDenominator = require('../greatest_common_denominator');
 
-describe('Greatest Common Denominator', () => {
+describe('GreatestCommonDenominator', () => {
   it('should calculate greatest common denominator', () => {
     expect(greatestCommonDenominator(10, 15)).to.be.equal(5);
     expect(greatestCommonDenominator(40, 60)).to.be.equal(20);
