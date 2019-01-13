@@ -1,5 +1,5 @@
 # Hash table implementation.
-class Hashtable
+class HashTable
   public
 
   def initialize(num_buckets)
@@ -115,28 +115,4 @@ class BucketItem
     @key = key
     @value = value
   end
-end
-
-if __FILE__ == $0
-
-  t = Hashtable.new(10);
-  key1 = "key1";
-  key2 = "key2";
-
-  t.put(key1, "value1");
-  t.put(key2, "value2");
-  t.put("key3", "value3");
-
-  puts("Size: #{t.size()}");
-  puts("Value 1: #{t.get(key1)}");
-  puts("Value 2: #{t.get(key2)}");
-  puts("Keys: #{t.keys().join(",")}");
-  puts("Values: #{t.values().join(",")}");
-
-  t.remove(key1);
-  puts("Value 1: #{t.get(key1)}");
-
-  t.put(key2, "new value");
-  puts("Value 2: #{t.get(key2)}");
-
 end
