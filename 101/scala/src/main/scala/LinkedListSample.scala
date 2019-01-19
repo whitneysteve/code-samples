@@ -1,37 +1,5 @@
 import scala.annotation.tailrec
-
-/**
- * Create a linked list and perform some operations on it.
- */
-object LinkedListSample {
-
-  def main(args: Array[String]) {
-    val list = new LinkedList[String]()
-
-    list traverse { println }
-
-    list add "One"
-    list add "Two"
-    list add "Three"
-    list addFirst "Zero"
-    list addFirst "Zero"
-    list add(3, "Two Point 5")
-    list add "Four Point 5"
-    list delete 2
-    list add "Five"
-
-    list sort()
-
-    list traverse { println }
-
-    list reverse()
-
-    list traverse { println }
-
-    println(list find "One")
-    println(list findAll "Zero")
-  }
-}
+import scala.collection.mutable.ListBuffer
 
 /**
  * Linked list implementation.
@@ -43,7 +11,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
   /**
    * Reverse the linked list.
    */
-  def reverse() = {
+  def reverse(): Unit = {
     var currentNode: Option[LinkedListNode[T]] = head
     var prevNode: Option[LinkedListNode[T]] = None
     var nextNode: Option[LinkedListNode[T]] = None
@@ -74,7 +42,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
 
     cursor match {
       case None => None
-      case Some(node) => Some(node data)
+      case Some(node) => Some(node.data)
     }
   }
 
@@ -100,14 +68,14 @@ class LinkedList[T >: Null <: Comparable[T]] {
   /**
    * Sort the linked list.
    */
-  def sort() = {
+  def sort(): Unit = {
     var list: Option[LinkedListNode[T]] = head
 
     while(list.isDefined) {
       var pass: Option[LinkedListNode[T]] = list.get.next
 
       while(pass.isDefined) {
-        if(list.get.data.compareTo(pass.get.data) > 0) {
+        if(list.get.data.compareTo(pass.get.data) < 0) {
           val tmp: T = list.get.data
           list.get.data = pass.get.data
           pass.get.data = tmp
@@ -125,7 +93,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
    *
    * @param data the object to add to the list.
    */
-  def addFirst(data: T) = {
+  def addFirst(data: T): Unit = {
     val newNode: LinkedListNode[T] = new LinkedListNode[T](data)
     newNode.next = head
     head = Some(newNode)
@@ -136,7 +104,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
    *
    * @param index the index in the list to delete.
    */
-  def delete(index: Int) = findCursor(index - 1) map { cursor =>
+  def delete(index: Int): Option[Unit] = findCursor(index - 1) map { cursor =>
     if(cursor.next == tail) {
       cursor.next = None
       tail = Some(cursor)
@@ -161,7 +129,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
    *
    * @param data the object to add.
    */
-  def add(data: T) = {
+  def add(data: T): Unit = {
     val newNode = Some(new LinkedListNode[T](data))
 
     tail match {
@@ -180,7 +148,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
    * @param index the index at which to add the object.
    * @param data the object to add.
    */
-  def add(index: Int, data: T) = findCursor(index - 1) map { cursor =>
+  def add(index: Int, data: T): Option[Unit] = findCursor(index - 1) map { cursor =>
     val newNode = new LinkedListNode[T](data)
 
     if(cursor.next == tail) {
@@ -197,16 +165,22 @@ class LinkedList[T >: Null <: Comparable[T]] {
    *
    * @param traversalFunction function to execute on each element of the list.
    */
-  def traverse(traversalFunction: T => Unit) = {
+  def traverse(traversalFunction: T => Unit): Unit = {
     @tailrec
     def traverse(current: Option[LinkedListNode[T]])(traversalFunction: T => Unit): Unit = current match {
       case None => //nothing
       case Some(node) =>
-        traversalFunction(node data)
-        traverse(node next)(traversalFunction)
+        traversalFunction(node.data)
+        traverse(node.next)(traversalFunction)
     }
 
     traverse(head)(traversalFunction)
+  }
+
+  def toSeq: Seq[T] = {
+    val buffer = ListBuffer.empty[T]
+    traverse(value => buffer.append(value))
+    buffer
   }
 
   /**
@@ -218,7 +192,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
   private[this] def findCursor(index: Int) = {
     @tailrec
     def next(current: Option[LinkedListNode[T]], currentIndex: Int): Option[LinkedListNode[T]] = {
-      if(!current.isDefined || currentIndex == index) {
+      if(current.isEmpty || currentIndex == index) {
         current
       } else {
         next(current.get.next, currentIndex + 1)
