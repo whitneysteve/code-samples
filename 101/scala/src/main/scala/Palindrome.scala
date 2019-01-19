@@ -1,23 +1,8 @@
-
 /**
  * Check if some numbers are palindromic, check if some Strings are palindromic, then find the longest palindrome
  * in some Strings.
  */
 object Palindrome {
-
-  def main(args: Array[String]) {
-    println(isPalindromic(12321))
-    println(isPalindromic(12345))
-    println(isPalindromic(1234567890987654321l))
-
-    println(isPalindromicStr("12321"))
-    println(isPalindromicStr("12345"))
-    println(isPalindromicStr("1234567890987654321"))
-
-    println(longestPalindrome("12321"))
-    println(longestPalindrome("999123521888"))
-  }
-
   /**
    * Find the longest palindrome in a String.
    *
