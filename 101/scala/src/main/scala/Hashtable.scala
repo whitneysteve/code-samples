@@ -60,7 +60,7 @@ class Hashtable[K, V](numBuckets: Int) {
     * @return the number if key value pairs in the hash table.
     */
   def size: Int = {
-    0
+    buckets.map(bucket => bucket.keys.size).sum
   }
 
   /**
@@ -180,38 +180,3 @@ private class Bucket[K, V] {
   * @tparam V the value type
   */
 private case class BucketItem[K, V](var key: K, var value: V)
-
-object Main {
-  def main(args: Array[String]): Unit = {
-    val hashtable = new Hashtable[String, String](10)
-
-    val Key1 = "key1"
-    val Key2 = "key2"
-    val Key3 = "key3"
-    val Value1 = "value1"
-    val Value2 = "value2"
-    val Value3 = "value3"
-
-    hashtable.put(Key1, Value1)
-    hashtable.put(Key2, Value2)
-    hashtable.put(Key3, Value3)
-
-    assert(hashtable.get(Key1).contains(Value1))
-    assert(hashtable.get(Key2).contains(Value2))
-
-    assert(hashtable.remove(Key1).contains(Value1))
-    assert(hashtable.remove("not a key").isEmpty)
-    assert(hashtable.get(Key1).isEmpty)
-
-    assert(hashtable.keys == Set(Key2, Key3))
-
-    val NewValue = "new value"
-    hashtable.put(Key1, NewValue)
-    hashtable.put(Key2, NewValue)
-
-    assert(hashtable.values == Set(NewValue, Value3))
-
-    assert(hashtable.get(Key1).contains(NewValue))
-    assert(hashtable.get(Key2).contains(NewValue))
-  }
-}
