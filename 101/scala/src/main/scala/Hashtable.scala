@@ -10,7 +10,7 @@ import scala.collection.mutable.ListBuffer
 class Hashtable[K, V](numBuckets: Int) {
 
   private val buckets = List[Bucket[K, V]](
-    (1 to numBuckets).map(_ => new Bucket[K, V]()):_*
+    (1 to numBuckets).map(_ => new Bucket[K, V]()): _*
   )
 
   /**
@@ -123,10 +123,10 @@ private class Bucket[K, V] {
     * @param value the value to store.
     */
   def put(key: K, value: V): Unit = {
-     getItem(key) match {
-       case Some(item) => item.value = value
-       case _ => buffer.append(BucketItem(key, value))
-     }
+    getItem(key) match {
+      case Some(item) => item.value = value
+      case _          => buffer.append(BucketItem(key, value))
+    }
   }
 
   /**

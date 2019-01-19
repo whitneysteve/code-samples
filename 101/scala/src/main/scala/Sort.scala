@@ -4,12 +4,13 @@ import scala.collection.mutable.ListBuffer
   * Helper for sorting [[List]]s.
   */
 object Sort {
+
   /**
-   * Perform a bubble sort on a [[List]].
-   *
-   * @param list the [[List]] to sort.
-   * @return the sorted array.
-   */
+    * Perform a bubble sort on a [[List]].
+    *
+    * @param list the [[List]] to sort.
+    * @return the sorted array.
+    */
   def bubbleSort(list: List[Int]): List[Int] = {
     val buffer = list.to[ListBuffer]
 
@@ -36,7 +37,7 @@ object Sort {
     for (i <- buffer.indices) {
       var j = 0
 
-      while(j < i) {
+      while (j < i) {
         if (buffer(j) > buffer(i)) {
           reposition(buffer, i, j)
           j = i
@@ -59,7 +60,7 @@ object Sort {
       val buffer = ListBuffer[Int]()
       var firstIndex, secondIndex = 0
 
-      while(firstIndex < first.length && secondIndex < second.length) {
+      while (firstIndex < first.length && secondIndex < second.length) {
         val firstVal = first(firstIndex)
         val secondVal = second(secondIndex)
         if (secondVal < firstVal) {
@@ -71,8 +72,8 @@ object Sort {
         }
       }
 
-      buffer.append(first.slice(firstIndex, first.length):_*)
-      buffer.append(second.slice(secondIndex, second.length):_*)
+      buffer.append(first.slice(firstIndex, first.length): _*)
+      buffer.append(second.slice(secondIndex, second.length): _*)
 
       buffer.toList
     }
@@ -83,7 +84,8 @@ object Sort {
       List(list(1), list.head)
     } else {
       val mid = Math.floor(list.length / 2).toInt
-      merge(mergeSort(list.slice(0, mid)), mergeSort(list.slice(mid, list.length)))
+      merge(mergeSort(list.slice(0, mid)),
+            mergeSort(list.slice(mid, list.length)))
     }
   }
 
@@ -92,7 +94,9 @@ object Sort {
     *
     * @return the sorted [[List]].
     */
-  def quickSort(list: List[Int], lowOpt: Option[Int] = None, highOpt: Option[Int] = None): List[Int] = {
+  def quickSort(list: List[Int],
+                lowOpt: Option[Int] = None,
+                highOpt: Option[Int] = None): List[Int] = {
     def partition(buffer: ListBuffer[Int], low: Int, high: Int): Int = {
       val pivot = buffer(high)
       var pivotIndex = low
@@ -110,10 +114,9 @@ object Sort {
       pivotIndex
     }
 
-    def quickSortBuffer(
-      buffer: ListBuffer[Int],
-      low: Int,
-      high: Int): ListBuffer[Int] = {
+    def quickSortBuffer(buffer: ListBuffer[Int],
+                        low: Int,
+                        high: Int): ListBuffer[Int] = {
       if (low < high) {
         val partitionIndex = partition(buffer, low, high)
         quickSortBuffer(buffer, low, partitionIndex - 1)
@@ -123,7 +126,9 @@ object Sort {
       buffer
     }
 
-    quickSortBuffer(list.to[ListBuffer], lowOpt.getOrElse(0), highOpt.getOrElse(list.length - 1)).toList
+    quickSortBuffer(list.to[ListBuffer],
+                    lowOpt.getOrElse(0),
+                    highOpt.getOrElse(list.length - 1)).toList
   }
 
   /**

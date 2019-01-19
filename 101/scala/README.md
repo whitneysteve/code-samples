@@ -16,5 +16,5 @@ Run the tests via SBT: `sbt test`
 
 ## Running Linter
 
-TODO
+Run scalafmt via SBT: `sbt scalafmt`
 

@@ -1,30 +1,32 @@
 /**
- * Check if some numbers are palindromic, check if some Strings are palindromic, then find the longest palindrome
- * in some Strings.
- */
+  * Check if some numbers are palindromic, check if some Strings are palindromic, then find the longest palindrome
+  * in some Strings.
+  */
 object Palindrome {
+
   /**
-   * Find the longest palindrome in a String.
-   *
-   * @param str the String to search.
-   * @return the longest palindrome in the String.
-   */
+    * Find the longest palindrome in a String.
+    *
+    * @param str the String to search.
+    * @return the longest palindrome in the String.
+    */
   def longestPalindrome(str: String): String = {
-    if(isPalindromicStr(str)) {
+    if (isPalindromicStr(str)) {
       return str
     }
 
     val len = str.length
     var substrLen = len
 
-    while(substrLen > 1) {
+    while (substrLen > 1) {
       var substrIndex = 0
       val maxSubstrIndex = len - substrLen + 1
 
-      while(substrIndex <= maxSubstrIndex) {
-        val substr: String = str.substring(substrIndex, substrLen + substrIndex - 1)
+      while (substrIndex <= maxSubstrIndex) {
+        val substr: String =
+          str.substring(substrIndex, substrLen + substrIndex - 1)
 
-        if(isPalindromicStr(substr)) {
+        if (isPalindromicStr(substr)) {
           return substr
         }
 
@@ -38,18 +40,18 @@ object Palindrome {
   }
 
   /**
-   * Check if a string is a palindrome.
-   *
-   * @param str the String to check.
-   * @return true if the String is a plaindrome, false if not.
-   */
+    * Check if a string is a palindrome.
+    *
+    * @param str the String to check.
+    * @return true if the String is a plaindrome, false if not.
+    */
   def isPalindromicStr(str: String): Boolean = {
     val len: Int = str.length
     val mid: Int = len / 2
     var i: Int = 0
 
-    while(i < mid) {
-      if(str.charAt(i) != str.charAt(len - (1 + i))) {
+    while (i < mid) {
+      if (str.charAt(i) != str.charAt(len - (1 + i))) {
         return false
       }
 
@@ -60,26 +62,26 @@ object Palindrome {
   }
 
   /**
-   * Check if a number is palindromic.
-   *
-   * @param num the number to check.
-   * @return true if the number is a palindrome, false if not.
-   */
+    * Check if a number is palindromic.
+    *
+    * @param num the number to check.
+    * @return true if the number is a palindrome, false if not.
+    */
   def isPalindromic(num: Long): Boolean = {
     reverse(num) == num
   }
 
   /**
-   * Reverse a number.
-   *
-   * @param num the number to reverse.
-   * @return the reversed number.
-   */
+    * Reverse a number.
+    *
+    * @param num the number to reverse.
+    * @return the reversed number.
+    */
   def reverse(num: Long): Long = {
     var reverse: Long = 0
     var operation: Long = num
 
-    while(operation > 0) {
+    while (operation > 0) {
       reverse = (reverse * 10) + operation % 10
       operation /= 10
     }
