@@ -1,6 +1,6 @@
 # Coding 101
 
-Various computer science-y algorithms and data structures written in Javascript.
+Various computer science-y algorithms and data structures written in Ruby.
 
 ## Setup
 
