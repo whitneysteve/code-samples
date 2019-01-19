@@ -12,8 +12,9 @@ object Factorial {
    */
   def apply(number: Long): Long = {
     @tailrec
-    def factorialRecursion(number: Long, accumulator: Long = 1): Long =
-      if(number > 1) factorialRecursion(number - 1, number * accumulator) else accumulator
+    def factorialRecursion(number: Long, accumulator: Long = 1): Long = {
+      if (number > 1) factorialRecursion(number - 1, number * accumulator) else accumulator
+    }
 
     factorialRecursion(number)
   }
