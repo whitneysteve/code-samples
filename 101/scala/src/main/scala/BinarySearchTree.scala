@@ -21,8 +21,16 @@ class BinarySearchTree {
     *
     * @param f the function to invoke at each value during traversal.
     */
-  def breadthFirstTraverse(f: (Int) => Unit): Unit = {
+  def breadthFirstTraverse(f: Int => Unit): Unit = {
+    val queue = ListBuffer.empty[TreeNode]
+    root.foreach(node => queue.append(node))
 
+    while(queue.nonEmpty) {
+      val current = queue.remove(0)
+      f(current.value)
+      current.left.foreach(left => queue.append(left))
+      current.right.foreach(right => queue.append(right))
+    }
   }
 
   /**
@@ -44,10 +52,17 @@ class BinarySearchTree {
   /**
     * Traverse the tree in a depth first manner.
     *
+    * @param nodeOpt optional node from which to start depth first traversal, defaults to the root [[TreeNode]].
     * @param f the function to invoke at each value during traversal.
     */
-  def depthFirstTraverse(f: (Int) => Unit): Unit = {
+  def depthFirstTraverse(nodeOpt: Option[TreeNode] = root)(f: Int => Unit): Unit = {
+    if (nodeOpt.isEmpty) return
 
+    nodeOpt.foreach { node =>
+      depthFirstTraverse(node.left)(f)
+      f(node.value)
+      depthFirstTraverse(node.right)(f)
+    }
   }
 
   /**
@@ -60,11 +75,11 @@ class BinarySearchTree {
     val removed: Option[TreeNode] = nodeOpt match {
       case None => None
       case Some(node) if value == node.value =>
-        node match {
-          case (_, None, None) => None
+        (node.value, node.left, node.right) match {
+          case (_: Int, None, None) => None
           case (_, None, Some(right: TreeNode)) => Some(right)
           case (_, Some(left: TreeNode), None) => Some(left)
-          case (_, Some(left: TreeNode), Some(right: TreeNode)) =>
+          case (_, Some(_: TreeNode), Some(right: TreeNode)) =>
             val smallest = findSmallest(right)
             node.value = smallest
             Some(node)
@@ -116,7 +131,7 @@ class BinarySearchTree {
     * @return the smallest value found in the branch.
     */
   private def findSmallest(node: TreeNode): Int = {
-    node match {
+    (node.value, node.left, node.right) match {
       case (value, None, _) => value
       case (_, Some(left: TreeNode), _) => findSmallest(left)
     }
@@ -124,37 +139,3 @@ class BinarySearchTree {
 }
 
 case class TreeNode(var value: Int, var left: Option[TreeNode] = None, var right: Option[TreeNode] = None)
-
-object BinarySearchTreeMain {
-  def main(args: Array[String]): Unit = {
-    val tree = new BinarySearchTree()
-
-    val values = Seq(84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72, 100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66, 61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25, 33, 54, 63, 76, 7, 38, 18, 68, 29, 66, 35, 83, 82, 98, 61, 93, 33, 84, 91, 36, 33, 40, 95, 17, 16, 81, 36, 100, 92, 94, 85, 55, 18, 75, 17, 96, 77, 65, 57, 21, 54, 27, 77, 55, 48, 91, 100, 84, 58, 99, 51, 19, 67, 34)
-
-    values.foreach(value => tree.add(value))
-
-    assert(tree.contains(100))
-    assert(tree.contains(60))
-    assert(!tree.contains(-77))
-    assert(tree.size == values.distinct.size)
-
-    tree.remove(100)
-    tree.remove(94)
-
-    assert(!tree.contains(100))
-    assert(!tree.contains(94))
-
-    assert(tree.size == values.distinct.size - 2)
-
-    val breadthFirstPath = ListBuffer.empty[Int]
-    val depthFirstPath = ListBuffer.empty[Int]
-
-    tree.breadthFirstTraverse { value => breadthFirstPath.append(value) }
-    tree.depthFirstTraverse { value => depthFirstPath.append(value) }
-
-    assert(breadthFirstPath.size == depthFirstPath.size)
-
-    println(breadthFirstPath)
-    println(depthFirstPath)
-  }
-}
