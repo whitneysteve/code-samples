@@ -14,4 +14,7 @@ sbt about # This project was last tested on SBT 1.1.6 and Scala 2.12
 
 Run the tests via SBT: `sbt test`
 
-## Running Samples
+## Running Linter
+
+TODO
+
