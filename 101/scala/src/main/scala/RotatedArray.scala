@@ -3,8 +3,7 @@
  * Find the rotation point in some rotated arrays.
  */
 object RotatedArray {
-
-  def main(args: Array[String]) = {
+  def main(args: Array[String]): Unit = {
     println(findRotation(1, 2, 3, 4, 5, 6, 7, 8, 9))
     println(findRotation(9, 1, 2, 3, 4, 5, 6, 7, 8))
     println(findRotation(5, 6, 7, 8, 9, 1, 2, 3, 4))
