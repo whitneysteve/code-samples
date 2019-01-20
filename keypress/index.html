@@ -13,7 +13,7 @@
         this.cursor = -1;
         this.keymap = keymap;
 
-        this.keypressed = function(e) {
+        this.keypressed = (e) => {
           clearTimeout(this.timeout);
 
           if(this.charIndex == -1) {
@@ -38,8 +38,8 @@
         };
       }
 
-      var kp;
-      var keyCharacters = [
+      let kp;
+      const keyCharacters = [
         ['1'],
         ['a', 'b', 'c', '2'],
         ['d', 'e', 'f', '3'],
@@ -55,14 +55,12 @@
       ];
 
       (function() {
-        document.addEventListener('DOMContentLoaded', function(){
-          var keymap = {};
-          var keys = document.getElementsByTagName('td');
-          for (var i = 0;i < keys.length; i++){
-            var key = keys[i];
+        document.addEventListener('DOMContentLoaded', () => {
+          const keymap = {};
+          Array.from(document.getElementsByTagName('td')).forEach((key, idx) => {
             key.addEventListener('click', function(e) { kp.keypressed(e) }, false);
-            keymap[key.textContent] = keyCharacters[i];
-          }
+            keymap[key.textContent] = keyCharacters[idx];
+          });
           kp = new KeyPressListener(keymap);
         });
       })();
