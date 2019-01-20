@@ -11,3 +11,7 @@ The project uses JDK 1.8 and appropriate Jetty version for that release. Older J
 # Running the Application
 
 Once installed, run using ‘mvn jetty:run’ and hit [the local webserver](http://localhost:8080/).
+
+# Run the Linter
+
+Checkstyle is used to lint the code. To run, execute `mvn checkstyle:check`
