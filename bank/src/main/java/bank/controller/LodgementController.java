@@ -5,8 +5,6 @@ import bank.service.AccountService;
 import bank.service.LodgementService;
 import bank.service.ServiceException;
 import bank.service.TransactionService;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,97 +13,71 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-
+/**
+ * Controller to process all lodgement related requests.
+ */
 @Controller
-@RequestMapping( "/lodgement" )
+@RequestMapping("/lodgement")
 public class LodgementController {
 
+    /**
+     * Service layer access.
+     */
     @Autowired
     private AccountService accountService;
+
+    /**
+     * Service layer access.
+     */
     @Autowired
     private LodgementService lodgementService;
+
+    /**
+     * Service layer access.
+     */
     @Autowired
     private TransactionService transactionService;
 
-    @RequestMapping( value = "/create", method = RequestMethod.POST )
-    public
-    @ResponseBody
-    String welcome( @RequestParam( value = "account" ) String accountNumber, @RequestParam( value = "amount" ) String amount ) {
-
+    /**
+     * Create a lodgement.
+     *
+     * @param accountNumber the account number being lodged to.
+     * @param amount the amount being lodged, in minor units.
+     * @return rendered JSON response, including error scenarios.
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public final @ResponseBody String create(
+            @RequestParam(value = "account") final String accountNumber,
+            @RequestParam(value = "amount") final String amount
+    ) {
         Account account = null;
-        Error error;
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-
-            account = accountService.findAccount( Integer.parseInt( accountNumber ) );
-
-        } catch( NumberFormatException e ) {
-
+            account = accountService.findAccount(
+                    Integer.parseInt(accountNumber)
+            );
+        } catch (NumberFormatException e) {
             // Nothing - account not found
-
-        } catch( ServiceException e ) {
-
+        } catch (ServiceException e) {
             // Nothing - account not found
-
         }
 
-        // TODO create error handler - exception code is generic
         try {
+            if (account != null) {
+                Integer amountMinorUnits = Integer.parseInt(amount);
+                lodgementService.lodge(account, amountMinorUnits);
+                transactionService.lodgement(account, amountMinorUnits);
 
-            if( account != null ) {
-
-                Integer amountMinorUnits = Integer.parseInt( amount );
-                lodgementService.lodge( account, amountMinorUnits );
-                transactionService.lodgement( account, amountMinorUnits );
-
-                return mapper.writeValueAsString( account );
-
+                return mapper.writeValueAsString(account);
             } else {
-
-                error = new Error();
-                error.message = "Account [" + accountNumber + "] not found";
-
+                return new Error("Account [" + accountNumber + "] not found")
+                        .toJson(mapper);
             }
-
-        } catch( NumberFormatException e ) {
-
-            error = new Error();
-            error.message = "Invlaid amount";
-
-        } catch( ServiceException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
-        } catch( JsonMappingException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
-        } catch( JsonGenerationException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
-        } catch( IOException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
+        } catch (NumberFormatException e) {
+            return new Error("Invalid amount").toJson(mapper);
+        } catch (Exception e) {
+            return new Error(e.getMessage()).toJson(mapper);
         }
-
-        try {
-
-            return mapper.writeValueAsString( error );
-
-        } catch( IOException e ) {
-
-            e.printStackTrace();
-            return "";
-
-        }
-
     }
 }

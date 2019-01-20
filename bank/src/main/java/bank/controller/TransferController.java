@@ -5,8 +5,6 @@ import bank.service.AccountService;
 import bank.service.ServiceException;
 import bank.service.TransactionService;
 import bank.service.TransferService;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,106 +13,92 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-
+/**
+ * Controller to process all transfer related requests.
+ */
 @Controller
-@RequestMapping( "/transfer" )
+@RequestMapping("/transfer")
 public class TransferController {
 
+    /**
+     * Service layer access.
+     */
     @Autowired
     private AccountService accountService;
+
+    /**
+     * Service layer access.
+     */
     @Autowired
     private TransferService transferService;
+
+    /**
+     * Service layer access.
+     */
     @Autowired
     private TransactionService transactionService;
 
-    @RequestMapping( value = "/create", method = RequestMethod.POST )
-    public
-    @ResponseBody
-    String transfer( @RequestParam( value = "accountTo" ) String toAccountNumber, @RequestParam( value = "accountFrom" ) String fromAccountNumber, @RequestParam( value = "amount" ) String amount ) {
+    /**
+     * Transfer funds from one account to another.
+     *
+     * @param toAccountNumber the account number of the account to transfer
+     *                        the funds to.
+     * @param fromAccountNumber the account number of the account to transfer
+     *                          funds from.
+     * @param amount the amount to transfer, in minor units.
+     * @return rendered JSON response, including error scenarios.
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public final @ResponseBody String transfer(
+            @RequestParam(value = "accountTo") final String toAccountNumber,
+            @RequestParam(value = "accountFrom") final String fromAccountNumber,
+            @RequestParam(value = "amount") final String amount
+    ) {
 
         Account accountTo = null;
         Account accountFrom = null;
-        Error error;
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-
-            accountTo = accountService.findAccount( Integer.parseInt( toAccountNumber ) );
-            accountFrom = accountService.findAccount( Integer.parseInt( fromAccountNumber ) );
-
-        } catch( NumberFormatException e ) {
-
+            accountTo = accountService.findAccount(
+                    Integer.parseInt(toAccountNumber)
+            );
+            accountFrom = accountService.findAccount(
+                    Integer.parseInt(fromAccountNumber)
+            );
+        } catch (NumberFormatException e) {
             // Nothing - account not found
-
-        } catch( ServiceException e ) {
-
+        } catch (ServiceException e) {
             // Nothing - account not found
-
         }
 
-        // TODO create error handler - exception code is generic
         try {
-
-            if( accountTo == null ) {
-
-                error = new Error();
-                error.message = "Account [" + toAccountNumber + "] not found";
-
-            } else if( accountFrom == null ) {
-
-                error = new Error();
-                error.message = "Account [" + fromAccountNumber + "] not found";
-
+            if (accountTo == null) {
+                return new Error(
+                        "Account [" + toAccountNumber + "] not found"
+                ).toJson(mapper);
+            } else if (accountFrom == null) {
+                return new Error(
+                        "Account [" + fromAccountNumber + "] not found"
+                ).toJson(mapper);
             } else {
+                Integer amountMinorUnits = Integer.parseInt(amount);
+                transferService.transfer(
+                        accountFrom,
+                        accountTo,
+                        amountMinorUnits
+                );
+                transactionService.withdrawl(accountFrom, amountMinorUnits);
+                transactionService.lodgement(accountTo, amountMinorUnits);
 
-                Integer amountMinorUnits = Integer.parseInt( amount );
-                transferService.transfer( accountFrom, accountTo, amountMinorUnits );
-                transactionService.withdrawl( accountFrom, amountMinorUnits );
-                transactionService.lodgement( accountTo, amountMinorUnits );
-
-                return mapper.writeValueAsString( new Account[]{ accountFrom, accountTo } );
-
+                return mapper.writeValueAsString(
+                        new Account[]{accountFrom, accountTo}
+                );
             }
-
-        } catch( NumberFormatException e ) {
-
-            error = new Error();
-            error.message = "Invlaid amount";
-
-        } catch( ServiceException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
-        } catch( JsonMappingException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
-        } catch( JsonGenerationException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
-        } catch( IOException e ) {
-
-            error = new Error();
-            error.message = e.getMessage();
-
+        } catch (NumberFormatException e) {
+            return new Error("Invalid amount").toJson(mapper);
+        } catch (Exception e) {
+            return new Error(e.getMessage()).toJson(mapper);
         }
-
-        try {
-
-            return mapper.writeValueAsString( error );
-
-        } catch( IOException e ) {
-
-            e.printStackTrace();
-            return "";
-
-        }
-
     }
-
 }
