@@ -8,30 +8,39 @@ import bank.service.WithdrawlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implements the {@link WithdrawlService}.
+ */
 @Service
 public class DefaultWithdrawlService implements WithdrawlService {
 
+    /**
+     * Data access layer reference.
+     */
     @Autowired
-    AccountDataAccess accountDataAccess;
+    private AccountDataAccess accountDataAccess;
 
     @Override
-    public void withdraw( Account account, Integer amount ) throws ServiceException {
+    public final void withdraw(
+            final Account account,
+            final Integer amount
+    ) throws ServiceException {
 
-        if( account.getBalanceMinorUnits() - amount < 0 ) {
+        if (account.getBalanceMinorUnits() - amount < 0) {
 
-            throw new ServiceException( "Insufficient funds" );
+            throw new ServiceException("Insufficient funds");
 
         }
 
-        account.setBalanceMinorUnits( account.getBalanceMinorUnits() - amount );
+        account.setBalanceMinorUnits(account.getBalanceMinorUnits() - amount);
 
         try {
 
-            accountDataAccess.update( account );
+            accountDataAccess.update(account);
 
-        } catch( DataAccessException e ) {
+        } catch (DataAccessException e) {
 
-            throw new ServiceException( e.getMessage(), e );
+            throw new ServiceException(e.getMessage(), e);
 
         }
 
