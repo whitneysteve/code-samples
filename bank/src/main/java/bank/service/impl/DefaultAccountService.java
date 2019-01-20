@@ -110,7 +110,7 @@ public class DefaultAccountService implements AccountService {
             final String name,
             final Integer startingBalanceMajorUnits
     ) {
-        return name.trim().length() > 0 && startingBalanceMajorUnits > 0;
+        return name.trim().length() > 0 && startingBalanceMajorUnits >= 0;
     }
 
     /**
