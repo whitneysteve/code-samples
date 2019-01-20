@@ -1,36 +1,46 @@
 package bank.model;
 
-// TODO need types of transactions
-// TODO need transaction description
-// TODO need transaction transfer information if applicable
-// TODO need transaction date
+/**
+ * Represents a transaction performed on an {@link Account} at the bank.
+ */
 public class Transaction {
 
-    Account account;
-    Integer amountMinorUnits;
+    /**
+     * The {@link Account} the transaction was performed on.
+     */
+    private Account account;
+    /**
+     * The amount of the transaction. Negative amounts refer to withdrawls,
+     * positive to lodgements.
+     */
+    private Integer amountMinorUnits;
 
-    public Account getAccount() {
-
+    /**
+     * @return the {@link Account} the transaction refers to.
+     */
+    public final Account getAccount() {
         return account;
-
     }
 
-    public void setAccount( Account account ) {
-
-        this.account = account;
-
+    /**
+     * @param newAccount the {@link Account} the transaction refers to.
+     */
+    public final void setAccount(final Account newAccount) {
+        this.account = newAccount;
     }
 
-    public Integer getAmountMinorUnits() {
-
+    /**
+     * @return the amiunt the transaction refers to, in minor units.
+     */
+    public final Integer getAmountMinorUnits() {
         return amountMinorUnits;
-
     }
 
-    public void setAmountMinorUnits( Integer amountMinorUnits ) {
-
-        this.amountMinorUnits = amountMinorUnits;
-
+    /**
+     * @param newAmountMinorUnits the new amount for the transaction, in
+     *                            minor units.
+     */
+    public final void setAmountMinorUnits(final Integer newAmountMinorUnits) {
+        this.amountMinorUnits = newAmountMinorUnits;
     }
-
 }
