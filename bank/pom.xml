@@ -11,8 +11,8 @@
     <properties>
         <spring.version>3.0.5.RELEASE</spring.version>
         <junit.version>4.11</junit.version>
-        <jdk.version>1.6</jdk.version>
-        <jettyVersion>7.2.0.v20101020</jettyVersion>
+        <jdk.version>1.8</jdk.version>
+        <jettyVersion>9.4.0.M0</jettyVersion>
     </properties>
 
     <dependencies>
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -52,7 +52,7 @@
         <finalName>bank</finalName>
         <plugins>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jettyVersion}</version>
             </plugin>
