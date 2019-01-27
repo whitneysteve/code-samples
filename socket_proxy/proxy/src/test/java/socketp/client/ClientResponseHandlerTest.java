@@ -21,14 +21,14 @@ public class ClientResponseHandlerTest {
     @Test
     public void shouldParseResponse() throws IOException {
 
-        Assert.assertEquals( "response", _clientClientResponseHandler.handleResponse( new ByteArrayInputStream( "response".getBytes() ) ) );
+        Assert.assertEquals("response", _clientClientResponseHandler.handleResponse(new ByteArrayInputStream("response".getBytes())));
 
     }
 
     @Test
     public void shouldParseMultiLineResponse() throws IOException {
 
-        Assert.assertEquals( "response1", _clientClientResponseHandler.handleResponse( new ByteArrayInputStream( "response1\response2".getBytes() ) ) );
+        Assert.assertEquals("response1", _clientClientResponseHandler.handleResponse(new ByteArrayInputStream("response1\response2".getBytes())));
 
     }
 
@@ -39,34 +39,34 @@ public class ClientResponseHandlerTest {
 
         try {
 
-            _clientClientResponseHandler.handleResponse( new ByteArrayInputStream( "error:response".getBytes() ) );
+            _clientClientResponseHandler.handleResponse(new ByteArrayInputStream("error:response".getBytes()));
 
-        } catch( Exception e ) {
+        } catch (Exception e) {
 
             error = e;
 
         }
 
-        if( error == null ) {
+        if (error == null) {
 
-            Assert.fail( "Expected error" );
+            Assert.fail("Expected error");
         }
 
-        Assert.assertEquals( "error:response", error.getMessage() );
+        Assert.assertEquals("error:response", error.getMessage());
 
     }
 
     @Test
     public void shouldReturnNullForEmptyInput() throws IOException {
 
-        Assert.assertNull( _clientClientResponseHandler.handleResponse( new ByteArrayInputStream( "".getBytes() ) ) );
+        Assert.assertNull(_clientClientResponseHandler.handleResponse(new ByteArrayInputStream("".getBytes())));
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void errorForNullInputStream() throws IOException {
 
-        _clientClientResponseHandler.handleResponse( null );
+        _clientClientResponseHandler.handleResponse(null);
 
     }
 

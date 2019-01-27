@@ -8,34 +8,47 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 
 /**
  * A client for the timestamp server.
  */
 public class TimestampClient {
-
-    private final int _portNumber;
-    private final String _hostName;
-
-    private static final Logger _logger = Logger.getLogger( TimestampClient.class );
+    /**
+     * The host name of the server to contact.
+     */
+    private String hostName;
+    /**
+     * The port number to contact on the server.
+     */
+    private int portNumber;
 
     /**
-     * Creates a timestamp client pointing to a timestamp server running on a given address.
-     *
-     * @param hostName   the hostname of the server to connect to
-     * @param portNumber the port number of the server to connect to
+     * The Logger for this class.
      */
-    public TimestampClient( final String hostName, final int portNumber ) {
+    private static final Logger LOGGER =
+            Logger.getLogger(TimestampClient.class);
 
-        _hostName = hostName;
-        _portNumber = portNumber;
+    /**
+     * Creates a timestamp client pointing to a timestamp server running on a
+     * given address.
+     *
+     * @param providedHostName   the hostname of the server to connect to
+     * @param providedPortNumber the port number of the server to connect to
+     */
+    public TimestampClient(
+        final String providedHostName,
+        final int providedPortNumber
+    ) {
+        this.hostName = providedHostName;
+        this.portNumber = providedPortNumber;
 
-        if( _logger.isTraceEnabled() ) {
-
-            _logger.trace( "Timestamp client is using hostname: " + hostName + " and port: " + portNumber );
-
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace(
+                "Timestamp client is using hostname: " + hostName
+                        + " and port: " + providedPortNumber
+            );
         }
-
     }
 
     /**
@@ -44,124 +57,124 @@ public class TimestampClient {
      * @param message the message to timestamp
      * @return the timestammped message
      */
-    public String timestamp( String message ) {
-
+    public final String timestamp(final String message) {
         Socket socket = null;
         OutputStream out = null;
 
         try {
-
-            if( _logger.isTraceEnabled() ) {
-
-                _logger.trace( "Attempting to timestamp message: " + message );
-
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace(
+                    "Attempting to timestamp message: " + message
+                );
             }
 
             socket = createSocket();
-            out = openOutputStream( socket );
+            out = openOutputStream(socket);
 
-            writeBody( message, out );
-            finishOutput( socket );
+            writeBody(message, out);
+            finishOutput(socket);
 
-            InputStream in = openInputStream( socket );
-
-            return new ClientResponseHandler().handleResponse( in );
-
-        } catch( IOException e ) {
-
+            InputStream in = openInputStream(socket);
+            return new ClientResponseHandler().handleResponse(in);
+        } catch (IOException ignored) {
+            // Ignored.
         } finally {
-
             Exception e = null;
 
             try {
-
-                if( out != null ) {
-
+                if (out != null) {
                     out.close();
-
                 }
-
-            } catch( IOException ioe ) {
-
+            } catch (IOException ioe) {
                 e = ioe;
-
             }
 
             try {
-
-                if( socket != null ) {
-
+                if (socket != null) {
                     socket.close();
-
                 }
-
-            } catch( IOException ioe ) {
-
+            } catch (IOException ioe) {
                 e = ioe;
-
             }
 
-            if( e != null ) {
-
-                throw new IllegalStateException( "Could not close socket connection correctly", e );
-
+            if (e != null) {
+                // Shouldn't throw in a final block, but no real choice here.
+                throw new IllegalStateException(
+                    "Could not close socket connection correctly",
+                    e
+                );
             }
-
         }
-
         return null;
-
     }
 
-    private InputStream openInputStream( final Socket socket ) throws IOException {
-
+    /**
+     * Open an {@link InputStream} to read from the server.
+     *
+     * @param socket the {@link Socket} to connect over.
+     * @return the created {@link InputStream}.
+     * @throws IOException if there is an issue connecting the input stream
+     * to there server.
+     */
+    private InputStream openInputStream(final Socket socket)
+            throws IOException {
         return socket.getInputStream();
-
     }
 
-    private void finishOutput( final Socket socket ) {
-
-        if( !socket.isOutputShutdown() && !socket.isClosed() ) {
-
+    /**
+     * Finish output on a {@link Socket}.
+     *
+     * @param socket the {@link Socket} to stop outputting on.
+     */
+    private void finishOutput(final Socket socket) {
+        if (!socket.isOutputShutdown() && !socket.isClosed()) {
             try {
-
                 socket.shutdownOutput();
-
-            } catch( IOException ignored ) {
+            } catch (IOException ignored) {
+                // Ignored
             }
-
         }
-
     }
 
-    private void writeBody( final String body, final OutputStream out ) throws IOException {
-
-        IOUtils.write( body, out );
-
+    /**
+     * Write the body of the message.
+     *
+     * @param body the body to write.
+     * @param out the {@link OutputStream} to write the message over.
+     * @throws IOException if there is an issue writing over the
+     *         {@link OutputStream}
+     */
+    private void writeBody(final String body, final OutputStream out)
+            throws IOException {
+        IOUtils.write(body, out, Charset.defaultCharset());
     }
 
-    private OutputStream openOutputStream( final Socket socket ) throws IOException {
-
+    /**
+     * Open an {@link OutputStream} over the {@link Socket}.
+     *
+     * @param socket the {@link Socket} to open the connection on.
+     * @return the {@link OutputStream} opened.
+     * @throws IOException if there is an issue opening the output stream.
+     */
+    private OutputStream openOutputStream(final Socket socket)
+            throws IOException {
         return socket.getOutputStream();
-
     }
 
+    /**
+     * Open the {@link Socket}.
+     * @return opened {@link Socket} object.
+     */
     private Socket createSocket() {
-
         try {
-
-            return new Socket( _hostName, _portNumber );
-
-        } catch( UnknownHostException e ) {
-
-            throw new IllegalArgumentException( "Cannot contact host.", e );
-
-        } catch( IOException e ) {
-
-            throw new IllegalArgumentException( "Error connecting to server.", e );
-
+            return new Socket(hostName, portNumber);
+        } catch (UnknownHostException e) {
+            throw new IllegalArgumentException("Cannot contact host.", e);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(
+                "Error connecting to server.",
+                e
+            );
         }
-
     }
-
 }

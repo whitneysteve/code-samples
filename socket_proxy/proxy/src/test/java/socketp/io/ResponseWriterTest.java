@@ -23,37 +23,37 @@ public class ResponseWriterTest {
     @Test
     public void shouldWriteResponse() throws IOException {
 
-        new ResponseWriter( _out, "response" ).writeResponse();
-        Assert.assertEquals( "response\n", new String( _out.toByteArray() ) );
+        new ResponseWriter(_out, "response").writeResponse();
+        Assert.assertEquals("response\n", new String(_out.toByteArray()));
 
     }
 
     @Test
     public void shouldWriteErrorResponse() throws IOException {
 
-        new ResponseWriter( _out, new Exception( "an error occurred" ) ).writeResponse();
-        Assert.assertEquals( "error:an error occurred\n", new String( _out.toByteArray() ) );
+        new ResponseWriter(_out, new Exception("an error occurred")).writeResponse();
+        Assert.assertEquals("error:an error occurred\n", new String(_out.toByteArray()));
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void errorForNullResponse() throws IOException {
 
-        new ResponseWriter( _out, ( String ) null ).writeResponse();
+        new ResponseWriter(_out, (String) null).writeResponse();
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void errorForNullOutputStream() throws IOException {
 
-        new ResponseWriter( null, "response" ).writeResponse();
+        new ResponseWriter(null, "response").writeResponse();
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void errorForNullOutputStreamAndResponse() throws IOException {
 
-        new ResponseWriter( null, ( String ) null ).writeResponse();
+        new ResponseWriter(null, (String) null).writeResponse();
 
     }
 

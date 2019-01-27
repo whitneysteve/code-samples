@@ -15,102 +15,73 @@ import java.util.Date;
  * Integration test for timestamp proxy.
  */
 public class AppTest {
-
     private static ProxyContainer PROXY;
     private static TimestampClient CLIENT;
-    private String _todaysDate;
+    private String todaysDate;
 
     @BeforeClass
-    public static void setupServer() throws InterruptedException {
-
-        new Thread( new Runnable() {
+    public static void setupServer()throws InterruptedException {
+        new Thread(new Runnable() {
 
             public void run() {
-
-                // Use a test port, assumes destination server is already running on 7272 (the default)
-                PROXY = new ProxyContainer( 17273 );
-                PROXY.start();
-
+            // Use a test port, assumes destination server is already running on 7272 (the default)
+            PROXY = new ProxyContainer(17273);
+            PROXY.start();
             }
 
-        } ).start();
+        }).start();
 
-        CLIENT = new TimestampClient( "localhost", 17273 );
+        CLIENT = new TimestampClient("localhost", 17273);
 
         // Wait for the server to come up
-        Thread.sleep( 2000 );
-
+        Thread.sleep(2000);
     }
 
     @AfterClass
     public static void shutdownServer() {
-
         PROXY.shutDown();
-
     }
 
     @Before
     public void setupTest() {
-
-        _todaysDate = SimpleDateFormat.getDateInstance().format( new Date() );
-
+        todaysDate = SimpleDateFormat.getDateInstance().format(new Date());
     }
 
     @Test
     public void shouldTimestampMessage() {
-
-        Assert.assertEquals( _todaysDate + ":" + "message", CLIENT.timestamp( "message" ) );
-
+        Assert.assertEquals(todaysDate + ":" + "message", CLIENT.timestamp("message"));
     }
 
     @Test
     public void errorForEmptyMessage() {
-
         Exception error = null;
-
         try {
-
-            CLIENT.timestamp( "" );
-
-        } catch( Exception e ) {
-
+            CLIENT.timestamp("");
+        } catch (Exception e) {
             error = e;
-
         }
 
-        if( error == null ) {
-
-            Assert.fail( "Expected failure" );
-
+        if (error == null) {
+            Assert.fail("Expected failure");
         }
 
-        Assert.assertEquals( "error:No input received", error.getMessage() );
-
+        Assert.assertEquals("error:No input received", error.getMessage());
     }
 
     @Test
     public void errorForNullMessage() {
-
         Exception error = null;
 
         try {
-
-            CLIENT.timestamp( null );
-
-        } catch( Exception e ) {
-
+            CLIENT.timestamp(null);
+        } catch (Exception e) {
             error = e;
-
         }
 
-        if( error == null ) {
-
-            Assert.fail( "Expected failure" );
-
+        if (error == null) {
+            Assert.fail("Expected failure");
         }
 
-        Assert.assertEquals( "error:No input received", error.getMessage() );
-
+        Assert.assertEquals("error:No input received", error.getMessage());
     }
-
 }

@@ -5,106 +5,120 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 /**
  * Write a response to the client.
  */
 public class ResponseWriter {
+    /**
+     * The {@link OutputStream} to write to.
+     */
+    private final OutputStream out;
+    /**
+     * The result to write to the client.
+     */
+    private final String result;
+    /**
+     * An error that occurred that must be written to the client.
+     */
+    private final Throwable error;
 
-    private final OutputStream _out;
-    private final String _result;
-    private final Throwable _error;
-
-    private static final Logger _logger = Logger.getLogger( ResponseWriter.class );
+    /**
+     * The logger for this class.
+     */
+    private static final Logger LOGGER =
+            Logger.getLogger(ResponseWriter.class);
 
     /**
      * Creates a ResponseWriter that outputs a String result.
      *
-     * @param out    the OutputStream to write to
-     * @param result the String result to write
+     * @param outArg    the OutputStream to write to
+     * @param resultArg the String result to write
      */
-    public ResponseWriter( final OutputStream out, String result ) {
+    public ResponseWriter(
+        final OutputStream outArg,
+        final String resultArg
+    ) {
 
-        _out = out;
-        _result = result;
-        _error = null;
+        this.out = outArg;
+        this.result = resultArg;
+        error = null;
 
     }
 
     /**
      * Creates a ResponseWriter that outputs an error response.
      *
-     * @param out   the OutputStream to write to
-     * @param error the exception to report to the client.
+     * @param outArg   the OutputStream to write to
+     * @param errorArg the exception to report to the client.
      */
-    public ResponseWriter( final OutputStream out, Throwable error ) {
-
-        _out = out;
-        _result = null;
-        _error = error;
-
+    public ResponseWriter(
+        final OutputStream outArg,
+        final Throwable errorArg
+    ) {
+        this.out = outArg;
+        result = null;
+        this.error = errorArg;
     }
 
     /**
      * Write the response.
      *
-     * @throws java.io.IOException
+     * @throws IOException if there is an issue writing to
+     *         the {@link OutputStream}
      */
-    public void writeResponse() throws IOException {
-
-        if( _logger.isTraceEnabled() ) {
-
-            _logger.trace( "Writing response" );
-
+    public final void writeResponse() throws IOException {
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("Writing response");
         }
 
-        if( _out == null ) {
-
-            _logger.warn( "Attempted to write a response to null output stream" );
-            throw new IllegalArgumentException( "Attempted to write a response to null output stream" );
-
+        if (out == null) {
+            LOGGER.warn("Attempted to write a response to null output stream");
+            throw new IllegalArgumentException(
+                "Attempted to write a response to null output stream"
+            );
         }
-        if( isError() ) {
 
-            if( _logger.isTraceEnabled() ) {
-
-                _logger.trace( "Writing error response" );
-
+        if (isError()) {
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("Writing error response");
             }
 
-            writeInternal( "error:" + _error.getMessage() );
-
+            writeInternal("error:" + error.getMessage());
         } else {
-
-            writeInternal( _result );
-
+            writeInternal(result);
         }
-
     }
 
-    private void writeInternal( String result ) throws IOException {
-
-        if( result == null ) {
-
-            _logger.warn( "Attempted to output a null result" );
-            throw new IllegalArgumentException( "Attempted to output null result" );
-
+    /**
+     * Perform the actual write to the {@link OutputStream}.
+     *
+     * @param output the output that gets sent to the client.
+     * @throws IOException if there is an issue writing to
+     *         the {@link OutputStream}
+     */
+    private void writeInternal(final String output) throws IOException {
+        if (output == null) {
+            LOGGER.warn("Attempted to output a null result");
+            throw new IllegalArgumentException(
+                "Attempted to output null result"
+            );
         }
 
-        if( _logger.isTraceEnabled() ) {
-
-            _logger.trace( "Writing result:" + result );
-
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("Writing result:" + output);
         }
 
-        IOUtils.write( result + "\n", _out );
-
+        IOUtils.write(output + "\n", out, Charset.defaultCharset());
     }
 
+    /**
+     * Check if this response writer is writing an error to the client.
+     *
+     * @return true if the response is an error response, false if not.
+     */
     private boolean isError() {
-
-        return _error != null;
-
+        return error != null;
     }
-
 }
