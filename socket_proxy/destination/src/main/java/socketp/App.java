@@ -5,12 +5,20 @@ import socketp.server.ServerContainer;
 /**
  * Driver class for timestamp service.
  */
-public class App {
-
-    public static void main( String[] args ) {
-
-        new ServerContainer().start();
-
+public final class App {
+    /**
+     * Hiding constructor for utility class.
+     */
+    private App() {
+        // Nothing
     }
 
+    /**
+     * The entry point into the application.
+     *
+     * @param args the command line arguments.
+     */
+    public static void main(final String[] args) {
+        new ServerContainer().start();
+    }
 }

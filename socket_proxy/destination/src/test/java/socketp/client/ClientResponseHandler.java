@@ -9,45 +9,32 @@ import java.util.List;
 /**
  * Handles the response from the timestamp server.
  */
-public class ClientResponseHandler {
-
+class ClientResponseHandler {
     /**
      * Read and parse the response from the timestamp server.
      *
      * @param in the InputStream from the timestamp server
      * @return the parsed timetamped message
-     * @throws IOException
+     * @throws IOException if there is an issue reading from the
+     *                     {@link InputStream}.
      */
-    public String handleResponse( final InputStream in ) throws IOException {
-
-        if( in == null ) {
-
+    String handleResponse(final InputStream in) throws IOException {
+        if (in == null) {
             return null;
-
         }
 
-        List list = IOUtils.readLines( in );
+        List list = IOUtils.readLines(in);
 
-        if( list == null || list.size() < 1 ) {
-
+        if (list == null || list.size() < 1) {
             return null;
-
         } else {
+            String timestampedMessage = (String) list.get(0);
 
-            String timestampedMessage = ( String ) list.get( 0 );
-
-            if( timestampedMessage.startsWith( "error:" ) ) {
-
-                throw new RuntimeException( timestampedMessage );
-
+            if (timestampedMessage.startsWith("error:")) {
+                throw new RuntimeException(timestampedMessage);
             } else {
-
                 return timestampedMessage;
-
             }
-
         }
-
     }
-
 }
