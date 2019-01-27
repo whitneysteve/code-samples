@@ -1,12 +1,9 @@
 package socketp;
 
+import org.junit.*;
 import socketp.client.TimestampClient;
 import socketp.server.ProxyContainer;
 import junit.framework.Assert;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.Date;
 /**
  * Integration test for timestamp proxy.
  */
+@Ignore("This test assumes destination server is already running on 7272 (the default).")
 public class AppTest {
     private static ProxyContainer PROXY;
     private static TimestampClient CLIENT;
