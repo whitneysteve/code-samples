@@ -10,6 +10,10 @@ Various computer science-y algorithms and data structures written in Scala, Java
 
 A simple Java banking web application used by a teller, using an in-memory data access layer. Written in Java, Spring MVC, Twitter Bootstrap and jQuery. Built and run using a Maven archetype.
 
+## Bind JS (Javascript)
+
+Implement the `bind` function in Javascript.
+
 ## Key Press (Javascript)
 
 A telephone keypad simulator that allows typing through the use of repetitive presses of the digits associated with several letters.
@@ -21,6 +25,10 @@ A script to determine the colours and type of paint to prepare based on some pre
 ## Postfix Calculator (Scala)
 
 A script to perform postfix calculations (addition, subtraction, division and multiplication) on the command line arguments. Written in Scala.
+
+## Promises (Javascript)
+
+Implement a simple Promise utility in Javascript.
 
 ## Socket Proxy (Java)
 
