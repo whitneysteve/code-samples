@@ -49,7 +49,10 @@ public class AppTest {
 
     @Test
     public void shouldTimestampMessage() {
-        Assert.assertEquals(todaysDate + ":" + "message", CLIENT.timestamp("message"));
+        Assert.assertEquals(
+            todaysDate + ":" + "message",
+            CLIENT.timestamp("message")
+        );
     }
 
     @Test
