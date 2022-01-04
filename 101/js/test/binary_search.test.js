@@ -6,6 +6,7 @@ describe('BinarySearch', () => {
 
   it('should find item in array', () => {
     expect(binarySearch(array, 10)).to.be.true;
+    expect(binarySearch(array, 30)).to.be.true;
   });
 
   it('should not find item in array', () => {
