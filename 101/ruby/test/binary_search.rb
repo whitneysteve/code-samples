@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../binary_search.rb'
+require_relative '../binary_search'
 require 'minitest/autorun'
 
 class BinarySearchTest < Minitest::Test

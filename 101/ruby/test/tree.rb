@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../tree.rb'
+require_relative '../tree'
 require 'minitest/autorun'
 
 class TreeTest < Minitest::Test
@@ -25,7 +24,7 @@ class TreeTest < Minitest::Test
     assert !tree.contains?(55)
   end
 
-  def test_should_traverse_the_tree # rubocop:disable Metrics/AbcSize
+  def test_should_traverse_the_tree
     tree = build_tree
     dfs_elements = []
     bfs_elements = []

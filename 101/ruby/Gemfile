@@ -4,7 +4,8 @@
 source 'https://rubygems.org'
 
 ruby '2.7.2'
-#ruby-gemset=swhitney_101
+# ruby-gemset=swhitney_101
 
 gem 'minitest'
-gem 'rubocop'
+gem 'rubocop', '1.24.1'
+gem 'rubocop-minitest'

@@ -75,7 +75,6 @@ module Sort
   private
 
   # Merge two arrays in ascending order.
-  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   def merge(first, second)
     i = 0
@@ -98,7 +97,6 @@ module Sort
 
     result
   end
-  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
   # Partition a sub array or arr, denoted by the bounding indexes low and high.

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../factorial.rb'
+require_relative '../factorial'
 require 'minitest/autorun'
 
 class FactorialTest < Minitest::Test

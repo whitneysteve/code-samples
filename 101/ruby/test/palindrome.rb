@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../palindrome.rb'
+require_relative '../palindrome'
 require 'minitest/autorun'
 
 class PalindromeTest < Minitest::Test

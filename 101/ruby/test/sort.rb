@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../sort.rb'
+require_relative '../sort'
 require 'minitest/autorun'
 
 class SortTest < Minitest::Test

@@ -8,7 +8,7 @@ class LinkedList
 
     @head ||= node
 
-    @tail.nextNode = node unless @tail.nil?
+    @tail.next_node = node unless @tail.nil?
     @tail = node
   end
 
@@ -16,22 +16,22 @@ class LinkedList
   def add_first(data)
     node = LinkedListNode.new data
 
-    node.nextNode = @head
+    node.next_node = @head
     @head = node
   end
 
   # Delete from the list.
   def delete(index)
     cursor = find_cursor(index)
-    return if cursor.nil? || cursor.nextNode.nil?
+    return if cursor.nil? || cursor.next_node.nil?
 
-    if cursor.nextNode == @tail
-      cursor.nextNode = nil
+    if cursor.next_node == @tail
+      cursor.next_node = nil
       @tail = cursor
     else
-      node_to_remove = cursor.nextNode
-      cursor.nextNode = node_to_remove.nextNode
-      @tail = cursor if cursor.nextNode.nil?
+      node_to_remove = cursor.next_node
+      cursor.next_node = node_to_remove.next_node
+      @tail = cursor if cursor.next_node.nil?
     end
   end
 
@@ -42,7 +42,7 @@ class LinkedList
     until node.nil?
       return true if node.data == term
 
-      node = node.nextNode
+      node = node.next_node
     end
 
     false
@@ -55,7 +55,7 @@ class LinkedList
 
     until node.nil?
       arr << node.data if yield(node.data)
-      node = node.nextNode
+      node = node.next_node
     end
 
     arr
@@ -66,7 +66,7 @@ class LinkedList
     list = @head
 
     until list.nil?
-      pass = list.nextNode
+      pass = list.next_node
 
       until pass.nil?
         if list.data <=> pass.data
@@ -75,10 +75,10 @@ class LinkedList
           pass.data = tmp
         end
 
-        pass = pass.nextNode
+        pass = pass.next_node
       end
 
-      list = list.nextNode
+      list = list.next_node
     end
   end
 
@@ -88,8 +88,8 @@ class LinkedList
     prev_node = nil
 
     until current_node.nil?
-      next_node = current_node.nextNode
-      current_node.nextNode = prev_node
+      next_node = current_node.next_node
+      current_node.next_node = prev_node
       prev_node = current_node
       current_node = next_node
     end
@@ -104,7 +104,7 @@ class LinkedList
 
     while cursor
       yield cursor.data
-      cursor = cursor.nextNode
+      cursor = cursor.next_node
     end
   end
 
@@ -113,15 +113,14 @@ class LinkedList
   # Position the cursor pointing to a desired index.
   def find_cursor(index)
     cursor = @head
-    (index - 1).times { cursor = cursor.nil? ? nil : cursor.nextNode }
+    (index - 1).times { cursor = cursor.nil? ? nil : cursor.next_node }
     cursor
   end
 end
 
 # Linked list node implementation.
 class LinkedListNode
-  attr_accessor :data
-  attr_accessor :nextNode
+  attr_accessor :data, :next_node
 
   def initialize(data)
     @data = data

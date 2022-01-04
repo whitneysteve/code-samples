@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../greatest_common_denominator.rb'
+require_relative '../greatest_common_denominator'
 require 'minitest/autorun'
 
 class GreatestCommonDenominatorTest < Minitest::Test

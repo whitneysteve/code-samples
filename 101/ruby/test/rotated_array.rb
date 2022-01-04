@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../rotated_array.rb'
+require_relative '../rotated_array'
 require 'minitest/autorun'
 
 class RotatedArrayTest < Minitest::Test

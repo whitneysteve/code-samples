@@ -39,17 +39,16 @@ class BinarySearchTree
   end
 
   # Traverse the tre in a depth first manner.
-  def depth_first_traversal(node = @root)
+  def depth_first_traversal(node = @root, &block)
     return if node.nil?
 
-    depth_first_traversal(node.left) { |value| yield(value) }
+    depth_first_traversal(node.left, &block)
     yield(node.value)
-    depth_first_traversal(node.right) { |value| yield(value) }
+    depth_first_traversal(node.right, &block)
   end
 
   # Remove a value from the tree, if it exists.
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/PerceivedComplexity
   def remove(value, node = @root)
@@ -75,7 +74,6 @@ class BinarySearchTree
     end
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
 
@@ -108,9 +106,7 @@ end
 
 # Represents a node in a binary tree.
 class TreeNode
-  attr_accessor :value
-  attr_accessor :left
-  attr_accessor :right
+  attr_accessor :value, :left, :right
 
   # Create a new tree node with a value and, optionally, left and right
   # child nodes.

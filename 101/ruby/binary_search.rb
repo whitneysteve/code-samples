@@ -3,10 +3,7 @@
 # Implementation of binary search algorithm.
 module BinarySearch
   # Perform a binary search for an Int.
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity
   def b_contains?(arr, term)
     return false if arr.nil? || arr.empty?
 
@@ -28,8 +25,5 @@ module BinarySearch
 
     false
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/PerceivedComplexity
 end

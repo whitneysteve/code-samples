@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../linked_list.rb'
+require_relative '../linked_list'
 require 'minitest/autorun'
 
 class LinkedListTest < Minitest::Test

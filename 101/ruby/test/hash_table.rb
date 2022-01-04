@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# magic_ball.rb
-require_relative '../hash_table.rb'
+require_relative '../hash_table'
 require 'minitest/autorun'
 
 class HashTableTest < Minitest::Test
