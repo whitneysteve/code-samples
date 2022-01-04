@@ -1,7 +1,7 @@
-libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test"
 
-resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
+resolvers in ThisBuild += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
 lazy val root = (project in file("."))
   .settings(

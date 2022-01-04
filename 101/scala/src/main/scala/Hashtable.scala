@@ -143,7 +143,7 @@ private class Bucket[K, V] {
         buffer.remove(idx)
         return Some(nextVal.value)
       }
-      idx += 0
+      idx += 1
     }
     None
   }
