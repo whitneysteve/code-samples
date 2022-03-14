@@ -71,6 +71,24 @@ LinkedList.prototype.addFirst = function(obj) {
  *
  * @param index the index to remove.
  */
+LinkedList.prototype.get = function(index) {
+  return this.getNode(index)?.data;
+};
+
+/**
+ * Remove an item from the linked list.
+ *
+ * @param index the index to remove.
+ */
+LinkedList.prototype.getNode = function(index) {
+  return this.findCursor(index);
+};
+
+/**
+ * Remove an item from the linked list.
+ *
+ * @param index the index to remove.
+ */
 LinkedList.prototype.remove = function(index) {
   var cursor = this.findCursor(index - 1);
   if(!cursor.next) {
@@ -197,6 +215,28 @@ LinkedList.prototype.reverse = function() {
 
   this.tail = this.head;
   this.head = previousNode;
+};
+
+/**
+ * Check if the linked list has cycles, or infinite traversal loops.
+ *
+ * @returns {Boolean}
+ */
+LinkedList.prototype.hasCycles = function() {
+  let slow = this.head;
+  let fast = this.head;
+  let collision = false;
+
+  while (slow != null && fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow === fast) {
+      collision = true;
+      break;
+    }
+  }
+
+  return collision;
 };
 
 module.exports = LinkedList;

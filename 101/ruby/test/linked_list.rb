@@ -30,6 +30,16 @@ class LinkedListTest < Minitest::Test
     assert list.get(2) == 3
   end
 
+  def test_it_should_get_nodes
+    list = LinkedList.new
+    list.add(1)
+    list.add(2)
+    list.add(3)
+    assert list.get_node(0).data == 1
+    assert list.get_node(1).data == 2
+    assert list.get_node(2).data == 3
+  end
+
   def test_it_should_remove_elements
     list = LinkedList.new
     list.add(1)
