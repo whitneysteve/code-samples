@@ -21,7 +21,7 @@ class WordDistanceTest < Minitest::Test
     assert distance.distance('the', 'lazy') == -1
   end
 
-  def test should_work_for_invalid_search_terms
+  def test(_should_work_for_invalid_search_terms)
     sentence = 'the quick brown dog jumped over the lazy dog'
     distance = WordDistance.new(sentence)
     assert distance.distance(nil, 'lazy') == -1

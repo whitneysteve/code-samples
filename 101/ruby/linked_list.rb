@@ -2,6 +2,8 @@
 
 # Linked list implementation.
 class LinkedList
+  attr_reader :head
+
   # Add an object to the tail of the list.
   def add(data)
     node = LinkedListNode.new(data)
@@ -20,19 +22,23 @@ class LinkedList
     @head = node
   end
 
+  # Get the element at a specific index, returning nil if there is no item at that index.
+  def get(index)
+    get_node(index)&.data
+  end
+
+  # Get the node holding the element at a specific index, returning nil if there is no item at that index.
+  def get_node(index)
+    find_cursor(index)
+  end
+
   # Delete from the list.
   def delete(index)
-    cursor = find_cursor(index)
+    cursor = find_cursor(index - 1)
     return if cursor.nil? || cursor.next_node.nil?
 
-    if cursor.next_node == @tail
-      cursor.next_node = nil
-      @tail = cursor
-    else
-      node_to_remove = cursor.next_node
-      cursor.next_node = node_to_remove.next_node
-      @tail = cursor if cursor.next_node.nil?
-    end
+    cursor.next_node = cursor.next_node&.next_node
+    @tail = cursor.next_node if cursor == @tail
   end
 
   # Find the first occurrence of a term within the linked list.
@@ -108,13 +114,32 @@ class LinkedList
     end
   end
 
+  # Check if there are cycles, or infinite loops, in this linked list.
+  def cycles?
+    check_for_cycles(@head, @head)
+  end
+
   private
 
   # Position the cursor pointing to a desired index.
   def find_cursor(index)
     cursor = @head
-    (index - 1).times { cursor = cursor.nil? ? nil : cursor.next_node }
+    index.times { cursor = cursor&.next_node }
     cursor
+  end
+
+  # Check if there are cycles, or infinite loops, in this linked list.
+  def check_for_cycles(slow, fast)
+    collision = false
+    while !slow.nil? && !fast.nil? && !fast.next_node.nil?
+      slow = slow.next_node
+      fast = fast.next_node.next_node
+      if slow == fast
+        collision = true
+        break
+      end
+    end
+    collision
   end
 end
 

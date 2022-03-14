@@ -11,16 +11,12 @@ module MaxProfit
     lowest_price = arr[0]
     max_profit = 0
 
-    arr[1..-1].each do |price|
-      if price < lowest_price
-        lowest_price = price
-      end
+    arr[1..].each do |price|
+      lowest_price = price if price < lowest_price
 
       profit = price - lowest_price
 
-      if profit > max_profit
-        max_profit = profit
-      end
+      max_profit = profit if profit > max_profit
     end
 
     max_profit
