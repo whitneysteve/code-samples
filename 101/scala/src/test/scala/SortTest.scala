@@ -1,6 +1,7 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class SortTest extends FunSuite with Matchers {
+class SortTest extends AnyFunSuite with Matchers {
   import Sort._
 
   private val Values = List(

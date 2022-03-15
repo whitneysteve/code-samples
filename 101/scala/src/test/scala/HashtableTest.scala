@@ -1,6 +1,7 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class HashtableTest extends FunSuite with Matchers {
+class HashtableTest extends AnyFunSuite with Matchers {
   val Key1 = "Key1"
   val Key2 = "Key2"
   val Value1 = "Value1"

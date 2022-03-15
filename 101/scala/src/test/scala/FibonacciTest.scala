@@ -1,6 +1,7 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class  FibonacciTest extends FunSuite with Matchers {
+class  FibonacciTest extends AnyFunSuite with Matchers {
   test("Computes fibonacci number") {
     Fibonacci(0) should be(0)
     Fibonacci(1) should be(1)

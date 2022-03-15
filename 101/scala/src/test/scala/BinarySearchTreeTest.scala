@@ -1,8 +1,9 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable.ListBuffer
 
-class BinarySearchTreeTest extends FunSuite with Matchers {
+class BinarySearchTreeTest extends AnyFunSuite with Matchers {
   private val Values = Seq(84, 94, 44, 55, 91, 56, 54, 33, 77, 56, 66, 95, 12, 72,
     100, 57, 65, 18, 51, 35, 16, 60, 18, 50, 56, 9, 93, 30, 54, 66,
     61, 33, 61, 97, 65, 18, 42, 38, 85, 41, 90, 22, 42, 72, 10, 25,

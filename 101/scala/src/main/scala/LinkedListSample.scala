@@ -31,7 +31,7 @@ class LinkedList[T >: Null <: Comparable[T]] {
     * Find the first occurrence of a term within the linked list.
     *
     * @param term the term to find.
-    * @return the term if found, null if not.
+    * @return the term if found, None if not.
     */
   def find(term: T): Option[T] = {
     var cursor = findCursor(0)
@@ -162,6 +162,22 @@ class LinkedList[T >: Null <: Comparable[T]] {
   }
 
   /**
+    * Get the element at a specified index.
+    *
+    * @param index the index of the element to get.
+    * @return the data at the specified index if found, None if not.
+    */
+  def get(index: Int): Option[T] = findCursor(index).map(_.data)
+
+  /**
+    * Get the node at a specified index.
+    *
+    * @param index the index of the node to get.
+    * @return the node at the specified index if found, None if not.
+    */
+  def getNode(index: Int): Option[LinkedListNode[T]] = findCursor(index)
+
+  /**
     * Traverse the linked list.
     *
     * @param traversalFunction function to execute on each element of the list.
@@ -179,10 +195,26 @@ class LinkedList[T >: Null <: Comparable[T]] {
     traverse(head)(traversalFunction)
   }
 
+  def hasCycles: Boolean = {
+    @tailrec
+    def hasCycles(slowOpt: Option[LinkedListNode[T]],
+                  fastOpt: Option[LinkedListNode[T]]): Boolean =
+      (slowOpt, fastOpt) match {
+        case (Some(slow), Some(fast)) if slow == fast =>
+          true
+        case (None, _) | (_, None) =>
+          false
+        case (Some(slow), Some(fast)) =>
+          hasCycles(slow.next, fast.next.flatMap(_.next))
+      }
+
+    hasCycles(head.flatMap(_.next), head.flatMap(_.next).flatMap(_.next))
+  }
+
   def toSeq: Seq[T] = {
     val buffer = ListBuffer.empty[T]
     traverse(value => buffer.append(value))
-    buffer
+    buffer.toSeq
   }
 
   /**

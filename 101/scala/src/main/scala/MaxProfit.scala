@@ -26,7 +26,3 @@ object MaxProfit {
     else -1
   }
 }
-
-object Solution extends App {
-  new MaxProfitTest().execute()
-}

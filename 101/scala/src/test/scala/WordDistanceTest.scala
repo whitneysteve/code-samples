@@ -1,6 +1,7 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class WordDistanceTest extends FunSuite with Matchers {
+class WordDistanceTest extends AnyFunSuite with Matchers {
 
   test("should find minimum word distance") {
     val sentence = "the quick brown dog jumped over the lazy dog"

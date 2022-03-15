@@ -12,7 +12,7 @@ object Sort {
     * @return the sorted array.
     */
   def bubbleSort(list: List[Int]): List[Int] = {
-    val buffer = list.to[ListBuffer]
+    val buffer = list.to(ListBuffer)
 
     for (i <- buffer.indices) {
       for (j <- buffer.indices) {
@@ -32,7 +32,7 @@ object Sort {
     * @return the sorted array.
     */
   def insertionSort(list: List[Int]): List[Int] = {
-    val buffer = list.to[ListBuffer]
+    val buffer = list.to(ListBuffer)
 
     for (i <- buffer.indices) {
       var j = 0
@@ -72,8 +72,8 @@ object Sort {
         }
       }
 
-      buffer.append(first.slice(firstIndex, first.length): _*)
-      buffer.append(second.slice(secondIndex, second.length): _*)
+      buffer.appendAll(first.slice(firstIndex, first.length))
+      buffer.appendAll(second.slice(secondIndex, second.length))
 
       buffer.toList
     }
@@ -126,7 +126,7 @@ object Sort {
       buffer
     }
 
-    quickSortBuffer(list.to[ListBuffer],
+    quickSortBuffer(list.to(ListBuffer),
                     lowOpt.getOrElse(0),
                     highOpt.getOrElse(list.length - 1)).toList
   }
@@ -138,7 +138,7 @@ object Sort {
     * @return the sorted array.
     */
   def selectionSort(list: List[Int]): List[Int] = {
-    val buffer = list.to[ListBuffer]
+    val buffer = list.to(ListBuffer)
 
     for (i <- buffer.indices) {
       var least = Int.MaxValue

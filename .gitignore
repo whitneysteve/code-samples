@@ -1,6 +1,7 @@
 **/*.class
 **/*.iml
 **/.idea
+**/.gradle
 **/out
 **/target
 node_modules

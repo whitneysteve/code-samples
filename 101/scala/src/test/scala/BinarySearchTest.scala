@@ -1,6 +1,7 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class BinarySearchTest extends FunSuite with Matchers {
+class BinarySearchTest extends AnyFunSuite with Matchers {
   private val TestArray = Seq(5, 10, 15, 20, 25)
 
   test("Binary search finds values") {

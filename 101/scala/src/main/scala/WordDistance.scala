@@ -47,7 +47,3 @@ class WordDistance(sentence: String) {
     minDistance
   }
 }
-
-object Solution extends App {
-  new WordDistanceTest().execute()
-}

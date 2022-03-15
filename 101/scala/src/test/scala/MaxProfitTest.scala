@@ -1,6 +1,7 @@
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class MaxProfitTest extends FunSuite with Matchers {
+class MaxProfitTest extends AnyFunSuite with Matchers {
 
   test("should find max profit") {
     val stocks = List(3, 4, 5, 10, 11, 7, 5, 4, 4, 10)
