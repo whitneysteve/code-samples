@@ -3,11 +3,12 @@
 # Implementation for a word distance calculator
 class WordDistance
   def initialize(sentence)
-    @words = sentence.split(/\W+/)
+    @sentence_arr = sentence.split(/\W+/)
     @indices = {}
-    @words.each.with_index do |word, idx|
-      if @indices.key? word
-        @indices[word].push(idx)
+    @sentence_arr.each_with_index do |raw_word, idx|
+      word = raw_word.downcase.strip
+      if @indices.key?(word)
+        @indices[word] << idx
       else
         @indices[word] = [idx]
       end
@@ -19,29 +20,25 @@ class WordDistance
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/PerceivedComplexity
   def distance(word1, word2)
-    word1 = word1&.strip
-    word2 = word2&.strip
-    return -1 if word1.nil? || word1.empty? || word2.nil? || word2.empty?
+    indices1 = @indices[word1&.strip&.downcase]
+    indices2 = @indices[word2&.strip&.downcase]
 
-    word1_indices = @indices[word1]
-    return -1 if word1_indices.to_a.empty?
+    return -1 if indices1.to_a.empty? || indices2.to_a.empty?
 
-    word2_indices = @indices[word2]
-    return -1 if word2_indices.to_a.empty?
+    min_distance = @sentence_arr.size + 1
 
-    min_distance = @words.size + 1
     i = 0
     j = 0
 
-    while i < word1_indices.length && j < word2_indices.length
-      first_val = word1_indices[i]
-      second_val = word2_indices[j]
+    while i < indices1.length && j < indices2.length
+      index1 = indices1[i]
+      index2 = indices2[j]
 
-      distance = (first_val - second_val).abs
+      distance = (index1 - index2).abs
 
       min_distance = distance if distance < min_distance
 
-      if first_val < second_val
+      if index1 < index2
         i += 1
       else
         j += 1
