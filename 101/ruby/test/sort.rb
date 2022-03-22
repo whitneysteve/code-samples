@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../sort_new'
+require_relative '../sort'
 require 'minitest/autorun'
 
 class SortTest < Minitest::Test
