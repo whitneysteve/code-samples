@@ -15,13 +15,13 @@ class TreeTest < Minitest::Test
   def test_should_tell_if_the_tree_contains_a_value
     tree = build_tree
     assert tree.contains?(55)
-    assert !tree.contains?(-1)
+    refute tree.contains?(-1)
   end
 
   def test_should_remove_a_value
     tree = build_tree
     tree.remove(55)
-    assert !tree.contains?(55)
+    refute tree.contains?(55)
   end
 
   def test_should_traverse_the_tree
@@ -32,11 +32,11 @@ class TreeTest < Minitest::Test
     tree.depth_first_traversal { |value| dfs_elements << value }
     tree.breadth_first_traversal { |value| bfs_elements << value }
 
-    assert dfs_elements.length == 58
-    assert bfs_elements.length == 58
+    assert_equal 58, dfs_elements.length
+    assert_equal 58, bfs_elements.length
 
-    assert dfs_elements.slice(0, 3) == [7, 9, 10]
-    assert bfs_elements.slice(0, 3) == [84, 44, 94]
+    assert_equal [7, 9, 10], dfs_elements.slice(0, 3)
+    assert_equal [84, 44, 94], bfs_elements.slice(0, 3)
   end
 
   private

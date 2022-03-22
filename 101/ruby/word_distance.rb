@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# Implementation for a word distance calculator
+# Implementation for a word distance calculator.
 class WordDistance
+  # Create a word distance calculator from a sentence.
   def initialize(sentence)
     @sentence_arr = sentence.split(/\W+/)
     @indices = {}
@@ -15,6 +16,10 @@ class WordDistance
     end
   end
 
+  # Check the distance between two words in the supplied sentence.
+  #
+  # Returns -1 if the distance cannot be computed. This occurs when the words supplied are invalid or either word
+  # does not appear in the sentence.
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength
