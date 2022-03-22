@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../sort'
+require_relative '../sort_new'
 require 'minitest/autorun'
 
 class SortTest < Minitest::Test
@@ -27,28 +27,28 @@ class SortTest < Minitest::Test
   def test_should_sort_with_bubble_sort
     bubble_sort = VALUES.dup
     bubble_sort(bubble_sort)
-    assert bubble_sort == SORTED
+    assert_equal SORTED, bubble_sort
   end
 
   def test_should_sort_with_selection_sort
     selection_sort = VALUES.dup
     selection_sort(selection_sort)
-    assert selection_sort == SORTED
+    assert_equal SORTED, selection_sort
   end
 
   def test_should_sort_with_insertion_sort
     insertion_sort = VALUES.dup
     insertion_sort(insertion_sort)
-    assert insertion_sort == SORTED
+    assert_equal SORTED, insertion_sort
   end
 
   def test_should_sort_with_merge_sort
-    assert merge_sort(VALUES) == SORTED
+    assert_equal SORTED, merge_sort(VALUES)
   end
 
   def test_should_sort_with_quick_sort
     quick_sort = VALUES.dup
     quick_sort(quick_sort)
-    assert quick_sort == SORTED
+    assert_equal SORTED, quick_sort
   end
 end

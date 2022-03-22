@@ -57,7 +57,8 @@ module Sort
 
   # Perform a selection sort on an array. Sort is performed in place and
   # assumes conflict ordering is not important.
-  def selection_sort(arr) # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
+  def selection_sort(arr)
     arr.each_with_index do |_, i|
       least = MAX_FIXNUM
       least_index = i
@@ -71,6 +72,7 @@ module Sort
       swap(arr, i, least_index) if least_index != i
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
