@@ -1,3 +1,9 @@
+/**
+ * Check if a string of parentheses is balanced.
+ *
+ * @param str the String to check.
+ * @returns true if the string is balanced.
+ */
 export const isBalanced = (str: string): boolean => {
   const stack = new Array<string>();
   for (let i = 0; i < str.length; i++) {

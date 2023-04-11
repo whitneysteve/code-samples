@@ -4,7 +4,7 @@
  * Sort is performed in place and assumes conflict ordering is
  * not important.
  *
- * @param {Array} array the array to sort.
+ * @param {Array} arr the array to sort.
  */
 export const bubbleSort = (arr: Array<number>): void => {
   arr.forEach((_, i) => {
@@ -22,7 +22,7 @@ export const bubbleSort = (arr: Array<number>): void => {
  * Sort is performed in place and assumes conflict ordering is
  * not important.
  *
- * @param {Array} array the array to sort.
+ * @param {Array} arr the array to sort.
  */
 export const insertionSort = (arr: Array<number>): void => {
   arr.forEach((_, i) => {
@@ -43,7 +43,7 @@ export const insertionSort = (arr: Array<number>): void => {
  * Sort is creates a new array in the return val and, where conflict arises,
  * original order is maintained.
  *
- * @param {Array} array the array to sort.
+ * @param {Array} arr the array to sort.
  * @return the sorted array.
  */
 export const mergeSort = (arr: Array<number>): Array<number> => {
@@ -122,7 +122,7 @@ export const quickSort = (
  * least value in an array but doesn't to display use of tracking multiple
  * positions.
  *
- * @param {Array} array the array to sort.
+ * @param {Array} arr the array to sort.
  */
 export const selectionSort = (arr: Array<number>): void => {
   arr.forEach((_, i) => {
@@ -146,18 +146,18 @@ export const selectionSort = (arr: Array<number>): void => {
 /**
  * Reposition an element in array.
  *
- * @param {Array} array the array in which to move elements.
+ * @param {Array} arr the array in which to move elements.
  * @param {Number} from the index of the element to move.
  * @param {Number} to the index to move the element to.
  */
-const reposition = (array: Array<number>, from: number, to: number) => {
-  array.splice(to, 0, array.splice(from, 1)[0]);
+const reposition = (arr: Array<number>, from: number, to: number) => {
+  arr.splice(to, 0, arr.splice(from, 1)[0]);
 };
 
 /**
  * Swap two elements in place, in an array.
  *
- * @param {Array} array they array in which to swap elements.
+ * @param {Array} arr they array in which to swap elements.
  * @param {Number} i the index of the first element to swap.
  * @param {Number} j the index of the second element to swap.
  */

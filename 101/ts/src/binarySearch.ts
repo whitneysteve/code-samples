@@ -1,3 +1,10 @@
+/**
+ * Perform a binary search for an Int.
+ *
+ * @param {Array} arr the array to search.
+ * @param {Number} term the term to search for.
+ * @return {Boolean} true if found, false if not.
+ */
 export const binarySearch = (arr: Array<number>, term: number): boolean => {
   let lo = 0;
   let hi = arr.length - 1;

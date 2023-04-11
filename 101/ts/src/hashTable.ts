@@ -2,22 +2,27 @@ class KeyValue<T> {
   key: string;
   value: T;
 
+  /**
+   * Class to represent a key/value pair in the hash table.
+   *
+   * @constructor
+   */
   constructor(key: string, value: T) {
     this.key = key;
     this.value = value;
   }
 }
 
-/**
- * A bucket in a HashTable. Performs the storage of items in the HashTable.
- *
- * This bucket uses an array to store the items internally.
- *
- * @constructor
- */
 class Bucket<T> {
   arr: Array<KeyValue<T>>;
 
+  /**
+   * A bucket in a HashTable. Performs the storage of items in the HashTable.
+   *
+   * This bucket uses an array to store the items internally.
+   *
+   * @constructor
+   */
   constructor() {
     this.arr = [];
   }
@@ -25,7 +30,7 @@ class Bucket<T> {
   /**
    * Get an item from the bucket if it exists.
    *
-   * @param {Object} key the key for the item in the bucket.
+   * @param {T} key the key for the item in the bucket.
    * @return the item for the key, if found.
    */
   get = (key: string): KeyValue<T> | undefined => this.find(key);
@@ -41,10 +46,10 @@ class Bucket<T> {
   /**
    * Store an item in the bucket.
    *
-   * @param {Object} key the key to retrieve the stored value.
-   * @param {Object} value the value to store.
+   * @param {string} key the key to retrieve the stored value.
+   * @param {T} value the value to store.
    */
-  put = (key: string, value: T) => {
+  put = (key: string, value: T): void => {
     const existing = this.find(key);
     if (existing) {
       existing.value = value;
@@ -56,7 +61,7 @@ class Bucket<T> {
   /**
    * Remove an item from the bucket.
    *
-   * @param {Object} key the key for the item to remove in the bucket.
+   * @param {T} key the key for the item to remove in the bucket.
    */
   remove = (key: string): boolean => {
     const idx = this.findIndex(key);
@@ -72,7 +77,7 @@ class Bucket<T> {
    *
    * @return the number of items in the bucket
    */
-  size = () => this.arr.length;
+  size = (): number => this.arr.length;
 
   /**
    * Get the values in the bucket.
@@ -88,7 +93,7 @@ class Bucket<T> {
   /**
    * Get an item from the bucket.
    *
-   * @param {Object} the key that the item is stored under.
+   * @param {string} key the key that the item is stored under.
    */
   private find = (key: string): KeyValue<T> | undefined => {
     const idx = this.findIndex(key);
@@ -98,20 +103,25 @@ class Bucket<T> {
     return undefined;
   };
 
+  /**
+   * Find the index of an item in the bucket.
+   *
+   * @param {string} keyToFind the key that the item is stored under.
+   */
   private findIndex = (keyToFind: string): number => {
     return this.arr.findIndex(({key}) => key === keyToFind);
   };
 }
 
-/**
- * Construct a HashTable object with a fixed amount of buckets.
- *
- * @param {Number} buckets the number of buckets to initialise for the HashTable.
- * @constructor
- */
 export class HashTable<T> {
   buckets: Array<Bucket<T>>;
 
+  /**
+   * Construct a HashTable object with a fixed amount of buckets.
+   *
+   * @param {Number} buckets the number of buckets to initialise for the HashTable.
+   * @constructor
+   */
   constructor(numBuckets: number) {
     this.buckets = new Array(numBuckets);
   }
@@ -119,7 +129,7 @@ export class HashTable<T> {
   /**
    * Get an item from the hash table if it exists.
    *
-   * @param {Object} key the key for the item in the HashTable.
+   * @param {T} key the key for the item in the HashTable.
    * @return the item for the key, if found.
    */
   get = (key: string): T | undefined => this.targetBucket(key).get(key)?.value;
@@ -141,16 +151,16 @@ export class HashTable<T> {
   /**
    * Put an item in the HashTable.
    *
-   * @param {Object} key the key to retrieve the stored value. The key is also used
+   * @param {string} key the key to retrieve the stored value. The key is also used
    *                     to determine what bucket we store the item in.
-   * @param {Object} value the value to store.
+   * @param {T} value the value to store.
    */
   put = (key: string, value: T): void => this.targetBucket(key).put(key, value);
 
   /**
    * Remove an item from the HashTable.
    *
-   * @param {Object} key the key for the item to remove in the HashTable.
+   * @param {T} key the key for the item to remove in the HashTable.
    */
   remove = (key: string): boolean => this.targetBucket(key).remove(key);
 
@@ -183,7 +193,7 @@ export class HashTable<T> {
   /**
    * Get the bucket that a key would be stored under.
    *
-   * @param {Object} key the key of for which to find the bucket.
+   * @param {T} key the key of for which to find the bucket.
    * @return the bucket the key would be stored under, will always return a bucket.
    */
   private targetBucket = (key: string): Bucket<T> => {
@@ -195,6 +205,9 @@ export class HashTable<T> {
   };
 }
 
+/**
+ * Utility hash code function.
+ */
 const hashCode = (str: string): number => {
   let hash = 0;
   if (str.length > 0) {

@@ -1,6 +1,21 @@
+class Node<T> {
+  data: T;
+  next?: Node<T>;
+
+  /**
+   * A node in a linked list.
+   *
+   * @param obj the object the node in the list represents.
+   * @constructor
+   */
+  constructor(data: T, next?: Node<T>) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
 /**
  * A linked list.
- * @constructor
  */
 export class LinkedList<T> {
   head?: Node<T>;
@@ -9,7 +24,7 @@ export class LinkedList<T> {
   /**
    * Add an object to the tail of the list.
    *
-   * @param {*} obj the object to add.
+   * @param {T} value the object to add.
    */
   add = (value: T): void => {
     const node = new Node(value);
@@ -26,8 +41,8 @@ export class LinkedList<T> {
   /**
    * Add an object to the list at a specified index.
    *
-   * @param {number} index the index to insert the new node.
-   * @param {*} obj the object to add.
+   * @param {number} idx the index to insert the new node.
+   * @param {T} value the object to add.
    */
   addAtIndex = (idx: number, value: T): void => {
     const insertAt = this.getNode(idx - 1);
@@ -45,7 +60,7 @@ export class LinkedList<T> {
   /**
    * Add an object to the front of the list.
    *
-   * @param {*} obj the object to add.
+   * @param {T} value the object to add.
    */
   addFirst = (value: T): void => {
     this.head = new Node(value, this.head);
@@ -61,7 +76,7 @@ export class LinkedList<T> {
   /**
    * Find the cursor pointing at a node in the linked list.
    *
-   * @param {number} index the index of the node to find the cursor for.
+   * @param {number} idx the index of the node to find the cursor for.
    * @returns {*} the cursor, if the index is valid.
    */
   getNode = (idx: number): Node<T> | undefined => {
@@ -102,7 +117,7 @@ export class LinkedList<T> {
   /**
    * Remove an item from the linked list.
    *
-   * @param index the index to remove.
+   * @param idx the index to remove.
    */
   remove = (idx: number): boolean => {
     const prev = this.getNode(idx - 1);
@@ -159,7 +174,7 @@ export class LinkedList<T> {
   /**
    * Traverse the linked list.
    *
-   * @param {function} traversalFunction called with each item in the linked list.
+   * @param {function} callback called with each item in the linked list.
    */
   traverse = (callback: (data: T) => void): void => {
     let curr = this.head;
@@ -168,20 +183,4 @@ export class LinkedList<T> {
       curr = curr.next;
     }
   };
-}
-
-/**
- * A node in a linked list.
- *
- * @param obj the object the node in the list represents.
- * @constructor
- */
-class Node<T> {
-  data: T;
-  next?: Node<T>;
-
-  constructor(data: T, next?: Node<T>) {
-    this.data = data;
-    this.next = next;
-  }
 }
