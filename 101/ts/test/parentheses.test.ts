@@ -1,7 +1,7 @@
 import {isBalanced} from '../src/parentheses';
 
 describe('isBalanced - stack', () => {
-  test.only('determines if parentheses str is balanced', () => {
+  test('determines if parentheses str is balanced', () => {
     expect(isBalanced('')).toBeTruthy();
     expect(isBalanced('[]')).toBeTruthy();
     expect(isBalanced('[[]]')).toBeTruthy();

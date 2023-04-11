@@ -25,7 +25,7 @@ describe('LinkedList', () => {
     expect(toArray(list)).toStrictEqual([1, 2, 3]);
   });
 
-  test.only('should get elements', () => {
+  test('should get elements', () => {
     const list = new LinkedList<number>();
     list.add(1);
     list.add(2);
