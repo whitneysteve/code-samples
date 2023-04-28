@@ -3,6 +3,10 @@ button {
   cursor: pointer;
 }
 
+button:focus {
+  outline: 2px solid blue;
+}
+
 /* * {
   outline: 1px dashed red;
 } */
@@ -28,6 +32,6 @@ body {
 }
 
 h1 {
-  color: white;
+  color: rgba(255, 255, 255, 0.73);
   text-transform: uppercase;
 }

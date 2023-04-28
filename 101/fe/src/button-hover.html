@@ -14,7 +14,8 @@
         gap: 10px;
       }
 
-      .container:hover > :not(:hover) {
+      .container:hover > :not(:hover),
+        .container:not(:hover) > :not(:hover):not(:focus) {
         opacity: 0.4;
         transform: scale(0.9);
       }
