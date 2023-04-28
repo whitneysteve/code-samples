@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme3);
+      }
+
+      .container {
+        overflow: auto;
+        scroll-snap-type: x mandatory;
+
+        display: flex;
+        height: 50%;
+        width: 50%;
+      }
+
+      .container > .item {
+        min-width: 100%;
+        scroll-snap-align: start;
+
+        display: grid;
+        place-items: center;
+      }
+
+      [data-color="1"] { background-color: var(--theme1); }
+      [data-color="2"] { background-color: var(--theme2); }
+      [data-color="3"] { background-color: var(--theme4); }
+      [data-color="4"] { background-color: var(--theme5); }
+    </style>
+  </head>
+  <body>
+    <h1>Snap scroll</h1>
+    <div class="container">
+      <div class="item" data-color="1">1</div>
+      <div class="item" data-color="2">2</div>
+      <div class="item" data-color="3">3</div>
+      <div class="item" data-color="4">4</div>
+    </div>
+  </body>
+</html>
