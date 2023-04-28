@@ -1,0 +1,22 @@
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/* body > * {
+  outline: 1px dashed red;
+} */
+
+:root {
+  --theme1: #8a00d4;
+  --theme2: #d527b7;
+  --theme3: #f782c2;
+  --theme4: #f9c46b;
+  --theme5: #e3e3e3;
+}
+
+body {
+  display: grid;
+  margin: 0;
+  place-items: center;
+}

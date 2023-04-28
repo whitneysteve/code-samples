@@ -10,7 +10,11 @@ Each language folder has it's own project setup. See language specific README fo
 
 The current selection of samples are:
 
-### Algorithms
+### Front End (FE) - HTML, CSS and Javascript
+
+A collection of small web-development samples.
+
+### Algorithms - Ruby, Scala, TypeScript
 
 * Binary search
 * Factorial calculator
@@ -20,7 +24,7 @@ The current selection of samples are:
 * Array rotation
 * Various sorting algorithms
 
-### Data Structures
+### Data Structures - Ruby, Scala, TypeScript
 
 * Hashtable
 * Linked list

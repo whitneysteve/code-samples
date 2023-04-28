@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme1);
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .container:hover > :not(:hover) {
+        opacity: 0.4;
+        transform: scale(0.9);
+      }
+
+      .item {
+        height: 100px;
+        width: 100px;
+        border-radius: 20px;
+
+        background-color: white;
+        transition: 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="item" />
+      <button class="item" />
+      <button class="item" />
+      <button class="item" />
+    </div>
+  </body>
+</html>
