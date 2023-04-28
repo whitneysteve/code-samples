@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <meta http-equiv="refresh" content="5">
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        color: white;
+        background-color: var(--theme2);
+      }
+
+      div {
+        display: grid;
+        place-items: center;
+
+        width: 100%;
+      }
+
+      .container {
+        display: grid;
+        grid-template-areas:
+          "head head head"
+          "sidebar content content"
+          "foot foot foot";
+        grid-template-rows: 50px auto 50px;
+        grid-template-columns: 30% auto 30%;
+
+        width: 75%;
+      }
+
+      .header {
+        grid-area: head;
+        background-color: var(--theme1);
+      }
+
+      .content {
+        grid-area: content;
+        background-color: var(--theme3);
+
+        height: 150px;
+      }
+
+      .sidebar {
+        grid-area: sidebar;
+        background-color: var(--theme4);
+
+        height: 100%;
+      }
+
+      .footer {
+        grid-area: foot;
+        background-color: var(--theme5);
+
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> Grid example</h1>
+    <div class="container">
+      <div class="header">Header</div>
+      <div class="content">Content</div>
+      <div class="sidebar">Sidebar</div>
+      <div class="footer">Footer</div>
+    </div>
+  </body>
+</html>
