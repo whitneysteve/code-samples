@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme3);
+      }
+
+      input[type=checkbox]{
+        display: none
+      }
+
+      label {
+        background-color: var(--theme5);
+        position: relative;
+
+        cursor: pointer;
+        height: 50px;
+        width: 100px;
+        border-radius: 25px;
+      }
+
+      label:after {
+        top: 5px;
+        left: 5px;
+        position: absolute;
+
+        width: calc(50% - 10px);
+        height: calc(100% - 10px);
+        border-radius: 50%;
+
+        content: '';
+        background: var(--theme3);
+
+        transition: 0.3s;
+      }
+
+      input:checked + label {
+        background: var(--theme1);
+      }
+
+      input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+      }
+
+      label:active:after {
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dark mode toggle</h1>
+    <input type="checkbox" id="switch" />
+    <label for="switch"></label>
+  </body>
+</html>
