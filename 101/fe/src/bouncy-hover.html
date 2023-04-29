@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta http-equiv="refresh" content="5">
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme4);
+      }
+
+      .heart {
+        transition: transform 500ms;
+        transition-timing-function: cubic-bezier(0.75, -3, .25, 4);
+
+        width:100px;
+        display:inline-block;
+        background:linear-gradient(var(--theme2),var(--theme3));
+
+        cursor: pointer;
+
+        -webkit-mask:
+          radial-gradient(circle at 60% 65%, red 64%, transparent 65%) top left,
+          radial-gradient(circle at 40% 65%, red 64%, transparent 65%) top right,
+          linear-gradient(to bottom left, red 43%,transparent 43%) bottom left ,
+          linear-gradient(to bottom right,red 43%,transparent 43%) bottom right;
+        -webkit-mask-size:50% 50%;
+        -webkit-mask-repeat:no-repeat;
+        mask:
+          radial-gradient(circle at 60% 65%, red 64%, transparent 65%) top left,
+          radial-gradient(circle at 40% 65%, red 64%, transparent 65%) top right,
+          linear-gradient(to bottom left, red 43%,transparent 43%) bottom left ,
+          linear-gradient(to bottom right,red 43%,transparent 43%) bottom right;
+        mask-size:50% 50%;
+        mask-repeat:no-repeat;
+      }
+
+      .heart::before {
+        content:"";
+        display:block;
+        padding-top:100%;
+      }
+
+      .heart:hover {
+        transform: scale(1.1)
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bouncy timing</h1>
+    <div class="heart">
+
+    </div>
+  </body>
+</html>
