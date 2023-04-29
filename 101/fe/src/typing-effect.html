@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme1);
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+      }
+
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      h1 {
+        animation: typing 2s steps(24), blink 0.75s step-end infinite;
+        width: 24ch;
+        overflow: hidden;
+        white-space: nowrap;
+
+        border-right: 3px solid var(--theme3);
+        color: var(--theme3);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the demos</h1>
+    <h2>Please scroll down to see more</h2>
+  </body>
+</html>
