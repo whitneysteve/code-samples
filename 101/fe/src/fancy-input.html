@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme3);
+      }
+
+      .field {
+        position: relative;
+
+        height: 42px;
+        width: 250px;
+        color: white;
+        overflow: hidden;
+      }
+
+      .field input {
+        background-color: inherit;
+
+        outline: 0;
+        border: none;
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding-top: 25px;
+        padding-bottom: 15px;
+        color: white;
+      }
+
+      .field label {
+        left: 0;
+        bottom: 0;
+        pointer-events: none;
+
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border-bottom: 1px solid white;
+      }
+
+      .field label:after {
+        border-bottom: 3px solid var(--theme4);
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+
+        content: "";
+
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        bottom: -1px;
+        left: 0;
+      }
+
+      .field input:focus + label::after,
+      .field input:valid + label::after {
+        transform: translateX(0%);
+      }
+
+      .field label > span {
+        position: absolute;
+        bottom: 5px;
+        left: 0px;
+        transition: all 0.2s ease;
+      }
+
+      .field input:focus + label > span,
+      .field input:valid + label > span {
+        color: var(--theme4);
+        font-size: 12px;
+        transform: translateY(-150%);
+      }
+
+
+
+    </style>
+  </head>
+  <body>
+    <h1>Fancy input</h1>
+    <div class="field">
+      <input type="text" name="first-name" autocomplete="off" required>
+
+      <label for="first-name">
+        <span>
+          First Name
+        </span>
+      </label>
+    </div>
+  </body>
+</html>
