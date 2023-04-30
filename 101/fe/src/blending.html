@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme4);
+      }
+
+      .pikachu {
+        mix-blend-mode: hard-light;
+        filter: blur(1px);
+        transition: filter 0.5s;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: bounce 1s ease infinite;
+
+
+        cursor: pointer;
+        height: 50%;
+      }
+
+      .pikachu:hover {
+        mix-blend-mode: normal;
+        filter: unset;
+      }
+
+      @keyframes bounce {
+        15% {
+          top: 45%;
+          left: 47.5%;
+        }
+
+        30% {
+          top: 50%;
+          left: 45%;
+        }
+
+        40% {
+          top: 45%;
+          left: 45%;
+        }
+
+        50% {
+          top: 50%;
+          left: 45%;
+        }
+
+        65% {
+          top: 45%;
+          left: 52.5%;
+        }
+
+        80% {
+          top: 50%;
+          left: 55%;
+        }
+
+        90% {
+          top: 45%;
+          left: 55%;
+        }
+
+        100% {
+          top: 50%;
+          left: 55%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cool blending</h1>
+    <img src="img/pikachu.png" class="pikachu" />
+  </body>
+</html>
