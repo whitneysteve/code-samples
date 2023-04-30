@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <meta http-equiv="refresh" content="5">
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme4);
+      }
+
+      .glass {
+        backdrop-filter: blur(10px);
+
+        width: 20%;
+        height: 80%;
+        position: absolute;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        background-color: rgba(0, 128, 0, 0.5);
+        cursor: pointer;
+      }
+
+      .glass:hover {
+        scale: 1.01;
+        rotate: 1deg;
+      }
+
+      div.glass:nth-of-type(5) {
+        left: 20%;
+      }
+
+      div.glass:nth-of-type(6) {
+        right: 20%;
+      }
+
+
+      .ball {
+        width: 20%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+
+        animation: bounce 1s;
+        animation-iteration-count: infinite;
+        position: absolute;
+
+        mix-blend-mode: hard-light;
+      }
+
+      div.ball:nth-of-type(1) {
+        background-color: var(--theme2);
+        animation-delay: -0.4s;
+        left: 8%;
+      }
+
+      div.ball:nth-of-type(2) {
+        background-color:  var(--theme1);
+        animation-delay: -0.3s;
+        left: 28%;
+      }
+
+      div.ball:nth-of-type(3) {
+        background-color:  var(--theme5);
+        animation-delay: -0.2s;
+        left: 48%;
+      }
+
+      div.ball:nth-of-type(4) {
+        background-color:  var(--theme3);
+        animation-delay: -0.1s;
+        left: 68%;
+      }
+
+      @keyframes bounce {
+        0% {
+          top: 0;
+          animation-timing-function: ease-in;
+        }
+
+        40% {}
+
+        50% {
+          top: 140px;
+          aspect-ratio: 1/1;
+          animation-timing-function: ease-out;
+        }
+
+        55% {
+          top: 160px;
+          aspect-ratio: 1/0.8;
+          animation-timing-function: ease-in;
+        }
+
+        65% {
+          top: 120px;
+          aspect-ratio: 1/1;
+          -webkit-animation-timing-function: ease-out;
+        }
+
+        95% {
+          top: 0;
+          -webkit-animation-timing-function: ease-in;
+        }
+
+        100% {
+          top: 0;
+          -webkit-animation-timing-function: ease-in;
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Glass</h1>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="glass"></div>
+    <div class="glass"></div>
+  </body>
+</html>
