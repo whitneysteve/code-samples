@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme1);
+      }
+
+      #output {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 50%;
+        height: 50%;
+        margin-top: 25px;
+
+        color: var(--theme5);
+        opacity: 0.5;
+      }
+
+      .button-container {
+        width: 75%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        color: white;
+      }
+
+      .button-container button {
+        padding: 15px;
+        border: 1px solid var(--theme4);
+        border-radius: 25px;
+      }
+
+      .button-container button:hover {
+        border: 1px solid var(--theme5);
+      }
+    </style>
+    <script defer>
+      let output;
+
+      const delay = (ms) => {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+      };
+
+      const generateRandomNumber = async () => {
+        await delay(500);
+        return Math.floor(Math.random() * 100);
+      };
+
+      const task = (taskNum) => async (respond, reject) => {
+        const num = await generateRandomNumber();
+        const taskResult = document.createElement("p")
+        taskResult.textContent = `Task #${taskNum} output: ${num}`;
+        output.appendChild(taskResult)
+        respond(num);
+      };
+
+
+      class Async {
+        parallel(tasks, success, handle) {
+          const results = [];
+
+          const callback = (task) => {
+            const response = (data) => {
+              results.push(data);
+
+              if (results.length === tasks.length) {
+                success(results);
+              }
+            }
+
+            const reject = (error) => { handle(error) }
+
+            task(response, reject);
+          }
+
+          tasks.forEach((task) => {
+            setTimeout(callback(task), 0);
+          })
+        }
+
+        series(tasks, success, handle) {
+          let i = 0;
+          const results = [];
+
+          const callback = (i) => {
+            const response = (data) => {
+              results.push(data);
+
+              i ++;
+
+              if (i < tasks.length) {
+                callback(i);
+              } else {
+                success(results);
+              }
+            }
+
+            const reject = (error) => { handle(error) }
+
+            tasks[i](response, reject)
+          }
+
+          callback(i);
+        }
+      }
+
+      const async = new Async();
+
+      const clearOutput = () => {
+        output.innerHTML = "";
+      };
+
+      const handleSeries = () => {
+        clearOutput();
+        async.series(
+          [task(1), task(2), task(3)],
+          (results) => {
+            const totalResult = document.createElement("p")
+            totalResult.textContent = `Sum of outputs: ${results.reduce((sum, current) => sum + current, 0)}`;
+            output.appendChild(totalResult)
+          },
+          (error) => {
+            alert(error)
+          },
+        );
+      };
+
+      const handleParallel = () => {
+        clearOutput();
+        async.parallel(
+          [task(1), task(2), task(3)],
+          (results) => {
+            const totalResult = document.createElement("p")
+            totalResult.textContent = `Sum of outputs: ${results.reduce((sum, current) => sum + current, 0)}`;
+            output.appendChild(totalResult)
+          },
+          (error) => {
+            alert(error)
+          },
+        );
+      };
+
+      window.addEventListener("load", () => {
+        output = document.getElementById("output");
+        document.getElementById("series-button").addEventListener("click", handleSeries);
+        document.getElementById("parallel-button").addEventListener("click", handleParallel);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Asynchronous implementations</h1>
+    <div class="button-container">
+      <button id="series-button" type="button">Do tasks in series</button>
+      <button id="parallel-button" type="button">Do tasks in parallel</button>
+    </div>
+    <div id="output">
+      <p>Output will appear here.</p>
+    </div>
+  </body>
+</html>
