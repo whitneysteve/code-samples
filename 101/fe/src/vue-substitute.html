@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <meta http-equiv="refresh" content="5">
+    <link rel="stylesheet" type="text/css" href="./common.css">
+    <style type="text/css">
+      body {
+        background-color: var(--theme3);
+      }
+    </style>
+    <script>
+      class Transform {
+        key;
+        regex;
+        dataRegex;
+        value;
+
+        constructor(key, value) {
+          this.key = key;
+          this.value = value;
+          this.regex = new RegExp(`{{ ${key} }}`, "g");
+          this.dataRegex = new RegExp(key, "g");
+        }
+      }
+
+      class Vue {
+        constructor({el, data}) {
+          this.root = document.querySelector(el)
+          this.data = data;
+          this.transforms = Object.keys(data).map((key) => new Transform(key, data[key]))
+
+          this.render();
+        }
+
+        render() {
+          const queue = [this.root];
+
+          while (queue.length > 0) {
+            const current = queue.pop();
+            if (current.childNodes) queue.push(...current.childNodes);
+
+            if (current.nodeType === Node.TEXT_NODE) {
+              this.transforms.forEach((t) => {
+                current.textContent = current.textContent.replace(t.regex, t.value);
+              });
+            } else if (current.hasAttribute("v-if")) {
+              this.handleConditional(current)
+            }
+          }
+        }
+
+        handleConditional(current) {
+          let condition = current.getAttribute("v-if") || current.getAttribute("v-else-if") || current.getAttribute("v-else");
+
+          if (condition) {
+            this.transforms.forEach((t) => {
+              condition = condition.replace(t.dataRegex, `this.data.${t.key}`);
+            });
+
+            const result = eval(condition);
+
+            if (!result) {
+              const nextBranch = this.getNextSiblingConditional(current);
+              current.remove();
+              if (nextBranch) {
+                this.handleConditional(nextBranch);
+              }
+            } else {
+              this.removeConditionalSiblings(current);
+            }
+          }
+        }
+
+        removeConditionalSiblings(current) {
+          let sibling = current.nextElementSibling;
+          while (sibling) {
+            if (sibling?.hasAttribute("v-else-if") || sibling?.hasAttribute("v-else")) {
+              const toRemove = sibling;
+              sibling = sibling.nextElementSibling;
+              toRemove.remove();
+            } else {
+              sibling = null;
+            }
+          }
+        }
+
+        getNextSiblingConditional(current) {
+          const sibling = current.nextElementSibling;
+          if (sibling?.hasAttribute("v-else-if") || sibling?.hasAttribute("v-else")) {
+            return sibling;
+          }
+          return null;
+        }
+      }
+
+      const render = (adjective) => {
+        new Vue({
+          el: "#output",
+          data: {
+            message: "Hello",
+            name: "Steve",
+            adjective: adjective,
+          }
+        });
+      }
+
+      window.addEventListener("load", () => {
+        document.getElementById("trouble-button").addEventListener("click", () => render("trouble"));
+        document.getElementById("danger-button").addEventListener("click", () => render("danger"));
+        document.getElementById("heaven-button").addEventListener("click", () => render("heaven"));
+      })
+    </script>
+  </head>
+  <body>
+    <h1>Vue Replacement</h1>
+    <div class="button-container">
+      <button id="trouble-button" type="button">Trouble</button>
+      <button id="danger-button" type="button">Danger</button>
+      <button id="heaven-button" type="button">Heaven</button>
+    </div>
+    <div id="output">
+      <h1>{{ message }}</h1>
+      <p>Your name is {{ name }}.</p>
+      You're in {{ adjective }}, {{ adjective }}!
+      <h2 v-if="adjective === 'trouble'">But you can get out of it</h2>
+      <h2 v-else-if="adjective === 'danger'">You will die</h2>
+      <h2 v-else>It'll be grand</h2>
+    </div>
+  </body>
+</html>
